@@ -2,7 +2,7 @@
 
 = Simple Subversion Project =
 
-For the Xinc example we'll create a simple Subversion project with the following files:
+For the [XincExample Xinc example] we'll create a simple Subversion project with the following files:
 
 {{{
  project/build.xml
@@ -80,3 +80,5 @@ require_once 'Page.php';
 $page = new Page();
 echo $page->getOutput();
 }}}
+
+See how this project is continuously integrated in the [XincExample Xinc example].
