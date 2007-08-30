@@ -1,4 +1,4 @@
-#summary Simple Subversion project used in Xinc documentation example.
+#summary Simple Subversion project used in Xinc example.
 
 = Simple Subversion Project =
 
