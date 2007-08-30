@@ -1,4 +1,4 @@
-#summary An example of how Xinc is used.
+#summary Xinc example.
 
 = Xinc Example =
 
