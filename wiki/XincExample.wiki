@@ -1,3 +1,5 @@
+#summary An example of how Xinc is used.
+
 = Xinc Example =
 
 _Prerequisites: Phing, PHPUnit, Xinc._
