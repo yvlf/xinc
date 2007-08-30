@@ -2,7 +2,7 @@
 
 _Prerequisites: Phing, PHPUnit, Xinc._
 
-For the purpose of this example, we'll use our own [SimpleSubversionProject ultra-simple Subversion project].
+For the purpose of this example, we'll use our own [SimpleSubversionProject simple Subversion project].
 
 We'll assume the example project files are checked out to /var/projects/project.  We can now configure Xinc to continuously integrate this project.
 
