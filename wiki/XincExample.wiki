@@ -36,7 +36,7 @@ Finally we start Xinc:
 /etc/init.d/xinc start &
 }}}
 
-Now Xinc is running it will periodically interrogate the /var/projects/project directory for changes to the Subversion project.  When these occur it will act as specified above.
+Now Xinc is running it will periodically interrogate the /var/projects/project directory for changes to the Subversion project.  When these occur it will act as specified by the config file.
 
 You can simulate a commit that breaks the build by checking out a copy of the project, commenting the 'return $this->output;' line in Page.php to prevent output being returned, and committing this code while Xinc is running.  
 
