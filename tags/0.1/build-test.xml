@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<project name="Steve-Museum" basedir="." default="test">
+
+	<target name="generate-report">
+  		<phpunit2report infile="report/logfile.xml"
+  	                   styledir="xsl"
+  	                   todir="report"
+  			   format="noframes"
+  		   />
+  	</target>
+
+	<target name="test" depends="test-api,generate-report">
+  		<fail if="test-failed" message="The Unit Tests Have Failed! please fix me"/>
+  	</target>
+
+  	<target name="test-api" >
+    	<includepath classpath="classes" /> 
+
+    	<phpunit2 printsummary="true" haltonerror="false" haltonfailure="false" errorproperty="test-failed">
+      		<batchtest>
+        		<fileset dir="test">
+          		<include name="**/Xinc_*Test*.php"/>
+        		</fileset>
+	      </batchtest>
+    	 <formatter type="xml" todir="report" outfile="logfile.xml"/>	    
+	 </phpunit2>
+
+ </target>
+
+</project>
