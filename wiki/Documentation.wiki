@@ -1,4 +1,4 @@
-#summary Xinc documentation
+#summary Xinc documentation.
 
 == Installation ==
 
