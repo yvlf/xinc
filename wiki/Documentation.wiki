@@ -1,13 +1,151 @@
-#summary One-sentence summary of this page.
+== Installation ==
 
-= Introduction =
+Download Xinc from the [http://code.google.com/p/xinc/downloads/list Downloads] page, and then follow the relevant install process described below.
 
-Add your content here.
+=== Automated installation ===
+
+{{{
+cd xinc
+sudo ./install.sh
+}}}
+
+If you would like to use the web reporting component, copy web/index.php to your web server directory.
+
+=== Manual installation (if you have root access) ===
+
+ 1. Copy the content of classes/ to a directory on the include path.
+ 1. Copy the bin/xinc script to e.g. /usr/local/bin/ (replace @PHP_BIN@ with the path to the PHP binary).
+ 1. Copy the examples/init.d/xinc script to /etc/init.d/ (replace @ETC@ and @LOG@ with the relevant paths).
+ 1. Create the /etc/xinc directory, and chown to root.
+ 1. Xinc can then be run via the init.d script.
+ 1. If you would like to use the web reporting component, copy web/index.php to your web server directory.
+
+=== Manual installation (if you do not have root access) ===
+
+ 1. Copy the content of classes/ to a directory on the include path.
+ 1. Copy the bin/xinc script somewhere accessible (replace @PHP_BIN@ with the path to the PHP binary).
+ 1. Decide where the config file, log file and status files are to go.
+ 1. Xinc can then be run via the bin/xinc script, by specifying the resource locations on the command line. See the Usage section below for more info.
+ 1. If you would like to use the web reporting component, copy web/index.php to your web server directory.  Edit the default file paths in index.php as necessary.
+
+=== Repository access ===
+
+You can check out the latest code from the subversion repository:
+
+{{{
+svn co http://xinc.entrypoint.biz/svn/xinc/trunk xinc
+}}}
+
+== Configuration ==
+
+Annotated example configuration file:
+
+{{{
+01: <?xml version="1.0"?>
+02: <projects>
+03:    <project name="Project Name" interval="10">
+04:        <modificationsets>
+05:            <svn directory="/path/to/project/dir" />
+06:        </modificationsets>
+07:        <builder type="phing" buildfile="/path/to/phing/build.xml" workingdirectory="/path/to/phing/working/dir"
+08:                 target="test" />
+09:        <publishers>
+10:            <phing buildfile="/path/to/phing/build.xml" workingdirectory="/path/to/phing/working/dir" 
+11:                   target="success" publishonsuccess="true" />
+12:            <phing buildfile="/path/to/phing/build.xml" workingdirectory="/path/to/phing/working/dir"
+13:                   target="failed" publishonfailure="true" />
+14:            <email to="email@example.com"
+15:                   subject="Project Name build failed"
+16:                   message="The build failed."
+17:                   publishonfailure="true" />
+18:        </publishers>
+19:    </project>
+20: </projects>
+}}}
+
+ # (line 03) project @name Name of project.
+ # (line 03) project @interval Subversion is polled every Interval number of seconds`*`.
+ # (line 05) svn @directory Subversion project directory to poll for updates.
+ # (line 07) builder @buildfile The main Phing build file for the project.
+ # (line 08) builder @target The Phing build task that builds the project.
+ # (line 07) builder @workingdirectory Optionally specify a working directory for the Phing builder (necessary if the Phing buildfile contains relative paths).
+ # (line 10) This line specifies that the Phing target 'success' should be called in build.xml file if the build is successful.
+ # (line 12) This line specifies that the Phing target 'failure' should be called in build.xml file if the build fails.
+ # (line 14) The email publisher can be used to send emails dependent on the success or failure of the build.
+
+_`*`If the interval for a project is negative, Xinc will enter 'run-once mode': it will check the project a single time, act on any changes detected, and then exit._
+
+----
+
+== Usage ==
+
+=== Via the init.d script ===
+{{{
+/etc/init.d/xinc [start/stop]
+}}}
+
+=== Direct ===
+{{{
+xinc [-f /path/to/config.xml] [-l /path/to/logfile.xml] [-s /path/to/statusdir]
+}}}
+The defaults are:
+
+  * _config file:_ config.xml 
+  * _log file:_ ./log/xinc.xml
+  * _status directory:_ ./log/xinc
+
+== Example ==
+
+_Prerequisites: Phing, PHPUnit, Xinc._
+
+For the purpose of this example, we'll use our own [ExampleProject ultra-simple Subversion project].
+
+We'll assume the example project files are checked out to /var/projects/project.  We can now configure Xinc to continuously integrate this project.
+
+To do this we need to create a Xinc config file (config.xml e.g. /etc/xinc/config.xml) with the following content:
+
+{{{
+<?xml version="1.0"?>
+<projects>
+    <project name="Simple Project Name" interval="10">
+        <modificationsets>
+            <svn directory="/var/projects/project"/>
+        </modificationsets>
+        <builder type="phing" buildfile="/var/projects/project/build.xml" target="build"/>
+        <publishers>
+            <email to="myemail@example.com" 
+                   subject="Simple Project Name build failed"
+                   message="The build failed."
+                   publishonfailure="true"/>
+        </publishers>
+    </project>
+</projects>
+}}}
+
+This configuration file tells Xinc which directory our project can be found in, and that the ''build'' target of build.xml should be executed with Phing whenever a commit to the project is detected.  The file also instructs Xinc to send an email if the build should fail.
+
+Finally we start Xinc:
+
+{{{
+/etc/init.d/xinc start &
+}}}
+
+Now Xinc is running it will periodically interrogate the /var/projects/project directory for changes to the Subversion project.  When these occur it will act as specified above.
+
+You can simulate a commit that breaks the build by checking out a copy of the project, commenting the 'return $this->output;' line in Page.php to prevent output being returned, and committing this code while Xinc is running.  
+
+When Xinc discovers that the build does not complete successfully it will use the publisher(s) specified in the config.xml file to report this.  In the example above we have told Xinc to report build failures using the email publisher.
+
+We haven't used the Phing publisher in this example.  The Phing publisher can be used to run a Phing target on the success or failure of the project build.  See the Configuration section above for more info.
 
 
-= Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+
+
+
+
+
+
+
+
+
