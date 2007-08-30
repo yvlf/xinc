@@ -81,4 +81,4 @@ $page = new Page();
 echo $page->getOutput();
 }}}
 
-See how these files are [XincExample continuously integrated with Xinc].
+See how ths project is [XincExample continuously integrated with Xinc].
