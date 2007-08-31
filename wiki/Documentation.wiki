@@ -2,7 +2,7 @@
 
 == Installation ==
 
-Download [http://xinc.googlecode.com/files/xinc-1.0.tar.gz Xinc 1.0], expand the archive, and then follow the relevant install process described below.
+Download [http://xinc.googlecode.com/files/xinc-1.0.tar.gz Xinc 1.0], un-gzip and un-tar the file, and then follow the relevant install process described below.
 
 === Automated installation ===
 
