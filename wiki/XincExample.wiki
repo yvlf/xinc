@@ -8,7 +8,7 @@ For the purpose of this example, we'll use our own [SimpleSubversionProject simp
 
 We'll assume the example project files are checked out to /var/projects/project.  We can now configure Xinc to continuously integrate this project.
 
-To do this we need to create a Xinc config file (config.xml e.g. /etc/xinc/config.xml) with the following content:
+All we need to do is create a Xinc config file (config.xml e.g. /etc/xinc/config.xml) with the following content:
 
 {{{
 <?xml version="1.0"?>
