@@ -42,4 +42,5 @@ You can simulate a commit that breaks the build by checking out a copy of the pr
 
 When Xinc discovers that the build does not complete successfully it will use the publisher(s) specified in the config.xml file to report this.  In the example above we have told Xinc to report build failures using the email publisher.
 
-We haven't used the Phing publisher in this example.  The Phing publisher can be used to run a Phing target on the success or failure of the project build.  See the Configuration section above for more info.
+We haven't used the Phing publisher in this example.  The Phing publisher can be used to run a Phing target on the success or failure of the project build.  See the Configuration section of the documentation for more info.
+ 
