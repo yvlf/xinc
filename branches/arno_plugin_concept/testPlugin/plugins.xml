@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<plugins>
+<plugin filename="Plugins/Test.php" classname="Plugins_Test"/>
+<plugin filename="Plugins/ModificationSet.php" classname="Plugins_ModificationSet"/>
+<plugin filename="Plugins/SvnModificationSet.php" classname="Plugins_SvnModificationSet"/>
+</plugins>
