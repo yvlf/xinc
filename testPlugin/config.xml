@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<projects>
+    <project name="plugin-test" interval="10">
+    <modificationset>
+   
+    <svn directory="/dir/to/check">
+    </svn>
+    </modificationset>
+       <test id="1" method="method"/>
+    </project>
+</projects>
