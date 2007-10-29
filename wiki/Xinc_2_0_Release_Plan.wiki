@@ -8,7 +8,7 @@ The feature candidates have a priority attached in which they are developed.
 Priority 1 is the highest down to Priority 3.
 
 
-= [http://code.google.com/p/xinc/issues/list Feature Candidates] =
+= [http://code.google.com/p/xinc/issues/list?q=Milestone-v2.0-Release Feature Candidates] =
 
 || *priority* || *type* || *name* || *description* ||
 || P1       || core || Plugin Core || Make the core system able to handle plugins defined in an xml-file, that can register tasks for different slots in the build-process    ||
