@@ -102,3 +102,17 @@
  * Attributes: none
  * Description:
    * contained publishers are called on a recovered build only. A recovered build is the first successful build after a sequence of at least 1 failed build or more.
+
+
+=== Email ===
+ * Class: Xinc_Plugin_Repos_Publisher_Email
+ * Process-Slot: POST_PROCESS
+ * parent task: <publisher/> (<onsuccess/>,<onfailure/>,<onrecovery/>)
+ * Registered Tasks:
+   * <email/>
+ * Attributes: 
+   * to
+   * subject
+   * message
+ * Description:
+   * Sends an email
