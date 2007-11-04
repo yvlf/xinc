@@ -42,6 +42,7 @@ php_value auto_prepend_file "@INCLUDE@/Xinc/webloader.php"
  1. (@WEB_DIR@) Folder where the index.php and .htaccess file from xinc/web are copied to
  1. (@INCLUDE@) Path where the Xinc class files are
  1. modify the @WEB_DIR@/index.php to point to the right config-files
+ 1. *Enable mod-rewrite*
  1. restart apache
 
 === Manual installation (if you do not have root access) ===
@@ -71,6 +72,7 @@ php_value auto_prepend_file "@INCLUDE@/Xinc/webloader.php"
  # (@INCLUDE@) Path where the Xinc class files are
 
 1. modify the @WEB_DIR@/index.php to point to the right config-files
+1. *Enable mod-rewrite*
 1. restart apache
 
 
