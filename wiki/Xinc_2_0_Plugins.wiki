@@ -72,3 +72,33 @@
  * Attributes: none
  * Description:
    * Executes the subtask publishers
+
+=== OnSuccess ===
+ * Class: Xinc_Plugin_Repos_Publisher_OnSuccess
+ * Process-Slot: POST_PROCESS
+ * parent task: <publisher/>
+ * Registered Tasks:
+   * <onsuccess/>
+ * Attributes: none
+ * Description:
+   * contained publishers are called on a successful build only
+
+=== OnFailure ===
+ * Class: Xinc_Plugin_Repos_Publisher_OnFailure
+ * Process-Slot: POST_PROCESS
+ * parent task: <publisher/>
+ * Registered Tasks:
+   * <onfailure/>
+ * Attributes: none
+ * Description:
+   * contained publishers are called on a failed build only
+
+=== OnRecovery ===
+ * Class: Xinc_Plugin_Repos_Publisher_OnRecovery
+ * Process-Slot: POST_PROCESS
+ * parent task: <publisher/>
+ * Registered Tasks:
+   * <onrecovery/>
+ * Attributes: none
+ * Description:
+   * contained publishers are called on a recovered build only. A recovered build is the first successful build after a sequence of at least 1 failed build or more.
