@@ -1,0 +1,77 @@
+#summary Describes the plugins that come with Xinc 2.0
+
+= Plugins =
+
+
+== Schedule ==
+ * Class: Xinc_Plugin_Repos_Schedule
+ * Process-Slot: INIT_PROCESS
+ * Registered Tasks:
+   * <schedule/>
+ * Attributes: 
+   * interval: number of seconds between build-attempts
+ * Description:
+   * determines whether its time to build based on the last build time and the configured interval
+
+== ModificationSet ==
+ * Class: Xinc_Plugin_Repos_ModificationSet
+ * Process-Slot: PRE_PROCESS
+ * Registered Tasks:
+   * <modificationset/>
+ * Attributes: none
+ * Description:
+   * Executes the subtasks and passes the build-process on to the PROCESS Slot if a modification has been detected
+
+=== Svn ===
+ * Class: Xinc_Plugin_Repos_ModificationSet_Svn
+  * Process-Slot: PRE_PROCESS
+ * parent task: <modificationset/>
+ * Registered Tasks:
+   * <svn/>
+ * Attributes:
+   * directory: svn working copy
+ * Description:
+   * Checks if the @directory revision is up2date
+
+=== BuildAlways ===
+ * Class: Xinc_Plugin_Repos_ModificationSet_BuildAlways
+ * Process-Slot: PRE_PROCESS
+ * parent task: <modificationset/>
+ * Registered Tasks:
+   * <buildalways/>
+ * Attributes: none
+ * Description:
+   * Always triggers a build
+
+== Builder ==
+ * Class: Xinc_Plugin_Repos_Builder
+ * Process-Slot: PROCESS
+ * Registered Tasks:
+   * <builders/>
+ * Attributes: none
+ * Description:
+   * Executes the subtask builders and passes the build-process on to the POST_PROCESS Slot after the build
+
+== Phing ==
+ * Class: Xinc_Plugin_Repos_Phing
+ * Process-Slot: PROCESS
+ * Registered Tasks:
+   * <phingBuilder/>
+   * <phingPublisher/>
+ * Attributes: 
+   * buildfile
+   * target
+ * Description:
+   * Executes the phing-script @buildfile and calls target @target
+
+== Publisher ==
+ * Class: Xinc_Plugin_Repos_Phing
+ * Process-Slot: PROCESS
+ * Registered Tasks:
+   * <phingBuilder/>
+   * <phingPublisher/>
+ * Attributes: 
+   * buildfile
+   * target
+ * Description:
+   * Executes the phing-script @buildfile and calls target @target
