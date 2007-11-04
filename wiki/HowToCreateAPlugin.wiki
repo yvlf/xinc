@@ -1,0 +1,79 @@
+#summary How to create a plugin for Xinc 2.0
+
+= Introduction =
+
+This documentation is "living" ;) It won't be finished until Xinc 2.0 is finally released.
+The Plugin-Interface might change slightly in the upcoming weeks. 
+
+
+= Plugin Coding =
+== Plugin Class ==
+File: MyDomain/Plugin/ModificationSet/Fake.php
+{{{
+<?
+....
+require_once 'Xinc/Plugin/Base.php';
+
+class MyDomain_Plugin_ModificationSet_Fake extends Xinc_Plugin_Base
+{
+    public function getTaskDefinitions()
+    {
+        return array(new MyDomain_Plugin_ModificationSet_Fake_Task($this));
+    }
+
+    public function validate()
+    {
+        // do all necessary checks here to validate that the plugin
+        // can work properly
+        return true;
+    }
+
+}
+
+}}}
+
+== Task Class ==
+File: MyDomain/Plugin/ModificationSet/Fake/Task.php
+{{{
+<?
+....
+require_once 'Xinc/Plugin/Task/Base.php';
+
+class MyDomain_Plugin_ModificationSet_Fake_Task extends Xinc_Plugin_Task_Base
+{
+    public function getBuildSlot(){
+        /**
+         * see Xinc/Plugin/Slot.php for available slots
+         */
+        return Xinc_Plugin_Slot::PRE_PROCESS;
+    }
+
+    public function validate()
+    {
+        // do all necessary checks here to validate that the plugin
+        // can work properly
+        return true;
+    }
+    public function getName(){
+         // return the task-element-name you want to use
+         return "fake";
+    }
+    public function __construct(Xinc_Plugin_Interface &$plugin){
+        // store the plugin-relation if you need to access functionality of the plugin
+    }
+    public function process(Xinc_Project &$project){
+          // do whatever you need todo here and set the Build-status on the project
+          // see Xinc/Project/Build/Status/Interface.php for available statuses
+          $project->setStatus(Xinc_Project_Build_Status_Interface::PASSED);
+    }
+}
+
+}}}
+
+== Include your plugin in Xinc ==
+
+ 1. Edit /etc/xinc/plugins.xml
+ 1. insert the following line: <plugin filename="MyDomain/Plugin/ModificationSet/Fake.php" classname="MyDomain_Plugin_ModificationSet_Fake"/>
+ 1. Restart xinc: /etc/init.d/xinc restart
+ 1. check the /var/log/xinc.log for errors
+ 1. Good luck!
