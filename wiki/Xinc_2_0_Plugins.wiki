@@ -116,3 +116,17 @@
    * message
  * Description:
    * Sends an email
+
+=== Homepage ===
+ * Class: Xinc_Plugin_Repos_Gui_Homepage
+ * Process-Slot: GUI
+ * registered paths: /
+ * Description:
+   * A simple menu system which displays all Widgets
+
+=== Dashboard ===
+ * Class: Xinc_Plugin_Repos_Gui_Dashboard
+ * Process-Slot: GUI
+ * registered paths: /dashboard , /dashboard/detail
+ * Description:
+   * Displaying build-results
