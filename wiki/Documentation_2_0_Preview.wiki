@@ -81,7 +81,7 @@ php_value auto_prepend_file "@INCLUDE@/Xinc/webloader.php"
 You can check out the latest code from the subversion repository:
 
 {{{
-svn co http://xinc.entrypoint.biz/svn/xinc/trunk xinc
+svn checkout http://xinc.googlecode.com/svn/trunk/ xinc
 }}}
 
 == Configuration of projects ==
