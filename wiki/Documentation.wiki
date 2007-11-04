@@ -1,5 +1,9 @@
 #summary Xinc documentation.
 
+= News =
+
+Please see [Documentation_2_0_Preview new Xinc 2.0 Documentation] and download the latest preview version: [http://xinc.googlecode.com/files/xinc-2.0-pre.tar.gz Download Xinc 2.0]
+
 == Installation ==
 
 [http://xinc.googlecode.com/files/xinc-1.0.tar.gz Download Xinc 1.0], uncompress the file, and then follow the relevant installation instructions below.
