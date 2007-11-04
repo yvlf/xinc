@@ -2,7 +2,7 @@
 
 == Installation ==
 
-Download Xinc 2.0-preview, uncompress the file, and then follow the relevant installation instructions below.
+Download [http://xinc.googlecode.com/files/xinc-2.0-pre.tar.gz Xinc 2.0-preview], uncompress the file, and then follow the relevant installation instructions below.
 
 === Automated installation ===
 
