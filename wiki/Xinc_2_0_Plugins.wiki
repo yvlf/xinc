@@ -65,13 +65,10 @@
    * Executes the phing-script @buildfile and calls target @target
 
 == Publisher ==
- * Class: Xinc_Plugin_Repos_Phing
- * Process-Slot: PROCESS
+ * Class: Xinc_Plugin_Repos_Publisher
+ * Process-Slot: POST_PROCESS
  * Registered Tasks:
-   * <phingBuilder/>
-   * <phingPublisher/>
- * Attributes: 
-   * buildfile
-   * target
+   * <publisher/>
+ * Attributes: none
  * Description:
-   * Executes the phing-script @buildfile and calls target @target
+   * Executes the subtask publishers
