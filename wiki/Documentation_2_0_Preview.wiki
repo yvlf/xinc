@@ -2,6 +2,8 @@
 
 == Installation ==
 
+Make sure you have a version of [http://phing.info Phing] installed and a recent installation of [http://www.phpunit.de PHPUnit].
+
 Download [http://xinc.googlecode.com/files/xinc-2.0-pre.tar.gz Xinc 2.0-preview], uncompress the file, and then follow the relevant installation instructions below.
 
 === Automated installation ===
