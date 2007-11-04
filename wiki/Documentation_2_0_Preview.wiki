@@ -27,7 +27,7 @@ If you would like to use the web reporting component, follow the instructions gi
  1. If you would like to use the web reporting component, create a virtualhost and include  this in the apache-configuration:
  {{{
 Listen @PORT@
-<VirtualHost 0.0.0.0:@PORT@>
+<VirtualHost 127.0.0.1:@PORT@>
 
 DocumentRoot "@WEB_DIR@"
 DirectoryIndex index.php
@@ -44,6 +44,7 @@ php_value auto_prepend_file "@INCLUDE@/Xinc/webloader.php"
  1. (@WEB_DIR@) Folder where the index.php and .htaccess file from xinc/web are copied to
  1. (@INCLUDE@) Path where the Xinc class files are
  1. modify the @WEB_DIR@/index.php to point to the right config-files
+ 1. You may want to substitute the IP-Address
  1. *Enable mod-rewrite*
  1. restart apache
 
@@ -56,7 +57,7 @@ php_value auto_prepend_file "@INCLUDE@/Xinc/webloader.php"
  1. If you would like to use the web reporting component, create a virtualhost and include this in the apache-configuration:
 {{{
 Listen @PORT@
-<VirtualHost 0.0.0.0:@PORT@>
+<VirtualHost 127.0.0.1:@PORT@>
 
 DocumentRoot "@WEB_DIR@"
 DirectoryIndex index.php
@@ -69,13 +70,13 @@ php_value auto_prepend_file "@INCLUDE@/Xinc/webloader.php"
 
 }}}
 
- # (@PORT@) Port Xinc-Web-Application should be running on
- # (@WEB_DIR@) Folder where the index.php and .htaccess file from xinc/web are copied to
- # (@INCLUDE@) Path where the Xinc class files are
-
-1. modify the @WEB_DIR@/index.php to point to the right config-files
-1. *Enable mod-rewrite*
-1. restart apache
+ 1. (@PORT@) Port Xinc-Web-Application should be running on
+ 1. (@WEB_DIR@) Folder where the index.php and .htaccess file from xinc/web are copied to
+ 1. (@INCLUDE@) Path where the Xinc class files are
+ 1. modify the @WEB_DIR@/index.php to point to the right config-files
+ 1. You may want to substitute the IP-Address
+ 1. *Enable mod-rewrite*
+ 1. restart apache
 
 
 === Repository access ===
