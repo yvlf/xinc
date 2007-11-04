@@ -25,7 +25,7 @@ If you would like to use the web reporting component, follow the instructions gi
  1. If you would like to use the web reporting component, create a virtualhost and include  this in the apache-configuration:
  {{{
 Listen @PORT@
-<VirtualHost 127.0.0.1:@PORT@>
+<VirtualHost 0.0.0.0:@PORT@>
 
 DocumentRoot "@WEB_DIR@"
 DirectoryIndex index.php
@@ -54,7 +54,7 @@ php_value auto_prepend_file "@INCLUDE@/Xinc/webloader.php"
  1. If you would like to use the web reporting component, create a virtualhost and include this in the apache-configuration:
 {{{
 Listen @PORT@
-<VirtualHost 127.0.0.1:@PORT@>
+<VirtualHost 0.0.0.0:@PORT@>
 
 DocumentRoot "@WEB_DIR@"
 DirectoryIndex index.php
