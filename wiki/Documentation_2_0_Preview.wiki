@@ -13,7 +13,10 @@ cd xinc
 sudo ./install.sh
 }}}
 
-*if you want to explore a simple example setup of a Xinc project please answer the question "Do you want to install the example SimpleProject?" with "y"*
+* if you want to explore a simple example setup of a Xinc project please answer the question "Do you want to install the example SimpleProject?" with "y"*
+
+if you experience any problems check the log-dir/xinc.log (default /var/log/xinc.log) for errors
+ * in doubt run xinc manually in the foreground
 
 If you would like to use the web reporting component, follow the instructions given at the end of the installation to include the virtualhost file in your apache-configuration.
 
