@@ -1,10 +1,10 @@
 #summary Xinc example.
 
-= News =
+= Xinc 2.0 Example =
 
 Check the new [http://xinc.googlecode.com/files/xinc-2.0-pre.tar.gz Xinc 2.0 preview] release and the included example project.
 
-= Xinc Example =
+= Xinc 1.0 Example =
 
 _Prerequisites: Phing, PHPUnit, Xinc._
 
