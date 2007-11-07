@@ -65,13 +65,12 @@ class MyDomain_Plugin_ModificationSet_Fake_Task extends Xinc_Plugin_Task_Base
     public function process(Xinc_Project &$project){
           // do whatever you need todo here and set the Build-status on the project
           // see Xinc/Project/Build/Status/Interface.php for available statuses
+
+          // if subtasks have been registered loop over $this->_subtasks and call 
+          // process() on them
           $project->setStatus(Xinc_Project_Build_Status_Interface::PASSED);
     }
-    public function registerTask(Xinc_Plugin_Task_Interface  &$task)
-    {
-        // if you want to support subtasks, register them here, so you can
-        // loop over them later in the process() function
-    }
+
 }
 
 }}}
