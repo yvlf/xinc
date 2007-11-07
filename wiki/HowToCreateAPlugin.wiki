@@ -59,9 +59,7 @@ class MyDomain_Plugin_ModificationSet_Fake_Task extends Xinc_Plugin_Task_Base
          // return the task-element-name you want to use
          return "fake";
     }
-    public function __construct(Xinc_Plugin_Interface &$plugin){
-        // store the plugin-relation if you need to access functionality of the plugin
-    }
+
     public function process(Xinc_Project &$project){
           // do whatever you need todo here and set the Build-status on the project
           // see Xinc/Project/Build/Status/Interface.php for available statuses
