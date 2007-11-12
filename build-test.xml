@@ -12,6 +12,9 @@
 	<fileset dir="test/classes" id="xinc-config-tests">
 				<include name="Xinc/Config/**/Test*.php"/>
 			</fileset>
+	<fileset dir="test/classes" id="xinc-build-tests">
+					<include name="Xinc/Build/**/Test*.php"/>
+				</fileset>
 	<fileset dir="test/classes" id="xinc-modificationset-tests">
 		<include name="Xinc/ModificationSet/**/Test*.php"/>
 	</fileset>
@@ -74,6 +77,7 @@
 	        		<fileset refid="xinc-core-tests"/>
 	      			<fileset refid="xinc-project-tests"/>
 	      			<fileset refid="xinc-config-tests"/>
+	      			<fileset refid="xinc-build-tests"/>
 	        		<fileset refid="xinc-modificationset-tests"/>
 	      			<fileset refid="xinc-builder-tests"/>
 	      			<fileset refid="xinc-plugin-tests"/>

@@ -26,7 +26,7 @@
  */
 require_once 'Xinc/Project/Event.php';
 require_once 'Xinc/Plugin/Task/Processor/Interface.php';
-require_once 'Xinc/Project/Build/Scheduler/Interface.php';
+require_once 'Xinc/Build/Scheduler/Interface.php';
 
 class Xinc_Project implements Xinc_Plugin_Task_Processor_Interface
 {
@@ -99,7 +99,7 @@ class Xinc_Project implements Xinc_Plugin_Task_Processor_Interface
      */
     private $_status=1;
 
-    public function setBuildStatus(Xinc_Project_Build_Status_Interface $buildStatus)
+    public function setBuildStatus(Xinc_Build_Status_Interface $buildStatus)
     {
         $this->_buildStatus = $buildStatus;
         
@@ -108,7 +108,7 @@ class Xinc_Project implements Xinc_Plugin_Task_Processor_Interface
     public function setBuildTime($timestamp)
     {
         $this->_buildStatus->setBuildTime($timestamp);
-        if($this->_scheduler instanceof Xinc_Project_Build_Scheduler_Interface ) {
+        if($this->_scheduler instanceof Xinc_Build_Scheduler_Interface ) {
             $this->_scheduler->setLastBuildTime($timestamp);
         }
     }

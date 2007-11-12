@@ -31,7 +31,6 @@ interface Xinc_Project_Build_Status_Interface
     const PASSED=1;
     const STOPPED=-1;
     
-    public function setProject(Xinc_Project &$project);
     
     public function serialize();
     

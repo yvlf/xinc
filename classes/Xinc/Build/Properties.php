@@ -1,10 +1,8 @@
 <?php
 /**
- * Build interface
+ * Build Properties carry additional information about a build
  * 
- * Used by the engines to process a build
- * 
- * @package Xinc.Config
+ * @package Xinc
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 Arno Schneider, Barcelona
@@ -24,50 +22,52 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-interface Xinc_Build_Interface
+class Xinc_Build_Properties
 {
-    const INITIALIZED=-2;
-    const FAILED=0;
-    const PASSED=1;
-    const STOPPED=-1;
-
-     /** 
-     * sets the project
-     * and timestamp for the build
+    
+    /**
+     * Associative Array holding the nvp for the build properties
      *
-     * @param Xinc_Project $project
-     * @param integer $buildTimestamp
+     * @var array
      */
-    public function __construct(Xinc_Project &$project, $buildTimestamp);
+    private $_properties = array();
     
     /**
-     * Returns the last build
-     * @return Xinc_Build_Interface
-     */
-    public function getLastBuild();
-    
-    /**
-     * Enter description here...
-     * @return integer Timestamp of build
-     */
-    public function getBuildTime();
-    
-
-    /**
-     * 
-     * @return Xinc_Project
-     */
-    public function getProject();
-    
-    /**
-     * stores the build information
+     * set a property
      *
+     * @param string $name
+     * @param mixed $value
      */
-    public function serialize();
+    public function set($name, $value)
+    {
+        $this->_properties[$name] = $value;
+    }
+    
+    public function get($name)
+    {
+        if (isset($this->_properties[$name])) {
+            return $this->_properties[$name];
+        } else {
+            return null;
+        }
+    }
     
     /**
-     * loads the build information
+     * Parses a string and substitutes ${name} with $value
+     * of property
      *
+     * @param string $string
      */
-    public function unserialize();
+    public function parseString($string)
+    {
+       
+        $string = preg_replace("/\\$\{(.*?)\}/", '{$this->_properties[\\1]}', $string);
+        
+        $evalString = '$newString="'.$string.'";';
+        
+        
+        eval($evalString);
+        
+        return $newString;
+    }
 }
