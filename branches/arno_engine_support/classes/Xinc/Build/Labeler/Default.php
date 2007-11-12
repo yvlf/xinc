@@ -22,7 +22,7 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-require_once 'Xinc/Project/Build/Labeler/Interface.php';
+require_once 'Xinc/Build/Labeler/Interface.php';
 class Xinc_Project_Build_Labeler_Default implements Xinc_Project_Build_Labeler_Interface
 {
     /**

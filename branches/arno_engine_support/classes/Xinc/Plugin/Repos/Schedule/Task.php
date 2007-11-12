@@ -24,7 +24,7 @@
 */
 
 require_once 'Xinc/Plugin/Task/Base.php';
-require_once 'Xinc/Project/Build/Scheduler/Interface.php';
+require_once 'Xinc/Build/Scheduler/Interface.php';
 
 class Xinc_Plugin_Repos_Schedule_Task extends Xinc_Plugin_Task_Base implements Xinc_Project_Build_Scheduler_Interface
 {

@@ -1,6 +1,6 @@
 <?php
 /**
- * This interface represents a publishing mechanism to publish build results
+ * Statuses of a project
  * 
  * @package Xinc.Project
  * @author Arno Schneider
@@ -24,8 +24,7 @@
 */
 class Xinc_Project_Status
 {
-    const FAILED=0;
-    const PASSED=1;
-    const STOPPED=-1;
-    const MISCONFIGURED=-2;
+    const ENABLED=1;
+    const DISABLED=0;
+    const MISCONFIGURED=-1;
 }

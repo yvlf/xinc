@@ -27,8 +27,8 @@
  */
 require_once 'Xinc/Project.php';
 require_once 'Xinc/Plugin/Repository.php';
-require_once 'Xinc/Project/Build/Status/Default.php';
-require_once 'Xinc/Project/Build/Labeler/Default.php';
+require_once 'Xinc/Build/Status/Default.php';
+require_once 'Xinc/Build/Labeler/Default.php';
 
 class Xinc_Parser
 {

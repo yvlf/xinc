@@ -23,7 +23,7 @@
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-require_once 'Xinc/Project/Build/Status/Interface.php';
+require_once 'Xinc/Build/Status/Interface.php';
 
 class Xinc_Project_Build_Status_Default implements Xinc_Project_Build_Status_Interface
 {
