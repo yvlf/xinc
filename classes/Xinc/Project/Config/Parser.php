@@ -1,8 +1,8 @@
 <?php
 /**
- * Engine to build projects
+ * Parses an array of SimpleXMLElements and generates Projects out of it
  * 
- * @package Xinc
+ * @package Xinc.Project
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 Arno Schneider, Barcelona
@@ -22,15 +22,30 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-interface Xinc_Engine_Interface
+require_once 'Xinc/Project/Config/File.php';
+require_once 'Xinc/Project/Iterator.php';
+
+class Xinc_Project_Config_Parser
 {
-    public function build(Xinc_Build_Interface $build);
+    /**
+     *
+     * @var Xinc_Project_Config_File
+     */
+    private $_configFile;
+    
+    public function __construct(Xinc_Project_Config_File $configFile)
+    {
+        $this->_configFile = $configFile;
+    }
     
     /**
-     * Parses Project-Xml and returns
+     * generates an array of all configured projects
      *
-     * @param Xinc_Project_Config_Iterator $projects
      * @return Xinc_Project_Iterator
      */
-    public function parseProjects(Xinc_Project_Config_Iterator $projects);
+    public function getProjects()
+    {
+    	$projects = $this->_configFile->xpath("//project");
+        return new Xinc_Project_Iterator($projects);
+    }
 }
