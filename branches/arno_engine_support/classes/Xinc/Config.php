@@ -25,6 +25,8 @@
 
 require_once 'Xinc/Config/File.php';
 require_once 'Xinc/Config/Parser.php';
+require_once 'Xinc/Plugin/Parser.php';
+require_once 'Xinc/Engine/Parser.php';
 
 class Xinc_Config
 {
@@ -44,10 +46,16 @@ class Xinc_Config
         $configParser = new Xinc_Config_Parser($configFile);
         
         self::_parsePlugins($configParser->getPlugins());
+        self::_parsePlugins($configParser->getEngines());
     }
     
     private static function _parsePlugins($plugins)
     {
         Xinc_Plugin_Parser::parse($plugins);
+    }
+    
+	private static function _parseEngines($plugins)
+    {
+        Xinc_Engine_Parser::parse($plugins);
     }
 }

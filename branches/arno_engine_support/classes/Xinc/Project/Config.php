@@ -28,22 +28,65 @@ require_once 'Xinc/Project/Config/Parser.php';
 
 class Xinc_Project_Config
 {
+	/**
+	 * Iterator holding all the project configuration in xml
+	 *
+	 * @var Xinc_Project_Config_Iterator
+	 */
+	private $_projectConfigs;
+	
+	/**
+	 * Iterator holding all the configured projects
+	 *
+	 * @var Xinc_Project_Iterator
+	 */
+	private $_projects;
     /**
      * Reads the system.xml
      * - parses it
-     * - loads plugins
-     * - loads engines
+     * - loads projects
      *
      * @param string $fileName path to system.xml
      * @throws Xinc_Project_Config_Exception_FileNotFound
      * @throws Xinc_Project_Config_Exception_InvalidEntry
      */
-    public static function getProjects($fileName)
+    public function __construct($fileName)
     {
         $configFile = new Xinc_Project_Config_File($fileName);
-        $configParser = new Xinc_Config_Parser($configFile);
+        $configParser = new Xinc_Project_Config_Parser($configFile);
         
-        return $configParser->getProjects();
+        $this->_projectConfigs = $configParser->getProjects();
+        $this->_generateProjects();
+    }
+    
+    private function _generateProjects()
+    {
+    	$projects = array();
+    	
+    	while ($this->_projectConfigs->hasNext()) {
+    		$projectConfig = $this->_projectConfigs->next();
+    		$projectObject = new Xinc_Project();
+    		
+    		foreach ($projectConfig['@attributes'] as $name => $value ) {
+    			$method = 'set' . ucfirst(strtolower($name));
+    			$projectObject->$method($value);
+    		}
+    		
+    		$projects[] = $projectObject;
+    	}
+    	
+    	$this->_projects = new Xinc_Project_Iterator($projects);
+    }
+    
+    
+    /**
+     * returns the configured Projects
+     *
+     * @return Xinc_Project_Iterator
+     */
+    public function getProjects()
+    {
+    	return $this->_projects;
     }
     
    
