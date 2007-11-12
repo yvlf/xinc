@@ -1,8 +1,8 @@
 <?php
 /**
- * Parses an array of SimpleXMLElements and generates Projects out of it
+ * Exception, engine class was not found
  * 
- * @package Xinc.Project
+ * @package Xinc.Plugin
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 Arno Schneider, Barcelona
@@ -22,30 +22,16 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-require_once 'Xinc/Project/Config/File.php';
-require_once 'Xinc/Project/Config/Iterator.php';
-
-class Xinc_Project_Config_Parser
+class Xinc_Engine_Exception_ClassNotFound extends Exception
 {
     /**
+     * constructor, generates an Exception Message
      *
-     * @var Xinc_Project_Config_File
+     * @param string $name
+     * @param string $fileName
      */
-    private $_configFile;
-    
-    public function __construct(Xinc_Project_Config_File $configFile)
+    public function __construct($name, $fileName)
     {
-        $this->_configFile = $configFile;
-    }
-    
-    /**
-     * generates an array of all configured projects
-     *
-     * @return Xinc_Project_Iterator
-     */
-    public function getProjects()
-    {
-    	$projects = $this->_configFile->xpath("//project");
-        return new Xinc_Project_Config_Iterator($projects);
+        parent::__construct('Engine ' . $name . ': class not found in file: ' . $fileName);
     }
 }

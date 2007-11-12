@@ -1,11 +1,11 @@
 <?php
 /**
- * This interface represents a publishing mechanism to publish build results
+ * Parser for Xinc Engines, defined in an xml file
  * 
- * @package Xinc.Plugin
+ * @package Xinc.Engine
  * @author Arno Schneider
  * @version 2.0
- * @copyright 2007 David Ellis, One Degree Square
+ * @copyright 2007 Arno Schneider, Barcelona
  * @license  http://www.gnu.org/copyleft/lgpl.html GNU/LGPL, see license.php
  *    This file is part of Xinc.
  *    Xinc is free software; you can redistribute it and/or modify
@@ -23,11 +23,11 @@
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 require_once 'Xinc/Plugin/Repository.php';
-require_once 'Xinc/Plugin/Exception/FileNotFound.php';
-require_once 'Xinc/Plugin/Exception/Invalid.php';
-require_once 'Xinc/Plugin/Exception/ClassNotFound.php';
+require_once 'Xinc/Engine/Exception/FileNotFound.php';
+require_once 'Xinc/Engine/Exception/ClassNotFound.php';
+require_once 'Xinc/Engine/Exception/Invalid.php';
 
-class Xinc_Plugin_Parser
+class Xinc_Engine_Parser
 {
     
     private $_plugins=array();
@@ -44,7 +44,7 @@ class Xinc_Plugin_Parser
     {
         
         while($iterator->hasNext()) {
-            $this->_loadPlugin($iterator->next());
+            $this->_loadEngine($iterator->next());
         }
   
     }
@@ -54,7 +54,7 @@ class Xinc_Plugin_Parser
      *
      * @param SimpleXMLElement $pluginXml
      */
-    private function _loadPlugin(SimpleXMLElement $pluginXml)
+    private function _loadEngine(SimpleXMLElement $pluginXml)
     {
         $plugins=array();
 
@@ -65,22 +65,22 @@ class Xinc_Plugin_Parser
         
         $res = @include_once((string)$attributes->filename);
         if (!$res) {
-            throw new Xinc_Plugin_Exception_FileNotFound((string)$attributes->classname,
+            throw new Xinc_Engine_Exception_FileNotFound((string)$attributes->classname,
                                                          (string)$attributes->filename);
         }
         if (!class_exists((string)$attributes->classname)) {
-            throw new Xinc_Plugin_Exception_ClassNotFound((string)$attributes->classname,
+            throw new Xinc_Engine_Exception_ClassNotFound((string)$attributes->classname,
                                                           (string)$attributes->filename);
         }
         
         $classname=(string)$attributes->classname;
-        $plugin=new $classname;
+        $engine=new $classname;
         
-        if (!in_array('Xinc_Plugin_Interface', class_implements($plugin))) {
-            throw new Xinc_Plugin_Exception_Invalid((string)$attributes->classname);
+        if (!in_array('Xinc_Engine_Interface', class_implements($engine))) {
+            throw new Xinc_Engine_Exception_Invalid((string)$attributes->classname);
         }
         
-        Xinc_Plugin_Repository::getInstance()->registerPlugin($plugin);
+        Xinc_Engine_Repository::getInstance()->registerEngine($engine);
 
     }
 

@@ -24,6 +24,9 @@
 */
 interface Xinc_Engine_Interface
 {
+	
+	public function getName();
+	
     public function build(Xinc_Build_Interface $build);
     
     /**
