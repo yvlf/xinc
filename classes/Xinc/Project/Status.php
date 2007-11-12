@@ -2,7 +2,7 @@
 /**
  * This interface represents a publishing mechanism to publish build results
  * 
- * @package Xinc
+ * @package Xinc.Project
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 David Ellis, One Degree Square
@@ -27,4 +27,5 @@ class Xinc_Project_Status
     const FAILED=0;
     const PASSED=1;
     const STOPPED=-1;
+    const MISCONFIGURED=-2;
 }

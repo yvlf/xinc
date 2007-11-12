@@ -29,9 +29,12 @@ require 'Xinc.php';
 // defaults.
 $configFile = 'config.xml';
 $pluginConfigFile = 'plugins.xml';
-$logDir = 'log';
-$logFile = $logDir . '/xinc.xml';
-$statusDir = $logDir . '/xinc';
+$defaultLogDir = 'log';
+$logDir = $defaultLogDir;
+$logFile = $logDir . '/xinc.log';
+$defaultStatusDir = 'status';
+$statusDir = $defaultStatusDir;
+$dataDir = '.';
 
 // parse arguments for config and log file locations. 
 // @todo improve, give usage.
@@ -40,6 +43,9 @@ for ($i = 0; $i < count($argv); $i++) {
 		$configFile = $argv[$i+1];
 	} elseif ($argv[$i] == '-p' && isset($argv[$i+1])) {
 		$pluginConfigFile = $argv[$i+1];
+	} elseif ($argv[$i] == '-d' && isset($argv[$i+1])) {
+		$dataFile = $argv[$i+1];
+	
 	} elseif ($argv[$i] == '-l' && isset($argv[$i+1])) {
 		$logFile = $argv[$i+1];
 	} elseif ($argv[$i] == '-s' && isset($argv[$i+1])) {
@@ -48,14 +54,17 @@ for ($i = 0; $i < count($argv); $i++) {
 }
 
 // if log/status defaults are being used ensure the directories exist
-if (count($parts = explode('/', $logFile)) && $parts[0] == $logDir) {
+if ($defaultLogDir == $logDir) {
     if (!file_exists($logDir)) {
         mkdir($logDir);
     }
+}
+if ($defaultStatusDir == $statusDir) {
     if (!file_exists($statusDir)) {
         mkdir($statusDir);
     }
 }
 
+
 // run xinc.
-Xinc::main($configFile, $pluginConfigFile, $logFile, $statusDir);
+Xinc::main($configFile, $pluginConfigFile, $dataDir, $statusDir, $logFile);

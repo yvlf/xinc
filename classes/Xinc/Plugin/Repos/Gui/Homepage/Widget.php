@@ -27,7 +27,7 @@ require_once 'Xinc/Gui/Widget/Interface.php';
 
 class Xinc_Plugin_Repos_Gui_Homepage_Widget implements Xinc_Gui_Widget_Interface
 {
-    private $_plugin;
+    protected $_plugin;
     private $_widgets = array();
     
     public function __construct(Xinc_Plugin_Interface &$plugin)

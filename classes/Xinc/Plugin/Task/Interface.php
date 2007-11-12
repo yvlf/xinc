@@ -26,18 +26,18 @@ require_once 'Xinc/Plugin/Slot.php';
 require_once 'Xinc/Project/Status.php';
 require_once 'Xinc/Plugin/Task/Processor/Interface.php';
 
-interface Xinc_Plugin_Task_Interface extends Xinc_Plugin_Task_Processor_Interface
+interface Xinc_Plugin_Task_Interface /** extends Xinc_Config_Element_Interface*/
 {
     /**
      * Returns the slot of the process the plugin is run
      *
      */
     public function getBuildSlot();
-        
+    public function registerTask(Xinc_Plugin_Task_Interface  &$task);    
     public function validate();
-    public function getName();
     public function getClassname();
     //public function registerTask(Xinc_Plugin_Task_Interface  &$task);
     public function __construct(Xinc_Plugin_Interface &$plugin);
     public function process(Xinc_Project &$project);
+    public function getName();
 }

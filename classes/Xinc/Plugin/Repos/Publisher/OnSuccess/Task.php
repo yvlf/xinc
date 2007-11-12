@@ -27,7 +27,6 @@ require_once 'Xinc/Plugin/Repos/Publisher/AbstractTask.php';
 class Xinc_Plugin_Repos_Publisher_OnSuccess_Task extends Xinc_Plugin_Repos_Publisher_AbstractTask
 {
    
-    private $_plugin;
     public function getName()
     {
         return 'onsuccess';
@@ -43,10 +42,7 @@ class Xinc_Plugin_Repos_Publisher_OnSuccess_Task extends Xinc_Plugin_Repos_Publi
         }
         return true;
     }
-    public function __construct(Xinc_Plugin_Interface &$plugin)
-    {
-        $this->_plugin = $plugin;
-    }
+
     public function publish(Xinc_Project &$project)
     {
         /**

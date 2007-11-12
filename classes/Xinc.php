@@ -36,6 +36,12 @@ class Xinc
     
     private $_workingDir;
     
+    /**
+     * Containing the default projects
+     * @var string
+     */
+    private $_dataDir;
+    
     private static $_instance;
     /**
      * The projects that Xinc is going build.
@@ -292,11 +298,20 @@ class Xinc
             $this->processProject($project);
         }
     }
-
-    public function setWorkingDir($dir){
+    public function setDataDir($dir)
+    {
+        $this->_dataDir = $dir;
+    }
+    public function getDataDir()
+    {
+        return $this->_dataDir;
+    }
+    public function setWorkingDir($dir)
+    {
         $this->_workingDir=$dir;
     }
-    public function getWorkingDir(){
+    public function getWorkingDir()
+    {
         return $this->_workingDir;
     }
     /**
@@ -357,7 +372,7 @@ class Xinc
      */
     public static function main($configFile, 
                                 $pluginConfigFile, 
-                                $logFile, $statusDir, $logLevel=0, $daemon=true)
+                                $dataDir, $statusDir, $logFile, $logLevel=2, $daemon=true)
     {
         $logger = Xinc_Logger::getInstance();
         $logger->setXincLogFile($logFile);

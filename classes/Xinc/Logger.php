@@ -60,7 +60,7 @@ class Xinc_Logger
      */
     private $_max;
     
-    private $_logLevel;
+    private $_logLevel = 2;
     const LOG_LEVEL_VERBOSE=0;
     const LOG_LEVEL_DEBUG=1;
     const LOG_LEVEL_INFO=2;
@@ -90,6 +90,7 @@ class Xinc_Logger
     }
     public function setLogLevel($level)
     {
+        $this->info("Setting loglevel to $level");
         $this->_logLevel = $level;
     }
     /**

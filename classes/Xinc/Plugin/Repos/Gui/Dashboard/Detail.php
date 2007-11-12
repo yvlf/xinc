@@ -27,7 +27,7 @@ require_once 'Xinc/Gui/Widget/Interface.php';
 
 class Xinc_Plugin_Repos_Gui_Dashboard_Detail implements Xinc_Gui_Widget_Interface
 {
-    private $_plugin;
+    protected $_plugin;
     private $_widgets = array();
     public $projectName;
     public $project;
@@ -64,9 +64,9 @@ class Xinc_Plugin_Repos_Gui_Dashboard_Detail implements Xinc_Gui_Widget_Interfac
                     $statusFile=$fullStatusDir.DIRECTORY_SEPARATOR.'status.ser';
                     
                     if (!file_exists($fullStatusDir)) {
-                        include 'view/detailerror.php';
+                        include 'view/detailerror.phtml';
                     } else if (!file_exists($statusFile)) {
-                        include 'view/detailerror.php';
+                        include 'view/detailerror.phtml';
                     } else {
                         $this->project=parse_ini_file($statusFile, true);
                         $buildTime=$this->project['build.time'];
@@ -90,7 +90,7 @@ class Xinc_Plugin_Repos_Gui_Dashboard_Detail implements Xinc_Gui_Widget_Interfac
                          * get History Builds
                          */
                         $this->historyBuilds=$this->getHistoryBuilds($statusDir);
-                        include 'view/projectDetail.php';
+                        include 'view/projectDetail.phtml';
                     }
                     
                 break;

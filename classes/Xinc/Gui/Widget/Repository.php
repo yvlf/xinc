@@ -28,7 +28,7 @@
 /**
  * The Widget-Repository allows the Web-Frontend of Xinc to choose the right
  * plugin for execution based on the Http-Request
- *
+ * @package Xinc
  * @license    http://www.gnu.org/copyleft/lgpl.html GNU/LGPL, see license.php
  * @version    2.0
  * @author     Arno Schneider

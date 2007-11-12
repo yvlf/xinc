@@ -26,8 +26,39 @@ require_once 'Xinc/Plugin/Task/Interface.php';
 
 abstract class Xinc_Plugin_Task_Base implements Xinc_Plugin_Task_Interface
 {
+    protected $_subtasks = array();
+    protected $_plugin;
     public function getClassname()
     {
         return get_class($this);
+    }
+    
+    public function getName()
+    {
+        return strtolower($this->getClassname());
+    }
+    /**
+     * Support for subtasks, empty by default
+     * needs to be overriden if needed in the extending class
+     *
+     * @param Xinc_Plugin_Task_Interface $task
+     */
+    public function registerTask(Xinc_Plugin_Task_Interface  &$task)
+    {
+        $this->_subtasks[] = $task;
+    }
+    /**
+     * Constructor, stores a reference to the plugin for
+     * usage of functionality
+     *
+     * @param Xinc_Plugin_Interface $plugin
+     */
+    public function __construct(Xinc_Plugin_Interface &$plugin){
+        $this->_plugin = $plugin;
+    }
+    
+    public function getAllowedParentElements()
+    {
+        return array();
     }
 }

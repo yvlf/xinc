@@ -27,7 +27,6 @@ require_once 'Xinc/Plugin/Repos/Publisher/AbstractTask.php';
 class Xinc_Plugin_Repos_Publisher_OnRecovery_Task extends Xinc_Plugin_Repos_Publisher_AbstractTask
 {
    
-    private $_plugin;
     public function getName()
     {
         return 'onrecovery';
@@ -42,10 +41,6 @@ class Xinc_Plugin_Repos_Publisher_OnRecovery_Task extends Xinc_Plugin_Repos_Publ
                 
         }
         return true;
-    }
-    public function __construct(Xinc_Plugin_Interface &$plugin)
-    {
-        $this->_plugin = $plugin;
     }
     public function publish(Xinc_Project &$project)
     {

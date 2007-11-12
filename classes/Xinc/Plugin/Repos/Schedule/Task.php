@@ -30,12 +30,8 @@ class Xinc_Plugin_Repos_Schedule_Task extends Xinc_Plugin_Task_Base implements X
 {
     
     private $_interval;
-    private $_plugin;
     private $_project;
-    public function __construct(Xinc_Plugin_Interface &$plugin)
-    {
-        $this->_plugin = $plugin;
-    }
+
     public function process(Xinc_Project &$project)
     {
         if (!isset($this->_project)) {

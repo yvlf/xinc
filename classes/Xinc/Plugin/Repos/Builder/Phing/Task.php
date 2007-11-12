@@ -28,7 +28,7 @@ class Xinc_Plugin_Repos_Builder_Phing_Task extends Xinc_Plugin_Repos_Builder_Abs
 {
     private $_buildFile='build.xml';
     private $_target='build';
-    private $_plugin;
+
     public function getName()
     {
         return 'phingBuilder';
@@ -58,10 +58,7 @@ class Xinc_Plugin_Repos_Builder_Phing_Task extends Xinc_Plugin_Repos_Builder_Abs
         }
         return true;
     }
-    public function __construct(Xinc_Plugin_Interface &$plugin)
-    {
-        $this->_plugin = $plugin;
-    }
+
     public function build(Xinc_Project &$project)
     {
         return $this->_plugin->build($project, (string)$this->_buildFile, (string)$this->_target);
