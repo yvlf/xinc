@@ -26,8 +26,7 @@ require_once 'Xinc/Plugin/Task/Base.php';
 
 class Xinc_Plugin_Repos_Publisher_Task extends Xinc_Plugin_Task_Base
 {
-    private $_subtasks=array();
-    private $_plugin;
+    
     
     public function validate()
     {
@@ -52,11 +51,6 @@ class Xinc_Plugin_Repos_Publisher_Task extends Xinc_Plugin_Task_Base
 
     }
     
-
-    public function __construct(Xinc_Plugin_Interface &$p)
-    {
-        $this->_plugin=$p;
-    }
 
 
     public function getBuildSlot()

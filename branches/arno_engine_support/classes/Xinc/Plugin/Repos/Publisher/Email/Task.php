@@ -30,7 +30,6 @@ class Xinc_Plugin_Repos_Publisher_Email_Task extends Xinc_Plugin_Repos_Publisher
     private $_to;
     private $_subject;
     private $_message;
-    private $_plugin;
     public function getName()
     {
         return 'email';
@@ -83,10 +82,7 @@ class Xinc_Plugin_Repos_Publisher_Email_Task extends Xinc_Plugin_Repos_Publisher
         }
         return true;
     }
-    public function __construct(Xinc_Plugin_Interface &$plugin)
-    {
-        $this->_plugin = $plugin;
-    }
+    
     public function publish(Xinc_Project &$project)
     {
         $statusBefore = $project->getStatus();

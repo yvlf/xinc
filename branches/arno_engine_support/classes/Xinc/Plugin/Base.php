@@ -39,4 +39,9 @@ abstract class Xinc_Plugin_Base implements Xinc_Plugin_Interface
     {
         return get_class($this);
     }
+    
+    public function validate()
+    {
+        return true;
+    }
 }

@@ -27,8 +27,7 @@ require_once 'Xinc/Plugin/Repos/ModificationSet/Interface.php';
 
 class Xinc_Plugin_Repos_ModificationSet_Task extends Xinc_Plugin_Task_Base
 {
-    private $_subtasks=array();
-    private $_plugin;
+    
     
     public function validate()
     {
@@ -50,12 +49,6 @@ class Xinc_Plugin_Repos_ModificationSet_Task extends Xinc_Plugin_Task_Base
     {
         $this->_subtasks[]=$task;
 
-    }
-    
-
-    public function __construct(Xinc_Plugin_Interface &$p)
-    {
-        $this->_plugin=$p;
     }
 
     public function getBuildSlot()

@@ -27,12 +27,7 @@ require_once 'Xinc/Plugin/Task/Base.php';
 abstract class Xinc_Plugin_Repos_Publisher_AbstractTask extends Xinc_Plugin_Task_Base
 {
 
-    /**
-     * Enter description here...
-     *
-     * @var Xinc_Plugin_Repos_Publisher_AbstractTask[]
-     */
-    protected $_subtasks = array();
+    
     
     public final function process(Xinc_Project &$project)
     {

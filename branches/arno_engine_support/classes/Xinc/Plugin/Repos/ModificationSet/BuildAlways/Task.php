@@ -27,8 +27,7 @@ require_once 'Xinc/Plugin/Repos/ModificationSet/AbstractTask.php';
 class Xinc_Plugin_Repos_ModificationSet_BuildAlways_Task extends Xinc_Plugin_Repos_ModificationSet_AbstractTask
 {
 
-    private $_plugin;
-    private $_subtasks=array();
+    
 
     /**
      * Directory containing the Subversion project.
@@ -44,13 +43,6 @@ class Xinc_Plugin_Repos_ModificationSet_BuildAlways_Task extends Xinc_Plugin_Rep
     public function registerTask(Xinc_Plugin_Task_Interface &$task)
     {
         $this->_subtasks[]=$task;
-    }
-
-
-
-    public function __construct(Xinc_Plugin_Interface &$p)
-    {
-        $this->_plugin=$p;
     }
 
     public function getBuildSlot()

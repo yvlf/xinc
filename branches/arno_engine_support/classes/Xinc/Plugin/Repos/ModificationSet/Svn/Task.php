@@ -27,8 +27,7 @@ require_once 'Xinc/Plugin/Repos/ModificationSet/AbstractTask.php';
 class Xinc_Plugin_Repos_ModificationSet_Svn_Task extends Xinc_Plugin_Repos_ModificationSet_AbstractTask
 {
 
-    private $_plugin;
-    private $_subtasks=array();
+    
 
     /**
      * Directory containing the Subversion project.
@@ -58,11 +57,6 @@ class Xinc_Plugin_Repos_ModificationSet_Svn_Task extends Xinc_Plugin_Repos_Modif
     }
 
 
-    public function __construct(Xinc_Plugin_Interface &$p)
-    {
-        $this->_plugin=$p;
-    }
-
     public function getBuildSlot()
     {
         return Xinc_Plugin_Slot::PRE_PROCESS;
@@ -82,7 +76,9 @@ class Xinc_Plugin_Repos_ModificationSet_Svn_Task extends Xinc_Plugin_Repos_Modif
             throw new Xinc_Exception_MalformedConfig('Element modificationSet/svn'
                                                     . ' - required attribute '
                                                     . '\'directory\' is not set');
+            // @codeCoverageIgnoreStart
         }
+            // @codeCoverageIgnoreEnd
         $file=$this->_directory;
         $file2=Xinc::getInstance()->getWorkingDir().DIRECTORY_SEPARATOR.$file;
         if (!file_exists($file) && !file_exists($file2)) {

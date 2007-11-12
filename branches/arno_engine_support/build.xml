@@ -27,8 +27,8 @@
 		
 	</target>
 	<!-- Currently we dont have test-cases YET-->
-	<!--<target name="test">
+	<target name="test">
 		<phing phingfile="build-test.xml" target="test-core"/>
-	</target>-->
+	</target>
 
 </project>

@@ -27,7 +27,7 @@ require_once 'Xinc/Gui/Widget/Interface.php';
 
 class Xinc_Plugin_Repos_Gui_Dashboard_Widget implements Xinc_Gui_Widget_Interface
 {
-    private $_plugin;
+    protected $_plugin;
     private $_widgets = array();
     public $projects=array();
     
@@ -71,7 +71,7 @@ class Xinc_Plugin_Repos_Gui_Dashboard_Widget implements Xinc_Gui_Widget_Interfac
                             
                         }
                     }
-                    include 'view/overview.php';
+                    include 'view/overview.phtml';
                     
                 break;
             default:

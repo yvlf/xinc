@@ -55,30 +55,23 @@ class Xinc_Parser
         }
     }
 
-
+    private function _parseConfiguration(SimpleXMLElement $config)
+    {
+        $configurationObject = Xinc_Plugin_Repository::getInstance()->getTask('configuration', 'xinc');
+        
+        $this->handleConfigElements($config, $configurationObject);
+       
+        $configurationObject->process(new Xinc_Project());
+    }
 
     private function _parse($configFile)
     {
         $xml = new SimpleXMLElement(file_get_contents($configFile));
         $buildStatus = 'Xinc_Project_Build_Status_Default';
-        foreach ( $xml->config as $config ) {
-            switch($config->getName()){
-                case 'buildstatus':
-                    $file=(string)$config['filename'];
-                    $res=include_once($file);
-                    if ($res) {
-                        $buildStatus=(string)$config['classname'];
-                    } else {
-                        Xinc_Logger::getInstance()->error('Could not load '
-                                                         . ' custom build '
-                                                         . ' status '.$file);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
         
+        if (isset($xml->configuration[0])) {
+            $this->_parseConfiguration($xml->configuration[0]);
+        }
         
         $buildLabelerClass = 'Xinc_Project_Build_Labeler_Default';
         $projects = array();
@@ -87,7 +80,10 @@ class Xinc_Parser
             
             $buildStatus=new $buildStatus;
             $project = new Xinc_Project();
-            
+            /**
+             * Set default labeler,
+             * a plugin can override it
+             */
             $buildLabeler=new $buildLabelerClass;
             $buildLabeler->setBuildStatus($buildStatus);
             $project->setName((string)$projXml['name']);
@@ -115,10 +111,12 @@ class Xinc_Parser
     private function handleElements(&$element,&$project)
     {
 
+        
+        
         foreach ($element->children() as $taskName => $task) {
 
             try{
-                $taskObject = Xinc_Plugin_Repository::getInstance()->getTask($taskName);
+                $taskObject = Xinc_Plugin_Repository::getInstance()->getTask($taskName, (string)$element);
             }
             catch(Exception $e){
                 //var_dump($e);
@@ -148,4 +146,45 @@ class Xinc_Parser
 
         }
     }
+    
+    private function handleConfigElements(&$element, Xinc_Plugin_Task_Interface &$configTask)
+    {
+
+        
+        
+        foreach ($element->children() as $taskName => $task) {
+//echo $element->getName(). ' - ' . $taskName;
+            try{
+                
+                $taskObject = Xinc_Plugin_Repository::getInstance()->getTask($taskName, (string)$element->getName());
+            }
+            catch(Exception $e){
+                //var_dump($e);
+                Xinc_Logger::getInstance()->error('undefined task "'
+                                                 .$taskName.'"');
+                throw new Xinc_Exception_MalformedConfig();
+            }
+            foreach ($task->attributes() as $a=>$b) {
+                $setter = 'set'.$a;
+                $taskObject->$setter($b);
+            }
+
+                
+            $this->handleConfigElements($task,$taskObject);
+          
+            $configTask->registerTask($taskObject);
+
+
+            if ( !$taskObject->validate() ) {
+
+                throw new Xinc_Exception_MalformedConfig('Error validating '
+                                                        .'config.xml for task: '
+                                                        .$taskObject->getName());
+
+            }
+            
+
+        }
+    }
+    
 }
