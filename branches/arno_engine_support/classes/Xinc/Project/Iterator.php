@@ -1,8 +1,8 @@
 <?php
 /**
- * Engine to build projects
+ * Iterator over an array of SimpleXMLElement objects defining Projects
  * 
- * @package Xinc
+ * @package Xinc.Project
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 Arno Schneider, Barcelona
@@ -22,15 +22,25 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-interface Xinc_Engine_Interface
+
+require_once 'Xinc/Iterator.php';
+require_once 'Xinc/Project/Exception.php';
+
+
+class Xinc_Project_Iterator extends Xinc_Iterator
 {
-    public function build(Xinc_Build_Interface $build);
+  
     
-    /**
-     * Parses Project-Xml and returns
-     *
-     * @param Xinc_Project_Config_Iterator $projects
-     * @return Xinc_Project_Iterator
-     */
-    public function parseProjects(Xinc_Project_Config_Iterator $projects);
+    public function __construct($array)
+    {
+        foreach ($array as $element) {
+            if (!$xmlElement instanceof Xinc_Project ) {
+                throw new Xinc_Project_Exception();
+            }
+            
+        }
+        
+        parent::__construct($array);
+    }
+  
 }

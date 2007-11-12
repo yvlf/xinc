@@ -1,8 +1,8 @@
 <?php
 /**
- * Engine to build projects
+ * Main configuration class, handles the system.xml
  * 
- * @package Xinc
+ * @package Xinc.Project
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 Arno Schneider, Barcelona
@@ -22,15 +22,29 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-interface Xinc_Engine_Interface
+
+require_once 'Xinc/Project/Config/File.php';
+require_once 'Xinc/Project/Config/Parser.php';
+
+class Xinc_Project_Config
 {
-    public function build(Xinc_Build_Interface $build);
-    
     /**
-     * Parses Project-Xml and returns
+     * Reads the system.xml
+     * - parses it
+     * - loads plugins
+     * - loads engines
      *
-     * @param Xinc_Project_Config_Iterator $projects
-     * @return Xinc_Project_Iterator
+     * @param string $fileName path to system.xml
+     * @throws Xinc_Project_Config_Exception_FileNotFound
+     * @throws Xinc_Project_Config_Exception_InvalidEntry
      */
-    public function parseProjects(Xinc_Project_Config_Iterator $projects);
+    public static function getProjects($fileName)
+    {
+        $configFile = new Xinc_Project_Config_File($fileName);
+        $configParser = new Xinc_Config_Parser($configFile);
+        
+        return $configParser->getProjects();
+    }
+    
+   
 }

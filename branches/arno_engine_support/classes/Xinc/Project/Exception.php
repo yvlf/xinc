@@ -1,8 +1,8 @@
 <?php
 /**
- * Engine to build projects
+ * Exception, element is not a Xinc_Project
  * 
- * @package Xinc
+ * @package Xinc.Project
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 Arno Schneider, Barcelona
@@ -22,15 +22,7 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-interface Xinc_Engine_Interface
+class Xinc_Project_Exception extends Exception
 {
-    public function build(Xinc_Build_Interface $build);
-    
-    /**
-     * Parses Project-Xml and returns
-     *
-     * @param Xinc_Project_Config_Iterator $projects
-     * @return Xinc_Project_Iterator
-     */
-    public function parseProjects(Xinc_Project_Config_Iterator $projects);
+
 }
