@@ -2,7 +2,7 @@
 /**
  * Abstract Registry Class to be extended by projects, buildqueue etc.
  * 
- * @package Xinc
+ * @package Xinc.Registry
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 Arno Schneider, Barcelona

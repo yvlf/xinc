@@ -2,7 +2,7 @@
 /**
  * This class handles the core Frontend-Activity of Xinc
  * 
- * @package Xinc
+ * @package Xinc.Gui
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 David Ellis, One Degree Square

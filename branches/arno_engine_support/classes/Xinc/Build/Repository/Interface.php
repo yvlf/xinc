@@ -1,8 +1,8 @@
 <?php
 /**
- * PUT DESCRIPTION HERE
+ * Repository to get historic build information
  * 
- * @package Xinc.Plugin
+ * @package Xinc.Build
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 David Ellis, One Degree Square
@@ -22,21 +22,14 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-require_once 'Xinc/Plugin/Base.php';
-require_once 'Xinc/Plugin/Repos/Publisher/OnFailure/Task.php';
-require_once 'phing/Phing.php';
-class Xinc_Plugin_Repos_Publisher_OnFailure  extends Xinc_Plugin_Base
+interface Xinc_Build_Repository_Interface
 {
-    
-   
-    public function validate()
-    {
-       
-        return true;
-    }
-    public function getTaskDefinitions()
-    {
-        return array(new Xinc_Plugin_Repos_Publisher_OnFailure_Task($this));
-    }
-    
+    /**
+     * Gets a build defined by its project name and buildTime
+     *
+     * @param string $projectName
+     * @param integer $buildTime
+     * @throws Xinc_Build_Exception_NotFound
+     */
+    public function getBuild($projectName, $buildTime);
 }

@@ -1,11 +1,11 @@
 <?php
 /**
- * PUT DESCRIPTION HERE
- * 
- * @package Xinc.Plugin
+ * Iterator over an array of SimpleXMLElement objects defining Xinc Engines 
+ *  
+ * @package Xinc.Engine
  * @author Arno Schneider
  * @version 2.0
- * @copyright 2007 David Ellis, One Degree Square
+ * @copyright 2007 Arno Schneider, Barcelona
  * @license  http://www.gnu.org/copyleft/lgpl.html GNU/LGPL, see license.php
  *    This file is part of Xinc.
  *    Xinc is free software; you can redistribute it and/or modify
@@ -22,21 +22,25 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-require_once 'Xinc/Plugin/Base.php';
-require_once 'Xinc/Plugin/Repos/Publisher/OnFailure/Task.php';
-require_once 'phing/Phing.php';
-class Xinc_Plugin_Repos_Publisher_OnFailure  extends Xinc_Plugin_Base
+
+require_once 'Xinc/Iterator.php';
+require_once 'Xinc/Project/Exception.php';
+
+
+class Xinc_Engine_Iterator extends Xinc_Iterator
 {
+  
     
-   
-    public function validate()
+    public function __construct($array)
     {
-       
-        return true;
+        foreach ($array as $element) {
+            if (!$xmlElement instanceof Xinc_Engine_Interface ) {
+                throw new Xinc_Engine_Exception_Invalid();
+            }
+            
+        }
+        
+        parent::__construct($array);
     }
-    public function getTaskDefinitions()
-    {
-        return array(new Xinc_Plugin_Repos_Publisher_OnFailure_Task($this));
-    }
-    
+  
 }

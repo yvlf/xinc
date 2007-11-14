@@ -2,7 +2,7 @@
 /**
  * Build Queue Interface
  * 
- * @package Xinc
+ * @package Xinc.Build
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 Arno Schneider, Barcelona
@@ -30,8 +30,31 @@
  * executed at a certain time
  *
  */
-interface Xinc_Build_Queue_Interface extends Xinc_Registry_Interface
+interface Xinc_Build_Queue_Interface
 {
+    /**
+     * adds a build to the queue
+     * 
+     * Calls the getNextBuildTime() method to put
+     * the builds into the right order in the queue
+     *
+     * @param Xinc_Build_Interface $build
+     */
+    public function addBuild(Xinc_Build_Interface &$build);
     
-    //public static function &getInternalInstance();
+    /**
+     * Returns the next build time of all the builds scheduled
+     * in this queue
+     *
+     * @return integer unixtimestamp
+     */
+    public function getNextBuildTime();
+    
+    /**
+     * Removes the next scheduled build from the queue
+     * and returns it
+     *
+     * @return Xinc_Build_Interface
+     */
+    public function getNextBuild();
 }

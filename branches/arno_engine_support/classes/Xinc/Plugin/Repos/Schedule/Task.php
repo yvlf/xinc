@@ -2,7 +2,7 @@
 /**
  * This interface represents a publishing mechanism to publish build results
  * 
- * @package Xinc
+ * @package Xinc.Plugin
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 David Ellis, One Degree Square
@@ -24,9 +24,10 @@
 */
 
 require_once 'Xinc/Plugin/Task/Base.php';
-require_once 'Xinc/Build/Scheduler/Interface.php';
+//require_once 'Xinc/Build/Scheduler/Interface.php';
 
-class Xinc_Plugin_Repos_Schedule_Task extends Xinc_Plugin_Task_Base implements Xinc_Project_Build_Scheduler_Interface
+class Xinc_Plugin_Repos_Schedule_Task extends Xinc_Plugin_Task_Base 
+//implements Xinc_Project_Build_Scheduler_Interface
 {
     
     private $_interval;

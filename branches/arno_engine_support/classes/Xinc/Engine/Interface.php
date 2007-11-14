@@ -2,7 +2,7 @@
 /**
  * Engine to build projects
  * 
- * @package Xinc
+ * @package Xinc.Engine
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 Arno Schneider, Barcelona
@@ -33,7 +33,27 @@ interface Xinc_Engine_Interface
      * Parses Project-Xml and returns
      *
      * @param Xinc_Project_Config_Iterator $projects
-     * @return Xinc_Project_Iterator
+     * @return Xinc_Buildstu_Iterator
      */
-    public function parseProjects(Xinc_Project_Config_Iterator $projects);
+    public function generateBuilds(Xinc_Project_Config_Iterator $projects);
+    
+    /**
+     * returns the interval in seconds in which
+     * the engine checks for new builds
+     *
+     * @return integer
+     */
+    public function getHeartBeat();
+    
+    /**
+     * Set the interal in which the engine checks
+     * for modified builds, necessary builds etc
+     *
+     * 
+     * see <xinc engine="name" heartbeat="10"/>
+     * 
+     * @param unknown_type $seconds
+     */
+    public function setHeartBeat($seconds);
+    
 }

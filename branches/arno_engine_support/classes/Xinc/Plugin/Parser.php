@@ -30,7 +30,6 @@ require_once 'Xinc/Plugin/Exception/ClassNotFound.php';
 class Xinc_Plugin_Parser
 {
     
-    private $_plugins=array();
     /**
      * Public parse function
      * 
@@ -40,11 +39,11 @@ class Xinc_Plugin_Parser
      * @throws Xinc_Plugin_Exception_Invalid
      * @throws Xinc_Plugin_Exception_ClassNotFound
      */
-    public function parse(Xinc_Config_Element_Iterator $iterator)
+    public static function parse(Xinc_Config_Element_Iterator $iterator)
     {
         
         while($iterator->hasNext()) {
-            $this->_loadPlugin($iterator->next());
+            self::_loadPlugin($iterator->next());
         }
   
     }
@@ -54,7 +53,7 @@ class Xinc_Plugin_Parser
      *
      * @param SimpleXMLElement $pluginXml
      */
-    private function _loadPlugin(SimpleXMLElement $pluginXml)
+    private static function _loadPlugin(SimpleXMLElement $pluginXml)
     {
         $plugins=array();
 

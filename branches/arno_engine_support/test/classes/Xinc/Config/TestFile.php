@@ -38,21 +38,12 @@ class Xinc_Config_TestFile extends PHPUnit_Framework_TestCase
             $this->assertTrue(false, 'Should not catch any exception');
         }
     }
-    public function testConstructException()
+
+    
+    public function testFileNotFoundException()
     {
         $workingdir = getcwd();
-        try {
-            $configFile = Xinc_Config_File::load($workingdir .'/test/resources/testSystemInvalid.xml');
-            $this->assertTrue(false, 'It is invalid, should throw an exception');
-            
-        } catch (Xinc_Config_Exception_InvalidEntry $invalidEntry) {
-            $this->assertTrue(true, 'Correct exception thrown');
-        } catch (Exception $e) {
-            $this->assertTrue(false, 'Should have caught ' 
-                                   . 'Xinc_Config_Exception_InvalidEntry '
-                                   . 'but caught: ' . getclass($e));
-        }
-       
+        
         try {
             $configFile = Xinc_Config_File::load($workingdir .'/test/resources/testSystemDoesNotExist.xml');
             $this->assertTrue(false, 'File Does not exist, should throw an exception');
@@ -61,10 +52,27 @@ class Xinc_Config_TestFile extends PHPUnit_Framework_TestCase
         } catch (Exception $e) {
             $this->assertTrue(false, 'Should have caught ' 
                                    . 'Xinc_Config_Exception_FileNotFound '
-                                   . 'but caught: ' . getclass($e));
+                                   . 'but caught: ' . get_class($e));
         }
+    }
+    public function testConstructException()
+    {
+       
+        $workingdir = getcwd();
+        try {
+            $configFile = Xinc_Config_File::load($workingdir .'/test/resources/testSystemInvalid.xml');
+            $this->assertTrue(false, 'It is invalid, should throw an exception');
+            
+        } catch (Xinc_Config_Exception_InvalidEntry $invalidEntry) {
+            $this->assertTrue(true, 'Correct exception thrown');
+            
+        } catch (Exception $e) {
+            $this->assertTrue(false, 'Should have caught ' 
+                                   . 'Xinc_Config_Exception_InvalidEntry '
+                                   . 'but caught: ' . get_class($e));
+        }
+       
+        
         
     }
-    
-   
 }

@@ -30,7 +30,6 @@ require_once 'Xinc/Engine/Exception/Invalid.php';
 class Xinc_Engine_Parser
 {
     
-    private $_plugins=array();
     /**
      * Public parse function
      * 
@@ -40,11 +39,11 @@ class Xinc_Engine_Parser
      * @throws Xinc_Plugin_Exception_Invalid
      * @throws Xinc_Plugin_Exception_ClassNotFound
      */
-    public function parse(Xinc_Config_Element_Iterator $iterator)
+    public static function parse(Xinc_Config_Element_Iterator $iterator)
     {
         
         while($iterator->hasNext()) {
-            $this->_loadEngine($iterator->next());
+            self::_loadEngine($iterator->next());
         }
   
     }
@@ -54,7 +53,7 @@ class Xinc_Engine_Parser
      *
      * @param SimpleXMLElement $pluginXml
      */
-    private function _loadEngine(SimpleXMLElement $pluginXml)
+    private static function _loadEngine(SimpleXMLElement $pluginXml)
     {
         $plugins=array();
 

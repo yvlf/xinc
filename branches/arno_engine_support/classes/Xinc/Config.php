@@ -42,11 +42,11 @@ class Xinc_Config
      */
     public static function parse($fileName)
     {
-        $configFile = new Xinc_Config_File($fileName);
+        $configFile = Xinc_Config_File::load($fileName);
         $configParser = new Xinc_Config_Parser($configFile);
         
         self::_parsePlugins($configParser->getPlugins());
-        self::_parsePlugins($configParser->getEngines());
+        self::_parseEngines($configParser->getEngines());
     }
     
     private static function _parsePlugins($plugins)

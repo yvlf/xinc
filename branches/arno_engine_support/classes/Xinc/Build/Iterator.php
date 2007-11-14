@@ -1,11 +1,11 @@
 <?php
 /**
- * PUT DESCRIPTION HERE
- * 
- * @package Xinc
+ * Iterator over an array of SimpleXMLElement objects defining Xinc Builds
+ *  
+ * @package Xinc.Build
  * @author Arno Schneider
  * @version 2.0
- * @copyright 2007 David Ellis, One Degree Square
+ * @copyright 2007 Arno Schneider, Barcelona
  * @license  http://www.gnu.org/copyleft/lgpl.html GNU/LGPL, see license.php
  *    This file is part of Xinc.
  *    Xinc is free software; you can redistribute it and/or modify
@@ -22,33 +22,25 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-class Xinc_Properties
+
+require_once 'Xinc/Iterator.php';
+require_once 'Xinc/Build/Exception/Invalid.php';
+
+
+class Xinc_Build_Iterator extends Xinc_Iterator
 {
-    private $_properties;
+  
     
-    /**
-     * Sets a property value
-     *
-     * @param string $property
-     * @param mixed $value
-     */
-    public function set($property, $value)
+    public function __construct($array)
     {
-        $this->_properties[$property] = $value;
-    }
-    
-    /**
-     * Returns the value of the queried property
-     *
-     * @param string $property
-     * @return string or null if property not found
-     */
-    public function get($property)
-    {
-        if (isset($this->_properties[$property])) {
-            return $this->_properties[$property];
-        } else {
-            return null;
+        foreach ($array as $element) {
+            if (!$element instanceof Xinc_Build_Interface ) {
+                throw new Xinc_Build_Exception_Invalid();
+            }
+            
         }
+        
+        parent::__construct($array);
     }
+  
 }

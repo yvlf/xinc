@@ -2,7 +2,7 @@
 /**
  * This class represents the project to be continuously integrated
  *
- * @package Xinc
+ * @package Xinc.Project
  * @author David Ellis
  * @author Gavin Foster
  * @author Arno Schneider

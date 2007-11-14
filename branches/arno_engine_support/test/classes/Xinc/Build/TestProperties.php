@@ -2,7 +2,7 @@
 /**
  * Test Class for the Xinc Build Properties
  * 
- * @package Xinc.Config
+ * @package Xinc.Build
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 Arno Schneider, Barcelona
