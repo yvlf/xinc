@@ -2,7 +2,7 @@
 /**
  * The logging singleton.
  * 
- * @package Xinc
+ * @package Xinc.Logger
  * @author David Ellis
  * @author Gavin Foster
  * @version 1.0

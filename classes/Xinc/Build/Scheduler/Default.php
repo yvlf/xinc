@@ -3,7 +3,7 @@
  * Interface for a Build-Labeler which will increase a build-number
  * on each successful build
  * 
- * @package Xinc
+ * @package Xinc.Build
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 David Ellis, One Degree Square
@@ -23,7 +23,8 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-class Xinc_Project_Build_Scheduler_Default implements Xinc_Project_Build_Scheduler_Interface
+class Xinc_Project_Build_Scheduler_Default 
+//implements Xinc_Project_Build_Scheduler_Interface
 {
     private $_interval;
     private $_lastBuild;

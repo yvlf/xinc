@@ -1,11 +1,11 @@
 <?php
 /**
- * PUT DESCRIPTION HERE
+ * Exception, build could not be serialized
  * 
- * @package Xinc.Plugin
+ * @package Xinc.Build
  * @author Arno Schneider
  * @version 2.0
- * @copyright 2007 David Ellis, One Degree Square
+ * @copyright 2007 Arno Schneider, Barcelona
  * @license  http://www.gnu.org/copyleft/lgpl.html GNU/LGPL, see license.php
  *    This file is part of Xinc.
  *    Xinc is free software; you can redistribute it and/or modify
@@ -22,21 +22,16 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-require_once 'Xinc/Plugin/Base.php';
-require_once 'Xinc/Plugin/Repos/Publisher/OnFailure/Task.php';
-require_once 'phing/Phing.php';
-class Xinc_Plugin_Repos_Publisher_OnFailure  extends Xinc_Plugin_Base
+class Xinc_Build_Exception_Exception extends Exception
 {
-    
-   
-    public function validate()
+    /**
+     * constructor, generates an Exception Message
+     *
+     */
+    public function __construct(Xinc_Project &$project, $buildTime)
     {
-       
-        return true;
+        parent::__construct('Build of "' . $project->getName() . '" '
+                           .' with timestamp: ' . $buildTime
+                           .' could not be serialized');
     }
-    public function getTaskDefinitions()
-    {
-        return array(new Xinc_Plugin_Repos_Publisher_OnFailure_Task($this));
-    }
-    
 }

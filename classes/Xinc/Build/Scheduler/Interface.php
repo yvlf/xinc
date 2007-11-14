@@ -1,9 +1,9 @@
 <?php
 /**
- * Interface for a Build-Labeler which will increase a build-number
- * on each successful build
+ * Interface for a Build-Scheduler which will calculate the next buildtime
+ * based on customizable factors. 
  * 
- * @package Xinc
+ * @package Xinc.Build
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 David Ellis, One Degree Square
@@ -23,7 +23,7 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-interface Xinc_Project_Build_Scheduler_Interface
+interface Xinc_Build_Scheduler_Interface
 {
   
   

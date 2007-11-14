@@ -2,7 +2,7 @@
 /**
  * Exception thrown when a registry cannot deal with the Object
  * 
- * @package Xinc
+ * @package Xinc.Registry
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 Arno Schneider, Barcelona

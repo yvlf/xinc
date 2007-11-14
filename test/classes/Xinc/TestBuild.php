@@ -1,6 +1,6 @@
 <?php
 /**
- * Build Properties carry additional information about a build
+ * Test Class for the Xinc Build Properties
  * 
  * @package Xinc.Build
  * @author Arno Schneider
@@ -22,52 +22,35 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-class Xinc_Build_Properties
+require_once 'Xinc/Build.php';
+require_once 'Xinc/Project.php';
+require_once 'Xinc/Engine/Sunrise.php';
+
+require_once 'PHPUnit/Framework/TestCase.php';
+
+class Xinc_TestBuild extends PHPUnit_Framework_TestCase
 {
     
-    /**
-     * Associative Array holding the nvp for the build properties
-     *
-     * @var array
-     */
-    private $_properties = array();
-    
-    /**
-     * set a property
-     *
-     * @param string $name
-     * @param mixed $value
-     */
-    public function set($name, $value)
+   
+    public function testBuild()
     {
-        $this->_properties[$name] = $value;
+        $project = new Xinc_Project();
+        $project->setName('test');
+        $build = new Xinc_Build(new Xinc_Engine_Sunrise(),$project);
+        $build->setBuildTime(time());
+        $build->getProperties()->set('test',1);
+        
+        $serializedObject = $build->serialize();
+        
+        $object = unserialize($serializedObject);
+        
+        $this->assertEquals($build->getProject()->getName(), $object->getProject()->getName(),
+                            'Project Name should have gotten serialized');
+        $this->assertEquals($build->getProperties()->get('test'),
+                            $object->getProperties()->get('test'),
+                           'Properties should be equal');
     }
-    
-    public function get($name)
-    {
-        if (isset($this->_properties[$name])) {
-            return $this->_properties[$name];
-        } else {
-            return null;
-        }
-    }
-    
-    /**
-     * Parses a string and substitutes ${name} with $value
-     * of property
-     *
-     * @param string $string
-     */
-    public function parseString($string)
-    {
-       
-        $string = preg_replace("/\\$\{(.*?)\}/", '{$this->_properties[\\1]}', $string);
-        
-        $evalString = '$newString="'.$string.'";';
-        
-        
-        eval($evalString);
-        
-        return $newString;
-    }
+
+   
+   
 }
