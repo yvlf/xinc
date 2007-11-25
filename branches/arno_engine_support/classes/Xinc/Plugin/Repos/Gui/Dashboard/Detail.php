@@ -30,7 +30,7 @@ require_once 'Xinc/Build/Iterator.php';
 class Xinc_Plugin_Repos_Gui_Dashboard_Detail implements Xinc_Gui_Widget_Interface
 {
     protected $_plugin;
-    private $_widgets = array();
+    public $extensions = array();
     public $projectName;
     public $project;
     public $build;
@@ -144,9 +144,24 @@ class Xinc_Plugin_Repos_Gui_Dashboard_Detail implements Xinc_Gui_Widget_Interfac
     {
         return array('/dashboard/detail', '/dashboard/detail/');
     }
-    
-    public function registerWidget(Xinc_Gui_Widget_Interface &$widget)
+    public function init()
     {
-        $this->_widgets[] = $widget;
+        
+    }
+    
+    
+    
+    public function registerExtension($extension, $callback)
+    {
+        if (!isset($this->extensions[$extension])) {
+            $this->extensions[$extension] = array();
+        }
+        $this->extensions[$extension][] = $callback;
+        
+        
+    }
+    public function getExtensionPoints()
+    {
+        return array('INFO_TAB');
     }
 }

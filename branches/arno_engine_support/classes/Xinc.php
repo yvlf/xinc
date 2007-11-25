@@ -342,7 +342,7 @@ class Xinc
             if (func_num_args() > 7) {
                 
                 for ($i = 7; $i < func_num_args(); $i++) {
-                    echo "Project-File: " . func_get_arg($i)."\n";
+                    $logger->info('Loading Project-File: ' . func_get_arg($i));
                     self::$_instance->_addProjectFile(func_get_arg($i));
                 }
             }
@@ -350,7 +350,9 @@ class Xinc
             self::$_instance->start($daemon);
         } catch (Exception $e) {
             // we need to catch everything here
-            var_dump($e);
+            $logger->error('Xinc stopped due to an uncaught exception: ' 
+                          . $e->getMessage() . ' in File : ' . $e->getFile() . ' on line ' . $e->getLine() 
+                          . $e->getTraceAsString());
         }
     }
 
@@ -369,11 +371,12 @@ class Xinc
             Xinc::$_buildQueue->addBuilds($builds);
             
         } catch (Xinc_Project_Config_Exception_FileNotFound $notFound) {
-            var_dump($notFound);
+            Xinc_Logger::getInstance()->error('Project Config File ' . $fileName . ' cannot be found');
         } catch (Xinc_Project_Config_Exception_InvalidEntry $invalid) {
-            var_dump($invalid);
+            Xinc_Logger::getInstance()->error('Project Config File has an invalid entry: ' . $invalid->getMessage());
         } catch (Xinc_Engine_Exception_NotFound $engineNotFound) {
-            var_dump($engineNotFound);
+            Xinc_Logger::getInstance()->error('Project Config File references an unknown Engine: ' 
+                                             . $engineNotFound->getMessage());
         }
     }
     public static function &getCurrentBuild()
