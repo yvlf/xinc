@@ -143,6 +143,7 @@ if [ "$INSTALL_EXAMPLE" = "y" ]; then
 	    mkdir $EXAMPLE_DIR -p
 	fi
 	cp -R examples/SimpleProject $EXAMPLE_DIR/
+	cp -R examples/empty.xml $ETC/conf.d/
 	cat $EXAMPLE_DIR/SimpleProject/build.tpl.xml | sed -e "s#@EXAMPLE_DIR@#$EXAMPLE_DIR#" > $EXAMPLE_DIR/SimpleProject/build.xml
 	rm $EXAMPLE_DIR/SimpleProject/build.tpl.xml
 	cat $EXAMPLE_DIR/SimpleProject/publish.tpl.xml | sed -e "s#@EXAMPLE_DIR@#$EXAMPLE_DIR#" > $EXAMPLE_DIR/SimpleProject/publish.xml
@@ -161,6 +162,8 @@ if [ ! -d $WEB_DIR ]; then
 fi
 cp web/index.php $WEB_DIR/
 cp web/.htaccess $WEB_DIR/
+cp web/* -Rf $WEB_DIR/ -Rf
+rm $WEB_DIR/www.tpl.conf
 
 echo "IP of Xinc web-application: [127.0.0.1]"
 if [ "$INTERACTIVE" = true ]; then read IP; fi
@@ -173,6 +176,7 @@ if [ "$INTERACTIVE" = true ]; then read PORT; fi
 if [ "$PORT" = "" ]; then
 	PORT="8080"
 fi
+
 cat web/www.tpl.conf | sed -e "s#@INCLUDE@#$INCLUDE#" | sed -e "s#@WEB_DIR@#$WEB_DIR#" | sed -e "s#@PORT@#$PORT#" | sed -e "s#@IP@#$IP#" > $ETC/www.conf
 
 

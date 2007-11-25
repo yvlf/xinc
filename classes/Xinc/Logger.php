@@ -125,7 +125,9 @@ class Xinc_Logger
             return;
         }
         
-        $this->_logQueue[] = new Xinc_Logger_Message($priority[1], time(), $msg);
+        $logTime = time();
+        
+        $this->_logQueue[] = new Xinc_Logger_Message($priority[1], $logTime, $msg);
         
         if (count($this->_logQueue)>$this->_max) {
             
@@ -135,10 +137,11 @@ class Xinc_Logger
 
         /** ensure the output messages line up vertically */
         $prioritystr = '[' . $priority[1] . ']';
+        $timestr = '[' . date('Y-m-d H:i:s', $logTime) . ']';
         while (strlen($prioritystr) < 7) {
             $prioritystr .= ' ';
         }
-        $message = ' '.$prioritystr.' '.$msg."\n";
+        $message = ' ' . $prioritystr . '  ' . $timestr . ' ' . $msg."\n";
         if ($this->_logLevel == self::LOG_LEVEL_VERBOSE) fputs(STDERR, $message);
         if ($this->_logFile != null) {
             error_log($message, 3, $this->_logFile);

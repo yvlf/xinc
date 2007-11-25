@@ -1,8 +1,8 @@
 <?php
 /**
- * Xinc Configuration File in XML Format
+ * Xinc System Configuration File in XML Format
  * 
- * Reads a Xinc configuration file, parses it for validity
+ * 
  * 
  * @package Xinc.Config
  * @author Arno Schneider

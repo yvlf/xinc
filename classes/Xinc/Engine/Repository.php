@@ -30,6 +30,7 @@ class Xinc_Engine_Repository
 
     private static $_instance;
     
+    private $_defaultEngine;
 
     private $_engines = array();
     /**
@@ -44,7 +45,14 @@ class Xinc_Engine_Repository
         }
         return Xinc_Engine_Repository::$_instance;
     }
-    public function registerEngine(Xinc_Engine_Interface &$engine)
+    /**
+     * Enter description here...
+     *
+     * @param Xinc_Engine_Interface $engine
+     * @param boolean $default
+     * @return boolean
+     */
+    public function registerEngine(Xinc_Engine_Interface &$engine, $default = false)
     {
         $engineClass = get_class($engine);
         
@@ -64,6 +72,11 @@ class Xinc_Engine_Repository
         }
         $this->_engines[$engine->getName()] = $engine;
         $this->_engines[$engineClass] = $engine;
+        
+        if ($default) {
+            $this->_defaultEngine = $engine;
+        }
+        
         return true;
     }
     
@@ -86,6 +99,9 @@ class Xinc_Engine_Repository
      */
     public function getEngine($name)
     {
+        if (empty($name) && isset($this->_defaultEngine)) {
+            return $this->_defaultEngine;
+        }
         if (isset($this->_engines[$name])) {
             return $this->_engines[$name];
         } else {

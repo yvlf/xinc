@@ -31,7 +31,7 @@ require_once 'Xinc/Build.php';
 class Xinc_Plugin_Repos_Gui_Dashboard_Widget implements Xinc_Gui_Widget_Interface
 {
     protected $_plugin;
-    private $_widgets = array();
+    private $_extensions = array();
     public $projects = array();
     
     public $builds;
@@ -98,9 +98,16 @@ class Xinc_Plugin_Repos_Gui_Dashboard_Widget implements Xinc_Gui_Widget_Interfac
     {
         return array('/dashboard', '/dashboard/');
     }
-    
-    public function registerWidget(Xinc_Gui_Widget_Interface &$widget)
+    public function init()
     {
-        $this->_widgets[] = $widget;
+        
+    }
+    public function registerExtension($extension, $callback)
+    {
+        $this->_extensions[$extension] = $callback;
+    }
+    public function getExtensionPoints()
+    {
+        return array();
     }
 }

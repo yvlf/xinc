@@ -62,6 +62,32 @@ interface Xinc_Gui_Widget_Interface
      */
     public function getPaths();
     
+    
+    /**
+     * Is called after all widgets have
+     * been registered. This is the place where widgets need 
+     * to register the hooks for another Widget
+     *
+     */
+    public function init();
+    
+    /**
+     * get the defined hooks of this widget
+     * 
+     * Hooks can be used to allow other widgets to
+     * extend this widget
+     * @return array
+     */
+    public function getExtensionPoints();
+    
+    /**
+     * Register an extensions
+     *
+     * @param string $extension name of the extension point
+     * @param array $callback Needs to be executable by call_user_func_array
+     */
+    public function registerExtension($extension, $callback);
+    
     /**
      * return true if the widget should be registered in the
      * main menu.

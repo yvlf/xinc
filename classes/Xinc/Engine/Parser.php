@@ -94,6 +94,8 @@ class Xinc_Engine_Parser
         
         $classname = (string) $attributes->classname;
         
+        $default = isset($attributes->default) ? ((string) $attributes->default == 'default' ? true : false) : false;
+        
         $engine = new $classname;
         
         if (!in_array('Xinc_Engine_Interface', class_implements($engine))) {
@@ -101,7 +103,7 @@ class Xinc_Engine_Parser
             throw new Xinc_Engine_Exception_Invalid((string)$attributes->classname);
         }
         
-        Xinc_Engine_Repository::getInstance()->registerEngine($engine);
+        Xinc_Engine_Repository::getInstance()->registerEngine($engine, $default);
 
     }
 

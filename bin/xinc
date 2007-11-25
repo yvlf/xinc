@@ -37,7 +37,7 @@ $workingDir = '.';
 $logLevel = 2;
 $daemon = true;
 $projectFiles = array();
-
+$projects = false;
 // parse arguments for config and log file locations. 
 // @todo improve, give usage.
 for ($i = 0; $i < count($argv); $i++) {
@@ -54,6 +54,9 @@ for ($i = 0; $i < count($argv); $i++) {
 		$statusDir = $argv[++$i];
 	} elseif ($argv[$i] == '---') {
 		$i++;
+		$projects = true;
+		$projectFiles[] = $argv[$i];
+	} else if ($projects) {
 		$projectFiles[] = $argv[$i];
 	}
 }

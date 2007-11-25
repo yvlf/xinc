@@ -1,11 +1,11 @@
 <?php
 /**
- * This interface represents a publishing mechanism to publish build results
+ * Artifacts Widget, displays the artifacts of a build
  * 
  * @package Xinc.Plugin
  * @author Arno Schneider
  * @version 2.0
- * @copyright 2007 David Ellis, One Degree Square
+ * @copyright 2007 Arno Schneider, Barcelona
  * @license  http://www.gnu.org/copyleft/lgpl.html GNU/LGPL, see license.php
  *    This file is part of Xinc.
  *    Xinc is free software; you can redistribute it and/or modify
@@ -24,57 +24,61 @@
 */
 
 require_once 'Xinc/Gui/Widget/Interface.php';
+require_once 'Xinc/Build/Iterator.php';
+require_once 'Xinc/Project.php';
+require_once 'Xinc/Build.php';
+require_once 'Xinc/Plugin/Repos/Gui/Dashboard/Detail/Extension.php';
 
-class Xinc_Plugin_Repos_Gui_Homepage_Widget implements Xinc_Gui_Widget_Interface
+class Xinc_Plugin_Repos_Gui_Artifacts_Widget implements Xinc_Gui_Widget_Interface
 {
     protected $_plugin;
     private $_extensions = array();
+    public $projects = array();
+    
+    public $builds;
     
     public function __construct(Xinc_Plugin_Interface &$plugin)
     {
         $this->_plugin = $plugin;
+        
     }
     
     public function handleEvent($eventId)
     {
-        switch ($eventId) {
-            case Xinc_Gui_Event::PAGE_LOAD: 
-                    echo '<h1>Xinc Control Center</h1>';
-                    $widgets = Xinc_Gui_Widget_Repository::getInstance()->getWidgets();
-                    
-                    $done = array();
-                    echo '<ul>';
-                    foreach ($widgets as $path => $widget) {
-                        $title = $widget->getTitle();
-                        if (!in_array(get_class($widget), $done) &&  $widget->registerMainMenu()) {
-                            $done[] = get_class($widget);
-                            echo '<li><a href="'.$path.'">'.$title.'</a></li>';
-                        }
-                    }
-                    echo '</ul>';
-                break;
-            default:
-                break;
-        }
+       
     }
     public function registerMainMenu()
     {
-        return false;
+        return true;
     }
     public function getTitle()
     {
-        return 'Xinc Control Center';
+        return 'Dashboard';
     }
     public function getPaths()
     {
-        return array('/');
+        return array('ARTIFACTS');
+    }
+    
+    public static function getArtifacts(Xinc_Build_Interface &$build)
+    {
+        $statusDir = Xinc_Gui_Handler::getInstance()->getStatusDir();
+        $projectName = $build->getProject()->getName();
+        $buildTimestamp = $build->getBuildTime();
+        
+        $detailExtension = new Xinc_Plugin_Repos_Gui_Dashboard_Detail_Extension('Artifacts');
+        $detailExtension->setContent("TEST");
+        
+        return $detailExtension;
     }
     
     public function init()
     {
+        $detailWidget = Xinc_Gui_Widget_Repository::getInstance()->getWidgetForPath("/dashboard/detail");
+        
+        $detailWidget->registerExtension('INFO_TAB', array(&$this,'getArtifacts'));
         
     }
-    
     public function registerExtension($extension, $callback)
     {
         $this->_extensions[$extension] = $callback;
