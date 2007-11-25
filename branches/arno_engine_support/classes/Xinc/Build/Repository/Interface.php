@@ -29,7 +29,21 @@ interface Xinc_Build_Repository_Interface
      *
      * @param string $projectName
      * @param integer $buildTime
+     * @throws Xinc_Build_Exception_Unserialization
      * @throws Xinc_Build_Exception_NotFound
+     * @return Xinc_Build_Interface
      */
-    public function getBuild($projectName, $buildTime);
+    public function getBuild(Xinc_Project &$project, $buildTime);
+    
+    /**
+     * Gets the last build for a project.
+     * 
+     * Loads it from its serialized form
+     *
+     * @param Xinc_Project $project
+     * @throws Xinc_Build_Exception_Unserialization
+     * @throws Xinc_Build_Exception_NotFound
+     * @return Xinc_Build_Interface
+     */
+    public function getLastBuild(Xinc_Project &$project);
 }

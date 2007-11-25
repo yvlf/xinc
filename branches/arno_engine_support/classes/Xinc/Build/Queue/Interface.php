@@ -43,6 +43,13 @@ interface Xinc_Build_Queue_Interface
     public function addBuild(Xinc_Build_Interface &$build);
     
     /**
+     * Adds a number of builds to the queue
+     *
+     * @param Xinc_Build_Iterator $builds
+     */
+    public function addBuilds(Xinc_Build_Iterator &$builds);
+    
+    /**
      * Returns the next build time of all the builds scheduled
      * in this queue
      *

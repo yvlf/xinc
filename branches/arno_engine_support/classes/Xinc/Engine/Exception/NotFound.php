@@ -1,11 +1,11 @@
 <?php
 /**
- * Interface
+ * Exception, engine was not found
  * 
- * @package Xinc.Build
+ * @package Xinc.Engine
  * @author Arno Schneider
  * @version 2.0
- * @copyright 2007 David Ellis, One Degree Square
+ * @copyright 2007 Arno Schneider, Barcelona
  * @license  http://www.gnu.org/copyleft/lgpl.html GNU/LGPL, see license.php
  *    This file is part of Xinc.
  *    Xinc is free software; you can redistribute it and/or modify
@@ -22,38 +22,16 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
-interface Xinc_Project_Build_Status_Interface
+class Xinc_Engine_Exception_NotFound extends Exception
 {
-    
-    const INITIAL=-2;
-    const FAILED=0;
-    const PASSED=1;
-    const STOPPED=-1;
-    
-    
-    public function serialize();
-    
-    public function unserialize();
-    
-    public function setProperty($name,$value);
-    
-    public function getProperty($name);
-    
-    public function setStatus($status);
-    
-    public function getStatus();
-    
-    public function setBuildTime($timestamp);
-    
-    public function getBuildTime();
-    
-    public function getLastBuildStatus();
-    
-    public function addBuildLabel($labelg);
-    
-    public function getBuildLabels();
-    
-    public function buildSuccessful();
-    public function buildFailed();
+    /**
+     * constructor, generates an Exception Message
+     *
+     * @param string $name
+     * @param string $fileName
+     */
+    public function __construct($name)
+    {
+        parent::__construct('Engine ' . $name . ' not found');
+    }
 }

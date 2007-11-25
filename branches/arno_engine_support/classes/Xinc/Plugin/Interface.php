@@ -25,8 +25,6 @@
 require_once 'Xinc/Plugin/Exception.php';
 interface Xinc_Plugin_Interface
 {
-    
-    
     public function validate();
     
     /**
@@ -36,6 +34,4 @@ interface Xinc_Plugin_Interface
     public function getTaskDefinitions();
     
     public function getGuiWidgets();
-
-    public function getClassname();    
 }

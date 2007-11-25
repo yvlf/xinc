@@ -25,9 +25,9 @@
 require_once 'Xinc/Project/Registry.php';
 require_once 'Xinc/Project.php';
 require_once 'Xinc/Registry/Exception.php';
-require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'Xinc/BaseTest.php';
 
-class Xinc_Project_TestRegistry extends PHPUnit_Framework_TestCase
+class Xinc_Project_TestRegistry extends Xinc_BaseTest
 {
     public function setUp()
     {

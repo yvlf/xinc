@@ -23,47 +23,32 @@
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 require_once 'Xinc/Build/Labeler/Interface.php';
-class Xinc_Project_Build_Labeler_Default implements Xinc_Project_Build_Labeler_Interface
+class Xinc_Build_Labeler_Default implements Xinc_Build_Labeler_Interface
 {
+
     /**
-     * Enter description here...
      *
-     * @var Xinc_Project_Build_Status_Interface
+     * @var integer
      */
-    private $_buildStatus;
-    private $_buildLabel;
-    private $_prefix='BUILD.';
-    private $_firstBuild=1;
-    private $_nextBuildNo;
-    private $_previousBuildNo;
-    
-    
-    public function setBuildStatus(Xinc_Project_Build_Status_Interface &$buildstatus)
+    private $_firstBuild = 1;
+    /**
+     * Prefix for the build
+     *
+     * @var string
+     */
+    private $_prefix = 'BUILD.';
+
+    public function getLabel(Xinc_Build_Interface &$build)
     {
-        $this->_buildStatus = $buildstatus;
-    }
-    
-    public function getBuildLabel()
-    {
-        $previousBuildNo=$this->_buildStatus->getProperty('sticky.build.no');
+        $buildNo = $build->getNumber();
         
-        if ($previousBuildNo != null) {
-            $nextBuildNo = $previousBuildNo + 1;
-        } else {
-            $nextBuildNo = $this->_firstBuild;
+        if ($buildNo == null) {
+            $buildNo = $this->_firstBuild;
         }
-        $this->_nextBuildNo=$nextBuildNo;
-        $this->_previousBuildNo=$previousBuildNo;
-        $buildLabel = $this->_prefix . $nextBuildNo;
-        $this->_buildStatus->setProperty('build.label', $buildLabel);
+       
+        $buildLabel = $this->_prefix . $buildNo;
+        $build->getProperties()->set('build.label', $buildLabel);
         return $buildLabel;
     }
-    public function buildSuccessful()
-    {
-        $this->_buildStatus->setProperty('sticky.build.no', $this->_nextBuildNo);
-    }
-    public function buildFailed()
-    {
-        $this->_buildStatus->setProperty('sticky.build.no', $this->_previousBuildNo);
-    }
+    
 }

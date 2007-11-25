@@ -24,7 +24,9 @@
 */
 
 require_once 'Xinc/Iterator.php';
-
+require_once 'Xinc/Project/Config/Exception/InvalidElement.php';
+require_once 'Xinc/Project/Config/Exception/FileNotFound.php';
+require_once 'Xinc/Project/Config/Exception/InvalidEntry.php';
 
 class Xinc_Project_Config_Iterator extends Xinc_Iterator
 {
@@ -32,12 +34,12 @@ class Xinc_Project_Config_Iterator extends Xinc_Iterator
     
     public function __construct($array)
     {
-        foreach ($array as $name => $xmlElement) {
-            if (!$xmlElement instanceof SimpleXMLElement ) {
+        foreach ($array as $xmlElement) {
+            if (!$xmlElement instanceof Xinc_Project_Config_File ) {
                 throw new Xinc_Project_Config_Exception_InvalidElement();
-            } else if ($name != 'project') {
-            	throw new Xinc_Project_Config_Exception_InvalidElement();
-            }
+            } /**else if ($name != 'project') {
+                throw new Xinc_Project_Config_Exception_InvalidElement();
+            }*/
             
         }
         

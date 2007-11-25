@@ -23,7 +23,7 @@
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 require_once 'Xinc/Engine/Iterator.php';
-
+require_once 'Xinc/Engine/Exception/NotFound.php';
 
 class Xinc_Engine_Repository
 {
@@ -31,7 +31,7 @@ class Xinc_Engine_Repository
     private static $_instance;
     
 
-    private $_engines=array();
+    private $_engines = array();
     /**
      * Get an instance of the Plugin Repository
      *
@@ -46,22 +46,25 @@ class Xinc_Engine_Repository
     }
     public function registerEngine(Xinc_Engine_Interface &$engine)
     {
+        $engineClass = get_class($engine);
+        
         if (!$engine->validate()) {
             Xinc_Logger::getInstance()->error('cannot load engine '
-                                             .$engine->getClassname());
+                                             . $engineClass);
                                              
             return false;
         }
        
-        if (isset($this->_engines[$engine->getName()]) || isset($this->_engines[$engine->getClassname()])) {
-        	Xinc_Logger::getInstance()->error('cannot load engine '
-                                             .$engine->getClassname()
-                                             .' already registered');
+        if (isset($this->_engines[$engine->getName()]) || isset($this->_engines[$engineClass])) {
+            Xinc_Logger::getInstance()->error('cannot load engine '
+                                             . $engineClass
+                                             . ' already registered');
                                              
             return false;
         }
         $this->_engines[$engine->getName()] = $engine;
-        $this->_engines[$engine->getClassname()] = $engine;
+        $this->_engines[$engineClass] = $engine;
+        return true;
     }
     
     /**
@@ -73,5 +76,25 @@ class Xinc_Engine_Repository
     {
         return new Xinc_Engine_Iterator($this->_engines);
     }
+    
+    /**
+     * returns the specified engine
+     *
+     * @param string $name
+     * @return Xinc_Engine_Interface
+     * @throws Xinc_Engine_Exception_NotFound
+     */
+    public function getEngine($name)
+    {
+        if (isset($this->_engines[$name])) {
+            return $this->_engines[$name];
+        } else {
+            throw new Xinc_Engine_Exception_NotFound($name);
+        }
+    }
 
+    public static function tearDown()
+    {
+        self::$_instance = null;
+    }
 }

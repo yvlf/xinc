@@ -46,27 +46,27 @@ class Xinc_Plugin_Repos_Publisher_Task extends Xinc_Plugin_Task_Base
     
     public function registerTask(Xinc_Plugin_Task_Interface &$task)
     {
-        Xinc_Logger::getInstance()->debug('Registering Publisher: '.$task->getClassname());
+        Xinc_Logger::getInstance()->debug('Registering Publisher: ' . get_class($task));
         $this->_subtasks[]=$task;
 
     }
     
 
 
-    public function getBuildSlot()
+    public function getPluginSlot()
     {
         return Xinc_Plugin_Slot::POST_PROCESS;
     }
-    public function process(Xinc_Project &$project)
+    public function process(Xinc_Build_Interface &$build)
     {
-        $project->info('Processing publishers');
+        $build->info('Processing publishers');
         
         foreach ( $this->_subtasks as $task ) {
             
-            $task->publish($project);
+            $task->publish($build);
 
         }
-        $project->info('Processing publishers done');
+        $build->info('Processing publishers done');
         //$project->setStatus(Xinc_Project_Build_Status_Interface::STOPPED);
 
     }

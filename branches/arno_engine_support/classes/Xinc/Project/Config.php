@@ -23,24 +23,34 @@
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+require_once 'Xinc/Project/Iterator.php';
 require_once 'Xinc/Project/Config/File.php';
 require_once 'Xinc/Project/Config/Parser.php';
+require_once 'Xinc/Project.php';
 
 class Xinc_Project_Config
 {
-	/**
-	 * Iterator holding all the project configuration in xml
-	 *
-	 * @var Xinc_Project_Config_Iterator
-	 */
-	private $_projectConfigs;
-	
-	/**
-	 * Iterator holding all the configured projects
-	 *
-	 * @var Xinc_Project_Iterator
-	 */
-	private $_projects;
+    
+    /**
+     *  Iterator holding all the project configuration in xml
+     *
+     *  @var Xinc_Project_Config_Iterator
+     */
+    private $_projectConfigs;
+    
+    /**
+     * Iterator holding all the configured projects
+     *
+     * @var Xinc_Project_Iterator
+     */
+    private $_projects;
+    
+    /**
+     * Name of the engine
+     *
+     * @var String
+     */
+    private $_engineName;
     /**
      * Reads the system.xml
      * - parses it
@@ -52,30 +62,32 @@ class Xinc_Project_Config
      */
     public function __construct($fileName)
     {
-        $configFile = new Xinc_Project_Config_File($fileName);
+        $configFile = Xinc_Project_Config_File::load($fileName);
         $configParser = new Xinc_Project_Config_Parser($configFile);
         
         $this->_projectConfigs = $configParser->getProjects();
+        $this->_engineName = $configParser->getEngineName();
         $this->_generateProjects();
     }
     
     private function _generateProjects()
     {
-    	$projects = array();
-    	
-    	while ($this->_projectConfigs->hasNext()) {
-    		$projectConfig = $this->_projectConfigs->next();
-    		$projectObject = new Xinc_Project();
-    		
-    		foreach ($projectConfig['@attributes'] as $name => $value ) {
-    			$method = 'set' . ucfirst(strtolower($name));
-    			$projectObject->$method($value);
-    		}
-    		
-    		$projects[] = $projectObject;
-    	}
-    	
-    	$this->_projects = new Xinc_Project_Iterator($projects);
+        $projects = array();
+        
+        while ($this->_projectConfigs->hasNext()) {
+            $projectConfig = $this->_projectConfigs->next();
+            
+            $projectObject = new Xinc_Project();
+            
+            foreach ($projectConfig->attributes() as $name => $value ) {
+                $method = 'set' . ucfirst(strtolower($name));
+                $projectObject->$method((string)$value);
+            }
+            $projectObject->setConfig($projectConfig);
+            $projects[] = $projectObject;
+        }
+        
+        $this->_projects = new Xinc_Project_Iterator($projects);
     }
     
     
@@ -86,8 +98,12 @@ class Xinc_Project_Config
      */
     public function getProjects()
     {
-    	return $this->_projects;
+        return $this->_projects;
     }
     
+    public function getEngineName()
+    {
+        return $this->_engineName;
+    }
    
 }

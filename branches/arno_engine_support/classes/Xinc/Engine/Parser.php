@@ -22,10 +22,11 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-require_once 'Xinc/Plugin/Repository.php';
+require_once 'Xinc/Engine/Repository.php';
 require_once 'Xinc/Engine/Exception/FileNotFound.php';
 require_once 'Xinc/Engine/Exception/ClassNotFound.php';
 require_once 'Xinc/Engine/Exception/Invalid.php';
+
 
 class Xinc_Engine_Parser
 {
@@ -42,12 +43,28 @@ class Xinc_Engine_Parser
     public static function parse(Xinc_Config_Element_Iterator $iterator)
     {
         
-        while($iterator->hasNext()) {
+        while ($iterator->hasNext()) {
             self::_loadEngine($iterator->next());
         }
   
     }
 
+    /**
+     * Checks whether a file has been included or not
+     *
+     * @param string $filename
+     * @return boolean
+     */
+    private static function _findIncluded($filename)
+    {
+        $includedFiles = get_included_files();
+        
+        foreach ($includedFiles as $file) {
+            if (strstr($file, $filename)) return true;
+        }
+        return false;
+    }
+    
     /**
      * Enter description here...
      *
@@ -55,27 +72,32 @@ class Xinc_Engine_Parser
      */
     private static function _loadEngine(SimpleXMLElement $pluginXml)
     {
-        $plugins=array();
-
-        $attributes=$pluginXml->attributes();
+        $plugins = array();
         
+        $attributes = $pluginXml->attributes();
         
-
         
         $res = @include_once((string)$attributes->filename);
-        if (!$res) {
+        
+        $included = self::_findIncluded((string)$attributes->filename);
+        
+        if ($res !== true && !$included) {
+            
             throw new Xinc_Engine_Exception_FileNotFound((string)$attributes->classname,
                                                          (string)$attributes->filename);
         }
         if (!class_exists((string)$attributes->classname)) {
+            
             throw new Xinc_Engine_Exception_ClassNotFound((string)$attributes->classname,
                                                           (string)$attributes->filename);
         }
         
-        $classname=(string)$attributes->classname;
-        $engine=new $classname;
+        $classname = (string) $attributes->classname;
+        
+        $engine = new $classname;
         
         if (!in_array('Xinc_Engine_Interface', class_implements($engine))) {
+            
             throw new Xinc_Engine_Exception_Invalid((string)$attributes->classname);
         }
         

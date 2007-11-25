@@ -1,6 +1,6 @@
 <?php
 /**
- * Iterator over an array of SimpleXMLElement objects defining Xinc Builds
+ * Iterator over an array of Xinc_Build's
  *  
  * @package Xinc.Build
  * @author Arno Schneider
@@ -31,7 +31,7 @@ class Xinc_Build_Iterator extends Xinc_Iterator
 {
   
     
-    public function __construct($array)
+    public function __construct($array = array())
     {
         foreach ($array as $element) {
             if (!$element instanceof Xinc_Build_Interface ) {

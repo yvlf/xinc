@@ -34,8 +34,8 @@ class Xinc_Engine_Iterator extends Xinc_Iterator
     public function __construct($array)
     {
         foreach ($array as $element) {
-            if (!$xmlElement instanceof Xinc_Engine_Interface ) {
-                throw new Xinc_Engine_Exception_Invalid();
+            if (!$element instanceof Xinc_Engine_Interface ) {
+                throw new Xinc_Engine_Exception_Invalid(get_class($element));
             }
             
         }

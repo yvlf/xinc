@@ -52,23 +52,23 @@ class Xinc_Plugin_Repos_Builder_Task extends Xinc_Plugin_Task_Base
     }
 
 
-    public function getBuildSlot()
+    public function getPluginSlot()
     {
         return Xinc_Plugin_Slot::PROCESS;
     }
-    public function process(Xinc_Project &$project)
+    public function process(Xinc_Build_Interface &$build)
     {
-        $project->info('Processing builders');
+        $build->info('Processing builders');
         foreach ( $this->_subtasks as $task ) {
             
-            $task->process($project);
-            if ( $project->getStatus() != Xinc_Project_Build_Status_Interface::PASSED ) {
-                $project->error('Build FAILED ');
+            $task->process($build);
+            if ( $build->getStatus() != Xinc_Build_Interface::PASSED ) {
+                $build->error('Build FAILED ');
                 return;
             }
         }
-        $project->info('Processing builders done');
-        //$project->setStatus(Xinc_Project_Build_Status_Interface::STOPPED);
+        $build->info('Processing builders done');
+        //$project->setStatus(Xinc_Build_Interface::STOPPED);
 
     }
 

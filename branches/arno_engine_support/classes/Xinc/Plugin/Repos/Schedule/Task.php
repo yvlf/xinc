@@ -24,24 +24,29 @@
 */
 
 require_once 'Xinc/Plugin/Task/Base.php';
-//require_once 'Xinc/Build/Scheduler/Interface.php';
+require_once 'Xinc/Build/Scheduler/Interface.php';
 
-class Xinc_Plugin_Repos_Schedule_Task extends Xinc_Plugin_Task_Base 
-//implements Xinc_Project_Build_Scheduler_Interface
+class Xinc_Plugin_Repos_Schedule_Task extends Xinc_Plugin_Task_Base implements Xinc_Build_Scheduler_Interface
 {
     
     private $_interval;
-    private $_project;
+    
+    /**
+     * Enter description here...
+     *
+     * @var Xinc_Build_Interface
+     */
+    private $_build;
 
-    public function process(Xinc_Project &$project)
+    public function process(Xinc_Build_Interface &$build)
     {
-        if (!isset($this->_project)) {
-            $project->setScheduler($this);
-            $this->_project = $project;
+        /**if (!isset($this->_project)) {
+            $build->setScheduler($this);
+            $this->_build = $build;
             if (time() < $this->getNextBuildTime()) {
-                $this->_project->setStatus(Xinc_Project_Build_Status_Interface::STOPPED);
+                $this->_build->setStatus(Xinc_Build_Interface::STOPPED);
             }
-        }
+        }*/
         
     }
     public function setInterval($interval)
@@ -64,10 +69,15 @@ class Xinc_Plugin_Repos_Schedule_Task extends Xinc_Plugin_Task_Base
         
     }
     
-    public function getNextBuildTime()
+    public function init(Xinc_Build_Interface &$build)
     {
-        
-        $lastBuild = $this->_project->getBuildStatus()->getBuildTime();
+        $build->setScheduler($this);
+    }
+    
+    public function getNextBuildTime(Xinc_Build_Interface &$build)
+    {
+        //var_dump($build);
+        $lastBuild = $build->getLastBuild()->getBuildTime();
         
         if ($lastBuild != null ) {
             $nextBuild = $this->getInterval() + $lastBuild;
@@ -75,14 +85,14 @@ class Xinc_Plugin_Repos_Schedule_Task extends Xinc_Plugin_Task_Base
             // never ran, schedule for now
             $nextBuild = time()-1;
         }
-        $this->_project->debug('getNextBuildTime '
+        $build->debug('getNextBuildTime '
                               . ': lastbuild: ' 
                               . date('Y-m-d H:i:s', $lastBuild) 
                               . ' nextbuild: ' 
                               . date('Y-m-d H:i:s', $nextBuild).'');
         return $nextBuild;
     }
-    public function getBuildSlot()
+    public function getPluginSlot()
     {
         return Xinc_Plugin_Slot::INIT_PROCESS;
     }

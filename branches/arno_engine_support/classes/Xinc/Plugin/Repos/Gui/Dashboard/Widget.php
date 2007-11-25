@@ -24,16 +24,22 @@
 */
 
 require_once 'Xinc/Gui/Widget/Interface.php';
+require_once 'Xinc/Build/Iterator.php';
+require_once 'Xinc/Project.php';
+require_once 'Xinc/Build.php';
 
 class Xinc_Plugin_Repos_Gui_Dashboard_Widget implements Xinc_Gui_Widget_Interface
 {
     protected $_plugin;
     private $_widgets = array();
-    public $projects=array();
+    public $projects = array();
+    
+    public $builds;
     
     public function __construct(Xinc_Plugin_Interface &$plugin)
     {
         $this->_plugin = $plugin;
+        $this->builds = new Xinc_Build_Iterator();
     }
     
     public function handleEvent($eventId)
@@ -41,25 +47,27 @@ class Xinc_Plugin_Repos_Gui_Dashboard_Widget implements Xinc_Gui_Widget_Interfac
         switch ($eventId) {
             case Xinc_Gui_Event::PAGE_LOAD: 
                     
-                    $handler=Xinc_Gui_Handler::getInstance();
-                    $statusDir=$handler->getStatusDir();
-                    $dir=opendir($statusDir);
-                    while ($file=readdir($dir)) {
-                        $project=array();
-                        $fullfile=$statusDir.DIRECTORY_SEPARATOR.$file;
+                    $handler = Xinc_Gui_Handler::getInstance();
+                    $statusDir = $handler->getStatusDir();
+                    $dir = opendir($statusDir);
+                    while ($file = readdir($dir)) {
+                        $project = array();
+                        $fullfile = $statusDir . DIRECTORY_SEPARATOR . $file;
                         
                         if (!in_array($file, array('.', '..')) && is_dir($fullfile)) {
                             $project['name']=$file;
-                            $statusfile=$fullfile.DIRECTORY_SEPARATOR.'status.ser';
-                            $xincProject=$fullfile.DIRECTORY_SEPARATOR.'.xinc';
+                            $statusfile = $fullfile . DIRECTORY_SEPARATOR . 'build.ser';
+                            //$xincProject = $fullfile . DIRECTORY_SEPARATOR . '.xinc';
                             
-                            if (file_exists($statusfile) && file_exists($xincProject)) {
-                                $ini=parse_ini_file($statusfile, true);
+                            if (file_exists($statusfile)) {
+                                //$ini = parse_ini_file($statusfile, true);
+                                $object = unserialize(file_get_contents($statusfile));
+                                //var_dump($object);
                                 
-                                $project['build.status']=$ini['build.status'];
-                                $project['build.label']= isset($ini['build.label'])?$ini['build.label']:'';
-                                $project['build.time']=$ini['build.time'];
-                                $this->projects[]=$project;
+                                //$project['build.status'] = $ini['build.status'];
+                                //$project['build.label'] = isset($ini['build.label'])?$ini['build.label']:'';
+                                //$project['build.time'] = $ini['build.time'];
+                                $this->builds->add($object);
                             } else if (file_exists($xincProject)) {
                                 $project['build.status'] = -10;
                                 $project['build.time'] = 0;

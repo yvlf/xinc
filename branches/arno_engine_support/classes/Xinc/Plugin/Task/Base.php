@@ -23,19 +23,17 @@
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 require_once 'Xinc/Plugin/Task/Interface.php';
+require_once 'Xinc/Build/Tasks/Iterator.php';
 
 abstract class Xinc_Plugin_Task_Base implements Xinc_Plugin_Task_Interface
 {
     protected $_subtasks = array();
     protected $_plugin;
-    public function getClassname()
-    {
-        return get_class($this);
-    }
+    protected $_xml;
     
     public function getName()
     {
-        return strtolower($this->getClassname());
+        return strtolower(get_class($this));
     }
     /**
      * Support for subtasks, empty by default
@@ -46,6 +44,10 @@ abstract class Xinc_Plugin_Task_Base implements Xinc_Plugin_Task_Interface
     public function registerTask(Xinc_Plugin_Task_Interface  &$task)
     {
         $this->_subtasks[] = $task;
+    }
+    public function getTasks()
+    {
+        return new Xinc_Build_Tasks_Iterator($this->_subtasks);
     }
     /**
      * Constructor, stores a reference to the plugin for
@@ -60,5 +62,17 @@ abstract class Xinc_Plugin_Task_Base implements Xinc_Plugin_Task_Interface
     public function getAllowedParentElements()
     {
         return array();
+    }
+    public function init(Xinc_Build_Interface &$build)
+    {
+        
+    }
+    public function setXml(SimpleXMLElement $element)
+    {
+        $this->_xml = $element;
+    }
+    public function getXml()
+    {
+        return $this->_xml;
     }
 }

@@ -70,34 +70,30 @@ fi
 
 echo "Directory to keep the Xinc config files: [/etc/xinc]"
 if [ "$INTERACTIVE" = true ]; then read ETC; fi
+
 if [ "$ETC" = "" ]; then
     ETC=/etc/xinc
 fi
 if [ ! -d $ETC ]
 then
     mkdir $ETC
+    mkdir $ETC/conf.d
+else 
+    if [ ! -d $ETC/conf.d ]; then mkdir $ETC/conf.d; fi
 fi
+
 # copy Xinc config-files to Config-Directory
-if [ ! -f $ETC/config.xml ]
+if [ ! -f $ETC/system.xml ]
 then
-    cp -R etc/xinc/config.xml $ETC/
+    cp -R etc/xinc/system.xml $ETC/
 else
-	echo "Do you want to overwrite$ETC/config.xml? [N / y]"
+	echo "Do you want to overwrite$ETC/system.xml? [N / y]"
 	if [ "$INTERACTIVE" = true ]; then read OVERWRITE_CONFIG; fi
 	if [ "$OVERWRITE_CONFIG" = "y" ]; then
-		cp -Rf etc/xinc/config.xml $ETC/
+		cp -Rf etc/xinc/system.xml $ETC/
 	fi
 fi
-if [ ! -f $ETC/plugins.xml ]
-then
-    cp -R etc/xinc/plugins.xml $ETC/
-else
-	echo "Do you want to overwrite $ETC/plugins.xml? [N / y]"
-	if [ "$INTERACTIVE" = true ]; then read OVERWRITE_PLUGIN; fi
-	if [ "$OVERWRITE_PLUGIN" = "y" ]; then
-		cp -Rf etc/xinc/plugins.xml $ETC/
-	fi
-fi
+
 
 echo "Directory to keep the Xinc Projects and Status information: [/var/xinc]"
 if [ "$INTERACTIVE" = true ]; then read XINCDIR; fi
@@ -151,7 +147,7 @@ if [ "$INSTALL_EXAMPLE" = "y" ]; then
 	rm $EXAMPLE_DIR/SimpleProject/build.tpl.xml
 	cat $EXAMPLE_DIR/SimpleProject/publish.tpl.xml | sed -e "s#@EXAMPLE_DIR@#$EXAMPLE_DIR#" > $EXAMPLE_DIR/SimpleProject/publish.xml
 	rm $EXAMPLE_DIR/SimpleProject/publish.tpl.xml
-	cat examples/config.tpl.xml | sed -e "s#@EXAMPLE_DIR@#$EXAMPLE_DIR#" > $ETC/config.xml
+	cat examples/simpleproject.tpl.xml | sed -e "s#@EXAMPLE_DIR@#$EXAMPLE_DIR#" > $ETC/conf.d/simpleproject.xml
 fi
 
 echo "Directory to install the Xinc web-application: [/var/www/xinc]"

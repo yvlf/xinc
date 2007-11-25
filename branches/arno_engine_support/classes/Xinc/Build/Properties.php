@@ -52,6 +52,10 @@ class Xinc_Build_Properties
         }
     }
     
+    public function getAllProperties()
+    {
+        return $this->_properties;
+    }
     /**
      * Parses a string and substitutes ${name} with $value
      * of property
@@ -60,13 +64,13 @@ class Xinc_Build_Properties
      */
     public function parseString($string)
     {
-       
-        $string = preg_replace("/\\$\{(.*?)\}/", '{$this->_properties[\\1]}', $string);
+        $string = (string) $string;
+        $string = preg_replace("/\\$\{(.*?)\}/", '{$this->_properties[\'\\1\']}', $string);
         
-        $evalString = '$newString="'.$string.'";';
+        $evalString = '$newString = "'.$string.'";';
         
         
-        eval($evalString);
+        @eval($evalString);
         
         return $newString;
     }

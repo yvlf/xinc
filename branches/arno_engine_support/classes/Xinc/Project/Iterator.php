@@ -34,7 +34,7 @@ class Xinc_Project_Iterator extends Xinc_Iterator
     public function __construct($array)
     {
         foreach ($array as $element) {
-            if (!$xmlElement instanceof Xinc_Project ) {
+            if (!$element instanceof Xinc_Project ) {
                 throw new Xinc_Project_Exception();
             }
             

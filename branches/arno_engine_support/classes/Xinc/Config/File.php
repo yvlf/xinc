@@ -68,7 +68,7 @@ class Xinc_Config_File extends SimpleXMLElement
         foreach ($this->children() as $elementName => $element) {
             $parent = 'xinc/' . $elementName;
             $array[] = $parent;
-            $this->_walkXml( $element,$parent, $array);
+            $this->_walkXml($element, $parent, $array);
         }
         foreach ( $array as $path ) {
             if (!in_array($path, self::$_allowedElements)) {
@@ -82,7 +82,7 @@ class Xinc_Config_File extends SimpleXMLElement
         foreach ($element->children() as $elementName => $element) {
             $newParent = $parent . '/' . $elementName;
             $array[] = $newParent;
-            $this->_walkXml( $element,$newParent, $array);
+            $this->_walkXml($element, $newParent, $array);
         }
     }
    

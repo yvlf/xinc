@@ -28,7 +28,7 @@ abstract class Xinc_Plugin_Repos_Configuration_AbstractTask extends Xinc_Plugin_
 {
     public abstract function configure(Xinc &$xinc);
     
-    public function getBuildSlot(){
+    public function getPluginSlot(){
         /**
          * see Xinc/Plugin/Slot.php for available slots
          */
@@ -47,7 +47,7 @@ abstract class Xinc_Plugin_Repos_Configuration_AbstractTask extends Xinc_Plugin_
         return array(new Xinc_Plugin_Repos_Configuration_Task($this->_plugin));
     }
     
-    public function process(Xinc_Project &$project){
+    public function process(Xinc_Build_Interface &$build){
           
         $this->configure(Xinc::getInstance());
     }

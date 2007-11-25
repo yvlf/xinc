@@ -27,7 +27,7 @@ require_once 'Xinc/Plugin/Task/Base.php';
 class Xinc_Plugin_Repos_Configuration_Task extends Xinc_Plugin_Task_Base
 {
 
-    public function getBuildSlot(){
+    public function getPluginSlot(){
         /**
          * see Xinc/Plugin/Slot.php for available slots
          */
@@ -52,7 +52,7 @@ class Xinc_Plugin_Repos_Configuration_Task extends Xinc_Plugin_Task_Base
         return 'xinc';
     }
     
-    public function process(Xinc_Project &$project){
+    public function process(Xinc_Build_Interface &$build){
         foreach ($this->_subtasks as $task) {
             $task->configure(Xinc::getInstance());
         }

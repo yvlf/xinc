@@ -28,15 +28,15 @@ class Xinc_Gui_Event
      * Event is triggered when a Page is loaded by a Http-Request
      *
      */
-    const PAGE_LOAD=1;
+    const PAGE_LOAD = 1;
     /**
      * Event is triggered when a new user arrives without a session
      *
      */
-    const SESSION_START=0;
+    const SESSION_START = 0;
     /**
      * Event is triggered when a session is destroyed
      *
      */
-    const SESSION_END=-1;
+    const SESSION_END = -1;
 }

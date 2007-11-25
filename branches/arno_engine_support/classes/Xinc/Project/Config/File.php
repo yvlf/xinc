@@ -48,7 +48,6 @@ class Xinc_Project_Config_File extends SimpleXMLElement
         if (!file_exists($fileName)) {
             throw new Xinc_Project_Config_Exception_FileNotFound($fileName);
         } else {
-            echo $fileName;
             $data = file_get_contents($fileName);
         }
         $file = new Xinc_Project_Config_File($data);
@@ -69,7 +68,7 @@ class Xinc_Project_Config_File extends SimpleXMLElement
       
         foreach ( $array as $path ) {
             if (!in_array($path, self::$_allowedElements)) {
-                throw new Xinc_Config_Exception_InvalidEntry($path);
+                throw new Xinc_Project_Config_Exception_InvalidEntry($path);
             }
         }
     }

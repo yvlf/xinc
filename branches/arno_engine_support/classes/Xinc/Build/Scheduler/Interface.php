@@ -25,11 +25,11 @@
 */
 interface Xinc_Build_Scheduler_Interface
 {
-  
-  
-    
-   
-    public function setLastBuildTime($time);
-    
-    public function getNextBuildTime();
+    /**
+     * calculates the next build timestamp
+     *
+     * @param Xinc_Build_Interface $build
+     * @return integer next build timestamp
+     */
+    public function getNextBuildTime(Xinc_Build_Interface &$build);
 }

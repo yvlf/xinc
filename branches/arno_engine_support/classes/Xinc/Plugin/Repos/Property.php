@@ -1,11 +1,12 @@
 <?php
 /**
- * This interface represents a publishing mechanism to publish build results
+ * Properties plugin, allows to set properties on a project
+ * and substitutes values of the property in the form ${name}
  * 
- * @package Xinc.Listener
+ * @package Xinc.Plugin
  * @author Arno Schneider
  * @version 2.0
- * @copyright 2007 David Ellis, One Degree Square
+ * @copyright 2007 Arno Schneider, Barcelona
  * @license  http://www.gnu.org/copyleft/lgpl.html GNU/LGPL, see license.php
  *    This file is part of Xinc.
  *    Xinc is free software; you can redistribute it and/or modify
@@ -22,16 +23,18 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-interface Xinc_Listener_Interface
+require_once 'Xinc/Plugin/Base.php';
+require_once 'Xinc/Plugin/Repos/Property/SetTask.php';
+require_once 'Xinc/Plugin/Repos/Property/SubstituteTask.php';
+class Xinc_Plugin_Repos_Property  extends Xinc_Plugin_Base
 {
-
-    
-    /**
-     * Enter description here...
-     *
-     * @param Xinc_Event $event
-     */
-    public function processEvent(Xinc_Project &$project,Xinc_Project_Event &$event);
-    
-    public function registerWidget(Xinc_Gui_Widget_Interface &$widget);
+    public function validate()
+    {
+        return true;
+    }
+    public function getTaskDefinitions()
+    {
+        return array(new Xinc_Plugin_Repos_Property_SetTask($this),
+                     new Xinc_Plugin_Repos_Property_SubstituteTask($this));
+    }
 }
