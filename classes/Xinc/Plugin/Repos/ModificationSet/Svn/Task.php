@@ -57,7 +57,7 @@ class Xinc_Plugin_Repos_ModificationSet_Svn_Task extends Xinc_Plugin_Repos_Modif
     }
 
 
-    public function getBuildSlot()
+    public function getPluginSlot()
     {
         return Xinc_Plugin_Slot::PRE_PROCESS;
     }
@@ -65,9 +65,9 @@ class Xinc_Plugin_Repos_ModificationSet_Svn_Task extends Xinc_Plugin_Repos_Modif
 
 
 
-    public function checkModified(Xinc_Project &$project)
+    public function checkModified(Xinc_Build_Interface &$build)
     {
-        return $this->_plugin->checkModified($project, $this->_directory);
+        return $this->_plugin->checkModified($build, $this->_directory);
     }
 
     public function validateTask()
@@ -79,8 +79,8 @@ class Xinc_Plugin_Repos_ModificationSet_Svn_Task extends Xinc_Plugin_Repos_Modif
             // @codeCoverageIgnoreStart
         }
             // @codeCoverageIgnoreEnd
-        $file=$this->_directory;
-        $file2=Xinc::getInstance()->getWorkingDir().DIRECTORY_SEPARATOR.$file;
+        $file = $this->_directory;
+        $file2 = Xinc::getInstance()->getWorkingDir() . DIRECTORY_SEPARATOR . $file;
         if (!file_exists($file) && !file_exists($file2)) {
             Xinc_Logger::getInstance()->error('Directory '.$file2.' does not exist');
             return false;

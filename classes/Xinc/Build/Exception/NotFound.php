@@ -30,8 +30,9 @@ class Xinc_Build_Exception_NotFound extends Exception
      * @param string $projectName
      * @param integer $buildTime
      */
-    public function __construct($projectName, $buildTime)
+    public function __construct(Xinc_Project &$project, $buildTime)
     {
-        parent::__construct('Build  "' . $fileName . '" with buildTimestamp ' . $buildTime . ' was not found');
+        parent::__construct('Build  "' . $project->getName() 
+                           . '" with buildTimestamp ' . $buildTime . ' was not found');
     }
 }

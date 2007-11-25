@@ -24,9 +24,9 @@
 */
 require_once 'Xinc/Config/File.php';
 require_once 'Xinc/Config/Parser.php';
-require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'Xinc/BaseTest.php';
 
-class Xinc_Config_TestParser extends PHPUnit_Framework_TestCase
+class Xinc_Config_TestParser extends Xinc_BaseTest
 {
     
    
@@ -66,6 +66,7 @@ class Xinc_Config_TestParser extends PHPUnit_Framework_TestCase
         
         $engines = $parser->getEngines();
         $this->assertTrue( $engines->count() > 0 , 'Engines should be detected');
+        
     }
 
    

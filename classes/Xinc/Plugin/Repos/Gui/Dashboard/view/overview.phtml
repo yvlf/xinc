@@ -10,16 +10,18 @@
 <td><strong>Status</strong></td>
 </tr>
 <?php
-foreach ($this->projects as $project) {
-    $bgColor=$project['build.status']==1?'green':
-                                         ($project['build.status']==-10 ?'gray':'red');
-    $text=$project['build.status']==1   ?'success':
-                                         ($project['build.status']==-10 ?'waiting for first build':'failed');
+
+while ($this->builds->hasNext()) {
+    $build = $this->builds->next();
+    $bgColor=$build->getStatus() == 1?'green':
+                                           ($build->getStatus() == -1 ?'gray':'red');
+    $text=$build->getStatus() == 1   ?'success':
+                                           ($build->getStatus() == -1 ?'stopped':'failed');
 ?>
 <tr>
-<td><a href="/dashboard/detail?project=<?php echo $project['name']; ?>"><?php echo $project['name']; ?></a></td>
-<td><?php echo $project['build.time']>0 ? date('Y-m-d H:i:s', $project['build.time']) : ''; ?></td>
-<td><?php echo $project['build.label']; ?></td>
+<td><a href="/dashboard/detail?project=<?php echo $build->getProject()->getName(); ?>"><?php echo $build->getProject()->getName(); ?></a></td>
+<td><?php echo $build->getBuildTime()>0 ? date('Y-m-d H:i:s', $build->getBuildTime()) : ''; ?></td>
+<td><?php echo $build->getLabel(); ?></td>
 <td bgcolor="<?php echo $bgColor; ?>" style="color:white;text-align:center"><?php echo $text; ?></td>
 </tr>
 <?php 

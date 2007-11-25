@@ -24,18 +24,18 @@
 */
 interface Xinc_Engine_Interface
 {
-	
-	public function getName();
-	
-    public function build(Xinc_Build_Interface $build);
+
+    public function getName();
+
+    public function build(Xinc_Build_Interface &$build);
     
     /**
      * Parses Project-Xml and returns
      *
      * @param Xinc_Project_Config_Iterator $projects
-     * @return Xinc_Buildstu_Iterator
+     * @return Xinc_Build_Iterator
      */
-    public function generateBuilds(Xinc_Project_Config_Iterator $projects);
+    public function parseProjects(Xinc_Project_Iterator $projects);
     
     /**
      * returns the interval in seconds in which
@@ -56,4 +56,10 @@ interface Xinc_Engine_Interface
      */
     public function setHeartBeat($seconds);
     
+    /**
+     * Validate if the engine can run properly on this system
+     * 
+     * @return boolean
+     */
+    public function validate();
 }

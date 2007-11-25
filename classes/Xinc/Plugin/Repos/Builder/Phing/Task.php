@@ -26,8 +26,8 @@ require_once 'Xinc/Plugin/Repos/Builder/AbstractTask.php';
 
 class Xinc_Plugin_Repos_Builder_Phing_Task extends Xinc_Plugin_Repos_Builder_AbstractTask
 {
-    private $_buildFile='build.xml';
-    private $_target='build';
+    private $_buildFile = 'build.xml';
+    private $_target = 'build';
 
     public function getName()
     {
@@ -35,17 +35,17 @@ class Xinc_Plugin_Repos_Builder_Phing_Task extends Xinc_Plugin_Repos_Builder_Abs
     }
     public function setBuildFile($file)
     {
-        $this->_buildFile=$file;
+        $this->_buildFile = $file;
     }
     public function setTarget($target)
     {
-        $this->_target=$target;
+        $this->_target = $target;
     }
     public function validateTask()
     {
         // validate if buildfile exists
         // try in working dir
-        $workingdir=Xinc::getInstance()->getWorkingDir();
+        $workingdir = Xinc::getInstance()->getWorkingDir();
         $file2 = $workingdir . DIRECTORY_SEPARATOR . $this->_buildFile;
         $file = $this->_buildFile;
         
@@ -59,8 +59,8 @@ class Xinc_Plugin_Repos_Builder_Phing_Task extends Xinc_Plugin_Repos_Builder_Abs
         return true;
     }
 
-    public function build(Xinc_Project &$project)
+    public function build(Xinc_Build_Interface &$build)
     {
-        return $this->_plugin->build($project, (string)$this->_buildFile, (string)$this->_target);
+        return $this->_plugin->build($build, (string)$this->_buildFile, (string)$this->_target);
     }
 }

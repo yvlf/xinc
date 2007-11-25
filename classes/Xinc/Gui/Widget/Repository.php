@@ -43,14 +43,14 @@ class Xinc_Gui_Widget_Repository
     /**
      * @var Xinc_Plugin_Task_Interface[]
      */
-    private $_definedWidgets=array();
+    private $_definedWidgets = array();
     
     /**
      * Contains all the registered widgets
      *
      * @var Xinc_Gui_Widget_Interface[]
      */
-    private $_widgets=array();
+    private $_widgets = array();
     
     /**
      * Return an instance of the Widget Repository
@@ -76,7 +76,7 @@ class Xinc_Gui_Widget_Repository
          *  Determine the Pathnames which
          * the Widget will be called for
          */
-        $paths=$widget->getPaths();
+        $paths = $widget->getPaths();
         foreach ($paths as $path) {
             /**
              * register the widget for the specified pathname
@@ -96,9 +96,9 @@ class Xinc_Gui_Widget_Repository
 
     public function &getWidgetForPath($path)
     {
-        $val=null;
+        $val = null;
         if (!isset($this->_definedWidgets[$path])) return $val;
-        $widget=$this->_definedWidgets[$path];
+        $widget = $this->_definedWidgets[$path];
         return $widget;
     }
     

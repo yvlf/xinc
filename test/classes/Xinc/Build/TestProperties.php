@@ -24,9 +24,9 @@
 */
 require_once 'Xinc/Build/Properties.php';
 
-require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'Xinc/BaseTest.php';
 
-class Xinc_Build_TestProperties extends PHPUnit_Framework_TestCase
+class Xinc_Build_TestProperties extends Xinc_BaseTest
 {
     
    
@@ -51,6 +51,23 @@ class Xinc_Build_TestProperties extends PHPUnit_Framework_TestCase
         $this->assertTrue($stringParsed == $expectedString, 'Should match "' 
                                                         . $expectedString . '" but is "'
                                                         . $stringParsed . '"');
+    }
+    
+    public function testGetAllProperties()
+    {
+        $propertiesArr = array();
+        for ($i=0; $i< 100; $i++) {
+            $propertiesArr[$i] = $i;
+        }
+        
+        $properties = new Xinc_Build_Properties();
+        foreach ($propertiesArr as $key => $value) {
+            $properties->set($key, $value);
+        }
+        
+        $allProperties = $properties->getAllProperties();
+        
+        $this->assertEquals($allProperties, $propertiesArr, 'Arrays should match');
     }
 
    

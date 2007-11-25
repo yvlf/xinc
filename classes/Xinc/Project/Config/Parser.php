@@ -45,7 +45,20 @@ class Xinc_Project_Config_Parser
      */
     public function getProjects()
     {
-    	$projects = $this->_configFile->xpath("//project");
+        $projects = $this->_configFile->xpath("//project");
         return new Xinc_Project_Config_Iterator($projects);
+    }
+    
+    /**
+     * Returns the name of the engine that has to be used for these Projects
+     * @return mixed String or null if not found
+     */
+    public function getEngineName()
+    {
+        $xincAttributes = $this->_configFile->attributes();
+        foreach ($xincAttributes as $name => $value) {
+            if ($name == 'engine') return (string)$value;
+        }
+        return null;
     }
 }

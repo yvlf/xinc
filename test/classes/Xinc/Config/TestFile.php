@@ -1,8 +1,8 @@
 <?php
 /**
- * Test Class for the Xinc Project Registry
+ * Test Class for the Xinc Config File
  * 
- * @package Xinc
+ * @package Xinc.Config
  * @author Arno Schneider
  * @version 2.0
  * @copyright 2007 Arno Schneider, Barcelona
@@ -23,9 +23,9 @@
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 require_once 'Xinc/Config/File.php';
-require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'Xinc/BaseTest.php';
 
-class Xinc_Config_TestFile extends PHPUnit_Framework_TestCase
+class Xinc_Config_TestFile extends Xinc_BaseTest
 {
 
     public function testConstructOkFile()

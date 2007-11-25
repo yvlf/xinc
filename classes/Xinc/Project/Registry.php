@@ -39,8 +39,7 @@ class Xinc_Project_Registry extends Xinc_Registry_Abstract
     
     public function register($name, &$object)
     {
-        if (!$object instanceof Xinc_Project)
-        {
+        if (!$object instanceof Xinc_Project) {
             throw new Xinc_Registry_Exception('Object with name "'
                                              . $name 
                                              . '" is not a Xinc_Project');

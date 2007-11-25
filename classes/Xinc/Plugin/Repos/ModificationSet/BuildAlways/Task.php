@@ -45,7 +45,7 @@ class Xinc_Plugin_Repos_ModificationSet_BuildAlways_Task extends Xinc_Plugin_Rep
         $this->_subtasks[]=$task;
     }
 
-    public function getBuildSlot()
+    public function getPluginSlot()
     {
         return Xinc_Plugin_Slot::PRE_PROCESS;
     }
@@ -53,7 +53,7 @@ class Xinc_Plugin_Repos_ModificationSet_BuildAlways_Task extends Xinc_Plugin_Rep
 
 
 
-    public function checkModified(Xinc_Project &$project)
+    public function checkModified(Xinc_Build_Interface &$build)
     {
         return $this->_plugin->checkModified();
     }

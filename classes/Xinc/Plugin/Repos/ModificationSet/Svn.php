@@ -46,12 +46,12 @@ class Xinc_Plugin_Repos_ModificationSet_Svn extends Xinc_Plugin_Base
      *
      * @return boolean
      */
-    public function checkModified(Xinc_Project &$project, $dir)
+    public function checkModified(Xinc_Build_Interface &$build, $dir)
     {
         if (!file_exists($dir)) {
             //throw new Xinc_Exception_ModificationSet('Subversion checkout '
             //                                        . 'directory not present');
-            $project->error('Subversion checkout directory'
+            $build->error('Subversion checkout directory'
                                              . ' not present');
             return -1;
         }
@@ -81,13 +81,12 @@ class Xinc_Plugin_Repos_ModificationSet_Svn extends Xinc_Plugin_Base
             $localRevision = $this->getRevision($localSet);
             $remoteRevision = $this->getRevision($remoteSet);
                 
-            $project->debug('Subversion checkout dir is '.$dir.' '
+            $build->debug('Subversion checkout dir is '.$dir.' '
                            .'local revision @ '.$localRevision.' '
                            .'Remote Revision @ '.$remoteRevision);
             chdir($cwd);
             return $localRevision < $remoteRevision;
         } else {
-            //var_dump($output);
             chdir($cwd);
             throw new Xinc_Exception_ModificationSet('Subversion checkout directory '
                                                     . 'is not a working copy.');
@@ -135,18 +134,18 @@ class Xinc_Plugin_Repos_ModificationSet_Svn extends Xinc_Plugin_Base
      */
     public function validate()
     {
-        exec('svn help', $output, $result);
-        //$parts=split(' ', $output[0]);
+        exec('svn 2>&1', $output, $result);
         /**
-         * make sure we get some help output from svn help, to assure that its
-         * installed
+         * See Issue 56, check r
          */
-        if ( empty($output[2]) ) {
+        
+        if ($result != 1) {
             Xinc_Logger::getInstance()->error('command "svn" not found');
                 
             return false;
+        } else {
+            return true;
         }
-        return true;
 
     }
 }

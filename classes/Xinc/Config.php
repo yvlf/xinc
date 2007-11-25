@@ -54,7 +54,7 @@ class Xinc_Config
         Xinc_Plugin_Parser::parse($plugins);
     }
     
-	private static function _parseEngines($plugins)
+    private static function _parseEngines($plugins)
     {
         Xinc_Engine_Parser::parse($plugins);
     }

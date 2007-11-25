@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
 <project name="Xinc Build File For Unit Tests" basedir="." default="test">	
 	<property file="xinc.properties"/>
-	
+	<fileset dir="test/classes" id="xinc-test-setup">
+			<include name="Xinc/Setup/*.php"/>
+			<include name="Xinc/Engine/SunriseCannotValidate.php"/>
+			<include name="*.php"/>
+		</fileset>
 	<fileset dir="test/classes" id="xinc-core-tests">
 		<include name="Xinc/Test*.php"/>
 		<include name="Test*.php"/>
@@ -15,6 +19,9 @@
 	<fileset dir="test/classes" id="xinc-build-tests">
 					<include name="Xinc/Build/**/Test*.php"/>
 				</fileset>
+	<fileset dir="test/classes" id="xinc-engine-tests">
+						<include name="Xinc/Engine/**/Test*.php"/>
+					</fileset>
 	<fileset dir="test/classes" id="xinc-modificationset-tests">
 		<include name="Xinc/ModificationSet/**/Test*.php"/>
 	</fileset>
@@ -74,11 +81,13 @@
 	        <includepath classpath="test/classes" /> 
 	    	<phpunit3 codecoverage="true" printsummary="true" haltonerror="false" haltonfailure="false" errorproperty="test-failed">
 	      		<batchtest>
+	      			<fileset refid="xinc-test-setup"/>
 	        		<fileset refid="xinc-core-tests"/>
 	      			<fileset refid="xinc-project-tests"/>
 	      			<fileset refid="xinc-config-tests"/>
+	      			<fileset refid="xinc-engine-tests"/>
 	      			<fileset refid="xinc-build-tests"/>
-	        		<fileset refid="xinc-modificationset-tests"/>
+	      			<fileset refid="xinc-modificationset-tests"/>
 	      			<fileset refid="xinc-builder-tests"/>
 	      			<fileset refid="xinc-plugin-tests"/>
 	      			<fileset refid="xinc-publisher-tests"/>

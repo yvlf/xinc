@@ -23,30 +23,134 @@
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 require_once 'Xinc/Engine/Interface.php';
+require_once 'Xinc/Engine/Sunrise/Parser.php';
 
 class Xinc_Engine_Sunrise implements Xinc_Engine_Interface
 {
     const NAME = 'Sunrise';
     
+    private $_heartBeat;
+    
     public function getName()
     {
         return self::NAME;
     }
-    public function build(Xinc_Build_Interface $build)
+    public function build(Xinc_Build_Interface &$build)
     {
         
+        $buildTime = time();
+        
+        if ( Xinc_Build_Interface::STOPPED === $build->getStatus() ) {
+            $build->setBuildTime($buildTime);
+            return;
+        }
+        /**
+         * Increasing the build number, if it fails we need to decrease again
+         */
+        if ($build->getLastBuild()->getStatus() == Xinc_Build_Interface::PASSED) {
+            $build->setNumber($build->getNumber()+1);
+            //$this->updateBuildTasks($build);
+        }
+        $build->updateTasks();
+        $build->process(Xinc_Plugin_Slot::INIT_PROCESS);
+        if ( Xinc_Build_Interface::STOPPED === $build->getStatus() ) {
+            Xinc_Logger::getInstance()->info('Build of Project stopped'
+                                             . ' in INIT phase');
+            //$project->serialize();
+            $build->setBuildTime($buildTime);
+            //$build->setStatus(Xinc_Build_Interface::INITIALIZED);
+            Xinc_Logger::getInstance()->setBuildLogFile(null);
+            Xinc_Logger::getInstance()->flush();
+            
+            return;
+        }                                
+
+        
+        
+        Xinc_Logger::getInstance()->info("CHECKING PROJECT " 
+                                        . $build->getProject()->getName());
+        $build->process(Xinc_Plugin_Slot::PRE_PROCESS);
+        
+        if ( Xinc_Build_Interface::STOPPED === $build->getStatus() ) {
+            $build->info("Build of Project stopped, "
+                                             . "no build necessary");
+             //$project->setBuildTime($buildTime);
+            $build->setStatus(Xinc_Build_Interface::INITIAL);
+            Xinc_Logger::getInstance()->setBuildLogFile(null);
+            Xinc_Logger::getInstance()->flush();
+            return;
+        } else if ( Xinc_Build_Interface::FAILED === $build->getStatus() ) {
+            $build->setBuildTime($buildTime);
+            $build->updateTasks();
+            $build->error("Build failed");
+            /**
+             * Process failed in the pre-process phase, we need
+             * to run post-process to maybe inform about the failed build
+             */
+            $build->process(Xinc_Plugin_Slot::POST_PROCESS);
+
+        } else if ( Xinc_Build_Interface::PASSED === $build->getStatus() ) {
+
+            $build->info("Code not up to date, "
+                                            . "building project");
+            $build->setBuildTime($buildTime);
+            
+            
+            
+            $build->updateTasks();
+            
+            
+            $build->process(Xinc_Plugin_Slot::PROCESS);
+            if ( Xinc_Build_Interface::PASSED == $build->getStatus() ) {
+                
+                $build->updateTasks();
+                $build->info("BUILD PASSED");
+            } else if ( Xinc_Build_Interface::STOPPED == $build->getStatus() ) {
+                //$build->setNumber($build->getNumber()-1);
+                $build->updateTasks();
+                $build->warn("BUILD STOPPED");
+            } else if (Xinc_Build_Interface::FAILED == $build->getStatus() ) {
+                //if ($build->getLastBuild()->getStatus() == Xinc_Build_Interface::PASSED) {
+                //    $build->setNumber($build->getNumber()+1);
+                //}
+                
+                $build->updateTasks();
+                $build->error("BUILD FAILED");
+            }
+
+            $processingPast = $build->getStatus();
+            /**
+             * Post-Process is run on Successful and Failed Builds
+             */
+            $build->process(Xinc_Plugin_Slot::POST_PROCESS);
+            
+            
+            $build->serialize();
+            
+        } else if ( Xinc_Build_Interface::INITIALIZED === $build->getStatus() ) {
+            $build->setBuildTime($buildTime);
+            $build->setStatus(Xinc_Build_Interface::STOPPED);
+            $build->serialize();
+        }
     }
     
     /**
      * Parses Project-Xml and returns
      *
-     * @param Xinc_Project_Config_Iterator $projects
-     * @return Xinc_Buildstu_Iterator
+     * @param Xinc_Project_Iterator $projects
+     * @return Xinc_Build_Iterator
+     * @throws Xinc_Build_Exception_Invalid
      */
-    public function generateBuilds(Xinc_Project_Config_Iterator $projects)
+    public function parseProjects(Xinc_Project_Iterator $projects)
     {
+        $parser = new Xinc_Engine_Sunrise_Parser($this);
+        $buildsArr = $parser->parseProjects($projects);
         
+        $buildIterator = new Xinc_Build_Iterator($buildsArr);
+        
+        return $buildIterator;
     }
+    
     
     /**
      * returns the interval in seconds in which
@@ -56,7 +160,7 @@ class Xinc_Engine_Sunrise implements Xinc_Engine_Interface
      */
     public function getHeartBeat()
     {
-        
+        return $this->_heartBeat;
     }
     
     /**
@@ -70,6 +174,15 @@ class Xinc_Engine_Sunrise implements Xinc_Engine_Interface
      */
     public function setHeartBeat($seconds)
     {
-        
+        $this->_heartBeat = $seconds;
+    }
+    
+    /**
+     *
+     * @return boolean
+     */
+    public function validate()
+    {
+        return true;
     }
 }

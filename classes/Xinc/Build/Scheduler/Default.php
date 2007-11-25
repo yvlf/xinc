@@ -1,12 +1,11 @@
 <?php
 /**
- * Interface for a Build-Labeler which will increase a build-number
- * on each successful build
+ * Build-Scheduler, will only build once if not built yet
  * 
  * @package Xinc.Build
  * @author Arno Schneider
  * @version 2.0
- * @copyright 2007 David Ellis, One Degree Square
+ * @copyright 2007 Arno Schneider, Barcelona
  * @license  http://www.gnu.org/copyleft/lgpl.html GNU/LGPL, see license.php
  *    This file is part of Xinc.
  *    Xinc is free software; you can redistribute it and/or modify
@@ -23,30 +22,29 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-class Xinc_Project_Build_Scheduler_Default 
-//implements Xinc_Project_Build_Scheduler_Interface
+
+require_once 'Xinc/Build/Scheduler/Interface.php';
+
+class Xinc_Build_Scheduler_Default implements Xinc_Build_Scheduler_Interface
 {
-    private $_interval;
-    private $_lastBuild;
-    
-    public function getName()
-    {
-        
-    }
-    
-    public function setInterval($interval)
-    {
-        $this->_interval;
-    }
+
  
-    
-    public function setLastBuildTime($time)
+    private $_nextBuildTime = null;
+    /**
+     * Calculates the next build timestamp
+     * this is a build once scheduler
+     *
+     * @return integer
+     */
+    public function getNextBuildTime(Xinc_Build_Interface &$build)
     {
-        $this->_lastBuild = $time;
-    }
-    
-    public function getNextBuildTime()
-    {
-        return $this->_lastBuild + $this->_interval;
+        if ($build->getLastBuild()->getBuildTime() == null) {
+            if (!isset($this->_nextBuildTime)) {
+                $this->_nextBuildTime = time();
+            }
+            return $this->_nextBuildTime;
+        } else {
+            return null;
+        }
     }
 }

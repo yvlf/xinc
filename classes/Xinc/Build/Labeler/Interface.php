@@ -23,15 +23,15 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-require_once 'Xinc/Build/Status/Interface.php';
+require_once 'Xinc/Build/Interface.php';
 
-interface Xinc_Project_Build_Labeler_Interface
+interface Xinc_Build_Labeler_Interface
 {
-    public function setBuildStatus(Xinc_Project_Build_Status_Interface &$buildstatus);
-    
-    public function getBuildLabel();
-    
-    public function buildSuccessful();
-    public function buildFailed();
+    /**
+     * Returns a label for the build
+     *
+     * @param Xinc_Build_Interface $build
+     */
+    public function getLabel(Xinc_Build_Interface &$build);
 
 }

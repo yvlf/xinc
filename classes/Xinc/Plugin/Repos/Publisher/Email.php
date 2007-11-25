@@ -46,14 +46,14 @@ class Xinc_Plugin_Repos_Publisher_Email  extends Xinc_Plugin_Base
                       ."\nMessage: " . $message);
 
         /** send the email */
-        $res=mail($to, $subject, $message);
+        $res = mail($to, $subject, $message);
         if ($res) {
             $project->info('Email sent successfully');
             return true;
         } else {
             $project->error('Email could not be sent');
             return false;
-            //$project->setStatus(Xinc_Project_Build_Status_Interface::FAILED);
+            //$project->setStatus(Xinc_Build_Interface::FAILED);
         }
     }
 }

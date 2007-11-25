@@ -36,19 +36,25 @@ class Xinc_Iterator
      *
      * @var integer
      */
-    private $_pointer=0;
+    private $_pointer = 0;
     
     /**
      * size of the array
      *
      * @var integer
      */
-    protected $_size=0;
+    protected $_size = 0;
     
-    public function __construct($array)
+    public function __construct($array = array())
     {
         $this->_array = $array;
         $this->_size = count($this->_array);
+    }
+    
+    public function add($item)
+    {
+        $this->_array[] = $item;
+        $this->_size++;
     }
     
     public function hasNext()
@@ -60,6 +66,10 @@ class Xinc_Iterator
     {
         $this->_pointer = 0;
     }
+    /**
+     *
+     * @return Xinc_Build_Interface
+     */
     public function &next()
     {
         return $this->_array[$this->_pointer++];

@@ -1,5 +1,5 @@
 <?php 
-$bgColor=$this->project['build.status']==1?'green':'red';
+$bgColor = $this->build->getStatus() == 1?'green': ($this->build->getStatus() == -1 ? 'gray':'red');
 ?>
 <html>
 <title>Xinc Dashboard</title>
@@ -37,15 +37,16 @@ function show(type){
 <td rowspan="5" valign="top"><strong>All Builds</strong>
 <table>
 
-<?php foreach ($this->historyBuilds as $history) {
-$bgColorH = $history['build.status'] == 1 ? 'green':'red';
+<?php while ($this->historyBuilds->hasNext()) {
+    $build = $this->historyBuilds->next();
+$bgColorH = $build->getStatus() == 1 ? 'green': ($build->getStatus() == -1 ? 'gray':'red');
     ?>
     <tr>
 <td bgcolor="<?php echo $bgColorH;?>" width="50">
-<a href="/dashboard/detail/?project=<?php echo $this->projectName; ?>&timestamp=<?php echo $history['build.time']; ?>">
+<a href="/dashboard/detail/?project=<?php echo $this->projectName; ?>&timestamp=<?php echo $build->getBuildTime(); ?>">
 Details</a></td>
-<td bgcolor="<?php echo $bgColorH;?>"><?php echo $history['build.time'] ?></td>
-<td bgcolor="<?php echo $bgColorH;?>"><?php echo $history['build.label'] ?></td>
+<td bgcolor="<?php echo $bgColorH;?>"><?php echo date('Y-m-d H:i:s', $build->getBuildTime()); ?></td>
+<td bgcolor="<?php echo $bgColorH;?>"><?php echo $build->getLabel(); ?></td>
 </tr>
 <?php 
 }
@@ -56,17 +57,19 @@ Details</a></td>
 </tr>
 <tr height="50">
 <td width="200"><strong>Build Time</strong></td>
-<td width="600"><?php echo date('Y-m-d H:i:s', $this->project['build.time']); ?></td>
+<td width="600"><?php echo date('Y-m-d H:i:s', $this->build->getBuildTime()); ?></td>
 </tr>
 <tr height="50">
 <td width="200"><strong>Build Label</strong></td>
 <td width="600">
-<?php echo isset($this->project['build.label'])?$this->project['build.label']:' '; ?>
+<?php 
+$label = $this->build->getLabel();
+echo isset($label)?$label:' '; ?>
 </td>
 
 </tr>
 <tr>
-<td colspan="2"><h2>Log Messages</h2> <small>debug(<a href="javascript:hide('debug');">hide</a>,
+<td colspan="2" height="100" valign="top"><h2>Log Messages</h2> <small>debug(<a href="javascript:hide('debug');">hide</a>,
 <a href="javascript:show('debug');">show</a>) info(<a href="javascript:hide('info');">hide</a>,
 <a href="javascript:show('info');">show</a>)</td>
 </tr>
@@ -79,21 +82,21 @@ Details</a></td>
 <td width="440"><strong>Message</strong></td>
 </tr>
 <?php foreach ($this->logXml->children() as $logEntry) { 
-$style="normal";
+$style = "normal";
 switch($logEntry['priority']){
     
     case 'error':
-        $bgColorLine='red';
+        $bgColorLine = 'red';
         break;
     case 'debug':
-        $bgColorLine='gray';
-        $style="debug";
+        $bgColorLine = 'gray';
+        $style = "debug";
         break;
     case "info":
-        $style="info";
+        $style = "info";
         
     default:
-        $bgColorLine='white';
+        $bgColorLine = 'white';
         break;
 }
     ?>

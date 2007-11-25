@@ -23,24 +23,10 @@
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 require_once 'Xinc/Config/Element/Iterator.php';
-require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'Xinc/BaseTest.php';
 
-class Xinc_Config_Element_TestIterator extends PHPUnit_Framework_TestCase
+class Xinc_Config_Element_TestIterator extends Xinc_BaseTest
 {
-
-    public function testInvalid()
-    {
-        $arr = array(1,2);
-        
-        try {
-            $iterator = new Xinc_Config_Element_Iterator($arr);
-        } catch (Xinc_Config_Exception_InvalidElement $invalid) {
-            $this->assertTrue(true, 'Expected result');
-        } catch (Exception $e) {
-            $this->assertTrue(false, 'Not expected');
-        }
-    }
-  
     public function testValid()
     {
         $arr = array();
@@ -79,5 +65,19 @@ class Xinc_Config_Element_TestIterator extends PHPUnit_Framework_TestCase
             $this->assertTrue(false, 'Not expected');
         }
     }
+    public function testInvalid()
+    {
+        $arr = array(1,2);
+        
+        try {
+            $iterator = new Xinc_Config_Element_Iterator($arr);
+        } catch (Xinc_Config_Exception_InvalidElement $invalid) {
+            $this->assertTrue(true, 'Expected result');
+        } catch (Exception $e) {
+            $this->assertTrue(false, 'Not expected');
+        }
+    }
+  
+    
    
 }

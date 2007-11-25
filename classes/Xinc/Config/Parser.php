@@ -24,6 +24,8 @@
  *    along with Xinc, write to the Free Software
  *    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+require_once 'Xinc/Config/Element/Iterator.php';
+
 class Xinc_Config_Parser
 {
     /**

@@ -45,8 +45,7 @@ class Xinc_Plugin_Repos_Gui_Homepage_Widget implements Xinc_Gui_Widget_Interface
                     $done = array();
                     echo '<ul>';
                     foreach ($widgets as $path => $widget) {
-                        $title=$widget->getTitle();
-                        //$paths=$widget->getPaths();
+                        $title = $widget->getTitle();
                         if (!in_array(get_class($widget), $done) &&  $widget->registerMainMenu()) {
                             $done[] = get_class($widget);
                             echo '<li><a href="'.$path.'">'.$title.'</a></li>';

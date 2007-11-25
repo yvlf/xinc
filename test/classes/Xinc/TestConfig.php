@@ -24,9 +24,9 @@
 */
 require_once 'Xinc/Config.php';
 
-require_once 'PHPUnit/Framework/TestCase.php';
+require_once 'Xinc/BaseTest.php';
 
-class Xinc_TestConfig extends PHPUnit_Framework_TestCase
+class Xinc_TestConfig extends Xinc_BaseTest
 {
     
    
@@ -46,15 +46,16 @@ class Xinc_TestConfig extends PHPUnit_Framework_TestCase
                                    . 'but caught: ' . get_class($e));
                                  
         }
-    
+    }
+    public function testValidConfig()
+    {
         $workingdir = getcwd();
         try {
             $configFilename = $workingdir .'/test/resources/testSystem.xml';
-            $config = Xinc_Config::parse($configFilename);
+            Xinc_Config::parse($configFilename);
             $this->assertTrue(true, 'Should not throw an exception');
             
         } catch (Exception $e) {
-            var_dump($e->getMessage());
             $this->assertTrue(false, 'Should not throw an exception');
         }
     }

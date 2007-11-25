@@ -40,24 +40,26 @@ abstract class Xinc_Registry_Abstract implements Xinc_Registry_Interface
     
     public function register($name, &$object)
     {
-        if (isset($this->_objects[$name]))
-        {
+        if (isset($this->_objects[$name])) {
             throw new Xinc_Registry_Exception('Object with name "'
                                              . $name 
                                              . '" is already registered');
+        // @codeCoverageIgnoreStart
         }
+        // @codeCoverageIgnoreEnd
         
         $this->_objects[$name] = $object;
     }
     
     public function unregister($name)
     {
-        if (!isset($this->_objects[$name]))
-        {
+        if (!isset($this->_objects[$name])) {
             throw new Xinc_Registry_Exception('Object with name "'
                                              . $name 
                                              . '" is not registered');
+        // @codeCoverageIgnoreStart
         }
+        // @codeCoverageIgnoreEnd
         $object = $this->_objects[$name];
         unset($this->_objects[$name]);
         return $object;
@@ -65,12 +67,13 @@ abstract class Xinc_Registry_Abstract implements Xinc_Registry_Interface
     
     public function &get($name)
     {
-        if (!isset($this->_objects[$name]))
-        {
+        if (!isset($this->_objects[$name])) {
             throw new Xinc_Registry_Exception('Object with name "'
                                              . $name 
                                              . '" is not registered');
+        // @codeCoverageIgnoreStart
         }
+        // @codeCoverageIgnoreEnd
         
         return $this->_objects[$name];
     }

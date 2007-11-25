@@ -35,13 +35,10 @@ abstract class Xinc_Plugin_Base implements Xinc_Plugin_Interface
     {
         return array();
     }
-    public function getClassname()
-    {
-        return get_class($this);
-    }
     
     public function validate()
     {
         return true;
     }
+    
 }
