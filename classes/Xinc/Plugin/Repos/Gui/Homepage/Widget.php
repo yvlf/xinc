@@ -67,7 +67,7 @@ class Xinc_Plugin_Repos_Gui_Homepage_Widget implements Xinc_Gui_Widget_Interface
     }
     public function getPaths()
     {
-        return array('/');
+        return array('/oldindex');
     }
     
     public function init()

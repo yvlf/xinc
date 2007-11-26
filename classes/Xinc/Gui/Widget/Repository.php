@@ -83,7 +83,8 @@ class Xinc_Gui_Widget_Repository
              */
             $this->_definedWidgets[$path] = $widget;
         }
-
+        $this->_widgets[] = $widget;
+        
     }
     /**
      * Determines the Widget that should be used
@@ -109,6 +110,6 @@ class Xinc_Gui_Widget_Repository
      */
     public function getWidgets()
     {
-        return $this->_definedWidgets;
+        return $this->_widgets;
     }
 }

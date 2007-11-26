@@ -31,16 +31,8 @@ function show(type){
 </script>
 </head>
 <body>
-<h1><a href="/dashboard">
-<?php echo $this->getTitle(); ?>
-</a> - Project Details for <?php echo $this->projectName; ?></h1>
+<?php echo $this->menu; ?>
 <table cellspacing="0" cellpadding="5" width="100%">
-
-<!--  <tr>
-<td colspan="2" height="50" valign="top"><h2>Log Messages</h2> <small>debug(<a href="javascript:hide('debug');">hide</a>,
-<a href="javascript:show('debug');">show</a>) info(<a href="javascript:hide('info');">hide</a>,
-<a href="javascript:show('info');">show</a>)</td>
-</tr>-->
 <tr>
 <td colspan="2" valign="top" 	width="70%">
 
@@ -48,104 +40,13 @@ function show(type){
 <script type="text/javascript">
 tabPane = new WebFXTabPane( document.getElementById( "details-tab" ), true );
 </script>
-<div class="tab-page" id="overview-page">
-<h2 class="tab">Overview</h2>
-<script type="text/javascript">
-tabPane.addTabPage( document.getElementById( "overview-page" ) );
-</script>
-<table>
-<tr height="50">
-<td><strong>Status</strong></td>
-<td bgcolor="<?php echo $bgColor; ?>"></td>
-</tr>
-<tr>
-<td><strong>Build Time</strong></td>
-<td><?php echo date('Y-m-d H:i:s', $this->build->getBuildTime()); ?></td>
-</tr>
-<tr height="50">
-<td><strong>Build Label</strong></td>
-<td>
-<?php 
-$label = $this->build->getLabel();
-echo isset($label)?$label:' '; ?>
-</td>
+<?php
 
-</tr>
-</table>
-
-</div>
-
-<div class="tab-page" id="log-messages-page">
-<h2 class="tab">Log Messages</h2>
-<script type="text/javascript">
-tabPane.addTabPage( document.getElementById( "log-messages-page" ) );
-</script>
-<table class="sort-table" id="table-log-messages" cellspacing="0">
-	<col />
-	<col />
-	<col />
-	<thead>
-		<tr>
-			<td>ID</td>
-			<td>Date</td>
-			<td title="CaseInsensitiveString">Priority</td>
-			<td>Message</td>
-		</tr>
-	</thead>
-<tbody>
-
-<?php 
-$i = count($this->logXml->children());
-foreach ($this->logXml->children() as $logEntry) { 
-$style = "normal";
-switch($logEntry['priority']){
-    
-    case 'error':
-        $bgColorLine = 'red';
-        break;
-    case 'debug':
-        $bgColorLine = 'gray';
-        $style = "debug";
-        break;
-    case "info":
-        $style = "info";
-        
-    default:
-        $bgColorLine = 'white';
-        break;
+foreach ($this->getTabs('BUILD_DETAILS') as $tab) {
+    echo $tab->generate('tabPane');
 }
-    ?>
-<tr bgcolor="<?php echo $bgColorLine; ?>">
-<td><?php echo $i--; ?></td>
-<td><?php echo $logEntry['time']; ?></td>
-<td><?php echo $logEntry['priority']; ?></td>
-<td><small><?php echo $logEntry; ?></small></td>
-</tr>
-<?php 
-}
+
 ?>
-</tbody>
-</table>
-<script type="text/javascript">
-//<![CDATA[
-
-var st = new SortableTable( document.getElementById("table-log-messages"),
-	["Number"] );
-	st.sort(0);
-
-
-//]]>
-</script>
-</div>
-<?php 
-$extensions = $this->extensions['INFO_TAB'];
-
-foreach ($extensions as $extension) { 
-    
-    $obj = call_user_func_array($extension, array($this->build));
-    
-	echo $obj->generate('tabPane');
- } ?>
 </div>
 
 <!--  END OF INFO_TAB -->
@@ -155,32 +56,13 @@ foreach ($extensions as $extension) {
 <script type="text/javascript">
 tabPane2 = new WebFXTabPane( document.getElementById( "builds-tab" ), true );
 </script>
+<?php
 
-<div class="tab-page" id="allbuilds-page">
-<h2 class="tab">All Builds</h2>
-<script type="text/javascript">
-tabPane2.addTabPage( document.getElementById( "allbuilds-page" ) );
-</script>
-<div style="overflow: auto; height:300px">
-<table>
-<?php while ($this->historyBuilds->hasNext()) {
-    $build = $this->historyBuilds->next();
-$bgColorH = $build->getStatus() == 1 ? 'green': ($build->getStatus() == -1 ? 'gray':'red');
-    ?>
-    <tr>
-<td bgcolor="<?php echo $bgColorH;?>" width="50">
-<a href="/dashboard/detail/?project=<?php echo $this->projectName; ?>&timestamp=<?php echo $build->getBuildTime(); ?>">
-Details</a></td>
-<td bgcolor="<?php echo $bgColorH;?>"><?php echo date('Y-m-d H:i:s', $build->getBuildTime()); ?></td>
-<td bgcolor="<?php echo $bgColorH;?>"><?php echo $build->getLabel(); ?></td>
-</tr>
-<?php 
+foreach ($this->getTabs('BUILD_SELECTOR') as $tab) {
+    echo $tab->generate('tabPane2');
 }
-?>
 
-</table>
-</div>
-</div>
+?>
 </div>
 </td>
 </tr>
