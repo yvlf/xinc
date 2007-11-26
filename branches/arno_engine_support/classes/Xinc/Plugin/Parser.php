@@ -64,7 +64,7 @@ class Xinc_Plugin_Parser
         $attributes = $pluginXml->attributes();
         
         
-
+        
         
         $res = @include_once((string)$attributes->filename);
        

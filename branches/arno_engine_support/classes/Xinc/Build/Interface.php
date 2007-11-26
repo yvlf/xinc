@@ -192,6 +192,11 @@ interface Xinc_Build_Interface
      */
     public function updateTasks();
     
-    
+    /**
+     * Returns the subdirectory inside the status directory
+     * where the status information of the build is stored
+     *
+     */
+    public function getStatusSubDir();
     
 }

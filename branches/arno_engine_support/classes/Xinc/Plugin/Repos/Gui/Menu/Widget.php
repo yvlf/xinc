@@ -1,6 +1,6 @@
 <?php
 /**
- * Artifacts Widget, displays the artifacts of a build
+ * Menu Widget, displays the menu items and the current position
  * 
  * @package Xinc.Plugin
  * @author Arno Schneider
@@ -27,15 +27,13 @@ require_once 'Xinc/Gui/Widget/Interface.php';
 require_once 'Xinc/Build/Iterator.php';
 require_once 'Xinc/Project.php';
 require_once 'Xinc/Build.php';
-require_once 'Xinc/Plugin/Repos/Gui/Dashboard/Detail/Extension.php';
 
-class Xinc_Plugin_Repos_Gui_Artifacts_Widget implements Xinc_Gui_Widget_Interface
+
+class Xinc_Plugin_Repos_Gui_Menu_Widget implements Xinc_Gui_Widget_Interface
 {
     protected $_plugin;
-    private $_extensions = array();
-    public $projects = array();
-    
-    public $builds;
+
+    private $_menu = array();
     
     public function __construct(Xinc_Plugin_Interface &$plugin)
     {
@@ -53,30 +51,53 @@ class Xinc_Plugin_Repos_Gui_Artifacts_Widget implements Xinc_Gui_Widget_Interfac
     }
     public function getTitle()
     {
-        return 'Dashboard';
+        return 'Menu';
     }
     public function getPaths()
     {
-        return array('ARTIFACTS');
+        return array('MENU');
     }
     
-    public static function getArtifacts(Xinc_Build_Interface &$build)
+    private function _getTemplate($name)
     {
-        $statusDir = Xinc_Gui_Handler::getInstance()->getStatusDir();
-        $projectName = $build->getProject()->getName();
-        $buildTimestamp = $build->getBuildTime();
+        $dir = dirname(__FILE__);
+        $fileName = $dir . DIRECTORY_SEPARATOR . $name;
+        return file_get_contents($fileName);
+    }
+    public function getMenu(Xinc_Gui_Widget_Interface &$widget, $position)
+    {
+        $name = $widget->getTitle();
+        $menuArr = array();
+        $menuTpl = $this->_getTemplate('templates' . DIRECTORY_SEPARATOR . 'menu.html');
+        $menuItemTpl = $this->_getTemplate('templates' . DIRECTORY_SEPARATOR . 'menuItem.html');
+        foreach ($this->_menu as $widgetItem) {
+            $paths = $widgetItem->getPaths();
+            if (get_class($widget) != get_class($widgetItem)) {
+                $menuStr = call_user_func_array('sprintf', array($menuItemTpl, $paths[0], $widgetItem->getTitle()));
+                $menuArr[] = $menuStr;
+            }
+        }
         
-        $detailExtension = new Xinc_Plugin_Repos_Gui_Dashboard_Detail_Extension('Artifacts');
-        $detailExtension->setContent("TEST");
-        
-        return $detailExtension;
+        $content = str_replace(array('{here}','{rows}'), array($position, implode("\n", $menuArr)), $menuTpl);
+        return $content;
     }
     
     public function init()
     {
-        $detailWidget = Xinc_Gui_Widget_Repository::getInstance()->getWidgetForPath("/dashboard/detail");
+        $widgets = Xinc_Gui_Widget_Repository::getInstance()->getWidgets();
+        $classes = array();
+        foreach ($widgets as $widget) {
+            if ($widget->registerMainMenu()) {
+                $this->_menu[] = $widget;
+                
+                
+            } 
+            $widget->registerExtension('MAIN_MENU', array(&$this,'getMenu'));
+            
+            
+        }
         
-        $detailWidget->registerExtension('BUILD_DETAILS', array(&$this,'getArtifacts'));
+        
         
     }
     public function registerExtension($extension, $callback)

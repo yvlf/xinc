@@ -588,6 +588,15 @@ class Xinc_Build implements Xinc_Build_Interface
         }
     }
     
+    
+    public function getStatusSubDir()
+    {
+        $subDirectory = $this->getProject()->getName();
+        $subDirectory .= DIRECTORY_SEPARATOR;
+        $subDirectory .= $yearMonthDay;
+        
+        return $subDirectory;
+    }
     private function _updateTask(Xinc_Plugin_Task_Interface &$task)
     {
         $element = $task->getXml();

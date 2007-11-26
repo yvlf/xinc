@@ -33,7 +33,7 @@ class Xinc_Plugin_Repos_Gui_Dashboard_Widget implements Xinc_Gui_Widget_Interfac
     protected $_plugin;
     private $_extensions = array();
     public $projects = array();
-    
+    public $menu;
     public $builds;
     
     public function __construct(Xinc_Plugin_Interface &$plugin)
@@ -74,8 +74,12 @@ class Xinc_Plugin_Repos_Gui_Dashboard_Widget implements Xinc_Gui_Widget_Interfac
                                 $project['build.label'] = '';
                                 $this->projects[]=$project;
                             }
-                            
-                            
+                            $this->menu = '';
+                            foreach ($this->_extensions['MAIN_MENU'] as $extension) {
+                                
+                                $this->menu .= call_user_func_array($extension, array($this, 'Dashboard'));
+                                
+                            }
                             
                         }
                     }
@@ -96,7 +100,7 @@ class Xinc_Plugin_Repos_Gui_Dashboard_Widget implements Xinc_Gui_Widget_Interfac
     }
     public function getPaths()
     {
-        return array('/dashboard', '/dashboard/');
+        return array('/','/dashboard', '/dashboard/');
     }
     public function init()
     {
@@ -104,7 +108,11 @@ class Xinc_Plugin_Repos_Gui_Dashboard_Widget implements Xinc_Gui_Widget_Interfac
     }
     public function registerExtension($extension, $callback)
     {
-        $this->_extensions[$extension] = $callback;
+        
+        if (!isset($this->_extensions[$extension])) {
+            $this->_extensions[$extension] = array();
+        }
+        $this->_extensions[$extension][] = $callback;
     }
     public function getExtensionPoints()
     {

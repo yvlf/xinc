@@ -52,8 +52,8 @@ class Xinc_Config
     private static function _parsePlugins($plugins)
     {
         Xinc_Plugin_Parser::parse($plugins);
-        
         $widgets = Xinc_Gui_Widget_Repository::getInstance()->getWidgets();
+        
         foreach ($widgets as $path => $widget) {
             $widget->init();
         }

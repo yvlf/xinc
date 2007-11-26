@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Xinc/Gui/Handler.php';
+
 /*
  * 
  * get environment variables or read config.xml

@@ -29,8 +29,10 @@ require_once 'Xinc/Build/Iterator.php';
 
 class Xinc_Plugin_Repos_Gui_Dashboard_Detail implements Xinc_Gui_Widget_Interface
 {
+    public $menu;
     protected $_plugin;
-    public $extensions = array();
+    private $_extensions = array();
+    private $_internalExtensions = array();
     public $projectName;
     public $project;
     public $build;
@@ -46,6 +48,122 @@ class Xinc_Plugin_Repos_Gui_Dashboard_Detail implements Xinc_Gui_Widget_Interfac
     {
         return false;
     }
+    private function _generateExternalDetailTabs()
+    {
+        
+
+        foreach ($this->_extensions['BUILD_DETAILS'] as $extension) { 
+            
+            $obj = call_user_func_array($extension, array($this->build));
+            
+        	$this->_registerExtension('BUILD_DETAILS', $obj);
+         }
+         
+    }
+    private function _getTemplate($name)
+    {
+        $dir = dirname(__FILE__);
+        $fileName = $dir . DIRECTORY_SEPARATOR . $name;
+        return file_get_contents($fileName);
+    }
+    private function _generateLogDetailTab()
+    {
+        $i = count($this->logXml->children());
+        $rowTpl = $this->_getTemplate('templates' . DIRECTORY_SEPARATOR . 'logDetailsRow.html');
+        $rows = array();
+        foreach ($this->logXml->children() as $logEntry) { 
+            $row = call_user_func_array('sprintf', array($rowTpl, $i--, 
+                                                         $logEntry['time'], 
+                                                         $logEntry['priority'], 
+                                                         $logEntry ));
+            $rows[] = $row;
+        }
+        
+        $tabTemplate = $this->_getTemplate('templates' . DIRECTORY_SEPARATOR . 'logDetails.html');
+        
+        $content = call_user_func_array('sprintf', array($tabTemplate,
+                                                         implode("\n", $rows)));
+        
+        $extension = new Xinc_Plugin_Repos_Gui_Dashboard_Detail_Extension('Log Messages');
+        $extension->setContent($content);
+        
+        $this->_registerExtension('BUILD_DETAILS', $extension);
+    }
+    private function _generateOverviewTab()
+    {
+        switch ($this->build->getStatus()) {
+            case 1:
+                $bgColor = 'green';
+                break;
+            case -1:
+                $bgColor = 'gray';
+                break;
+            case 0:
+                $bgColor = 'red';
+                break;
+            default:
+                $bgColor = 'gray';
+        }
+        
+        
+        $tabTemplate = $this->_getTemplate('templates' . DIRECTORY_SEPARATOR . 'overviewTab.html');
+        $content = call_user_func_array('sprintf', array($tabTemplate,
+                                                         $bgColor,
+                                                         date('Y-m-d H:i:s', $this->build->getBuildTime()),
+                                                         $this->build->getLabel()));
+        
+        $extension = new Xinc_Plugin_Repos_Gui_Dashboard_Detail_Extension('Overview');
+        $extension->setContent($content);
+        
+        $this->_registerExtension('BUILD_DETAILS', $extension);
+    }
+    private function _generateAllBuildsTab()
+    {
+        
+        
+        
+        $tabTemplate = $this->_getTemplate('templates' . DIRECTORY_SEPARATOR . 'allbuilds.html');
+        $rowTpl = $this->_getTemplate('templates' . DIRECTORY_SEPARATOR . 'allbuildsRow.html');
+        $rows = array();
+        while ($this->historyBuilds->hasNext()) {
+            $build = $this->historyBuilds->next();
+            switch ($build->getStatus()) {
+                case 1:
+                    $bgColor = 'green';
+                    break;
+                case -1:
+                    $bgColor = 'gray';
+                    break;
+                case 0:
+                    $bgColor = 'red';
+                    break;
+                default:
+                    $bgColor = 'gray';
+            }
+            $rows[] = call_user_func_array('sprintf', array($rowTpl,
+                                                            $bgColor,
+                                                            $build->getProject()->getName(),
+                                                            $build->getBuildTime(),
+                                                            $bgColor,
+                                                            date('Y-m-d H:i:s', $build->getBuildTime()),
+                                                            $bgColor,
+                                                            $build->getLabel()));
+        }
+        
+        $content = call_user_func_array('sprintf', array($tabTemplate,
+                                                         implode("\n", $rows)));
+        
+        $extension = new Xinc_Plugin_Repos_Gui_Dashboard_Detail_Extension('All Builds');
+        $extension->setContent($content);
+        
+        $this->_registerExtension('BUILD_SELECTOR', $extension);
+    }
+    public function getTabs($name)
+    {
+        if (!isset($this->_internalExtensions[$name])) return array();
+        return $this->_internalExtensions[$name];
+    }
+    
     public function handleEvent($eventId)
     {
         $this->projectName = $_GET['project'];
@@ -101,10 +219,38 @@ class Xinc_Plugin_Repos_Gui_Dashboard_Detail implements Xinc_Gui_Widget_Interfac
                         } else {
                             $this->logXml = new SimpleXmlElement('<log/>');
                         }
+                        
+                        
                         /**
                          * get History Builds
                          */
                         $this->historyBuilds = $this->getHistoryBuilds($statusDir);
+                        
+                        /**
+                         * Generate the build selector on the right
+                         */
+                        $this->_generateAllBuildsTab();
+                        /**
+                         * Overview info tab
+                         */
+                        $this->_generateOverviewTab();
+                        /**
+                         * Generate the tab for the log messages
+                         */
+                        $this->_generateLogDetailTab();
+                        /**
+                         * Generate the external tabs that were registered through a hook
+                         */
+                        $this->_generateExternalDetailTabs();
+                        
+                        $this->menu = '';
+                        foreach ($this->_extensions['MAIN_MENU'] as $extension) {
+                            
+                            $this->menu .= call_user_func_array($extension, array($this,
+                                                                                  'Details for ' .
+                                                                                  $this->build->getProject()->getName()));
+                            
+                        }
                         include 'view/projectDetail.phtml';
                     }
                     
@@ -149,19 +295,25 @@ class Xinc_Plugin_Repos_Gui_Dashboard_Detail implements Xinc_Gui_Widget_Interfac
         
     }
     
-    
+    private function _registerExtension($extensionPoint,
+                                        Xinc_Plugin_Repos_Gui_Dashboard_Detail_Extension &$detail)
+    {
+        if (!isset($this->_internalExtensions[$extensionPoint])) {
+            $this->_internalExtensions[$extensionPoint] = array();
+        }
+        $this->_internalExtensions[$extensionPoint][] = $detail;
+    }
     
     public function registerExtension($extension, $callback)
     {
-        if (!isset($this->extensions[$extension])) {
-            $this->extensions[$extension] = array();
+        
+        if (!isset($this->_extensions[$extension])) {
+            $this->_extensions[$extension] = array();
         }
-        $this->extensions[$extension][] = $callback;
-        
-        
+        $this->_extensions[$extension][] = $callback;
     }
     public function getExtensionPoints()
     {
-        return array('INFO_TAB');
+        return array('BUILD_DETAILS');
     }
 }
