@@ -51,6 +51,12 @@ interface Xinc_Build_Interface
     public function &getLastBuild();
     
     /**
+     * Moves the current build to _lastBuild
+     *
+     */
+    public function setLastBuild();
+    
+    /**
      * returns the build properties
      *
      * @return Xinc_Build_Properties

@@ -39,9 +39,9 @@ class Xinc_Engine_Sunrise implements Xinc_Engine_Interface
     {
         
         $buildTime = time();
-        
+        $build->setBuildTime($buildTime);
         if ( Xinc_Build_Interface::STOPPED === $build->getStatus() ) {
-            $build->setBuildTime($buildTime);
+            
             return;
         }
         /**
@@ -57,11 +57,11 @@ class Xinc_Engine_Sunrise implements Xinc_Engine_Interface
             Xinc_Logger::getInstance()->info('Build of Project stopped'
                                              . ' in INIT phase');
             //$project->serialize();
-            $build->setBuildTime($buildTime);
+            //$build->setBuildTime($buildTime);
             //$build->setStatus(Xinc_Build_Interface::INITIALIZED);
-            Xinc_Logger::getInstance()->setBuildLogFile(null);
-            Xinc_Logger::getInstance()->flush();
-            
+            //Xinc_Logger::getInstance()->setBuildLogFile(null);
+            //Xinc_Logger::getInstance()->flush();
+            $build->setLastBuild();
             return;
         }                                
 
@@ -74,13 +74,14 @@ class Xinc_Engine_Sunrise implements Xinc_Engine_Interface
         if ( Xinc_Build_Interface::STOPPED === $build->getStatus() ) {
             $build->info("Build of Project stopped, "
                                              . "no build necessary");
-             //$project->setBuildTime($buildTime);
-            $build->setStatus(Xinc_Build_Interface::INITIAL);
-            Xinc_Logger::getInstance()->setBuildLogFile(null);
-            Xinc_Logger::getInstance()->flush();
+            //$build->setBuildTime($buildTime);
+            $build->setStatus(Xinc_Build_Interface::INITIALIZED);
+            $build->setLastBuild();
+            //Xinc_Logger::getInstance()->setBuildLogFile(null);
+            //Xinc_Logger::getInstance()->flush();
             return;
         } else if ( Xinc_Build_Interface::FAILED === $build->getStatus() ) {
-            $build->setBuildTime($buildTime);
+            //$build->setBuildTime($buildTime);
             $build->updateTasks();
             $build->error("Build failed");
             /**
@@ -93,7 +94,7 @@ class Xinc_Engine_Sunrise implements Xinc_Engine_Interface
 
             $build->info("Code not up to date, "
                                             . "building project");
-            $build->setBuildTime($buildTime);
+            //$build->setBuildTime($buildTime);
             
             
             
@@ -128,7 +129,7 @@ class Xinc_Engine_Sunrise implements Xinc_Engine_Interface
             $build->serialize();
             
         } else if ( Xinc_Build_Interface::INITIALIZED === $build->getStatus() ) {
-            $build->setBuildTime($buildTime);
+            //$build->setBuildTime($buildTime);
             $build->setStatus(Xinc_Build_Interface::STOPPED);
             $build->serialize();
         }
