@@ -50,6 +50,8 @@ for ($i = 0; $i < count($argv); $i++) {
 	
 	} elseif ($argv[$i] == '-l' && isset($argv[$i+1])) {
 		$logFile = $argv[++$i];
+	} elseif ($argv[$i] == '-v' && isset($argv[$i+1])) {
+		$logLevel = $argv[++$i];
 	} elseif ($argv[$i] == '-s' && isset($argv[$i+1])) {
 		$statusDir = $argv[++$i];
 	} elseif ($argv[$i] == '---') {

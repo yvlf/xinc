@@ -203,6 +203,16 @@ class Xinc_Build implements Xinc_Build_Interface
         return $this->_engine;
     }
     
+    public function setLastBuild()
+    {
+        /**
+         * to prevent recursion, unset the reference to the lastBuild
+         * and then clone
+         */
+        $this->_lastBuild = null;
+        $this->_lastBuild = clone $this;
+    }
+    
     /**
      * stores the build information
      *
@@ -212,13 +222,8 @@ class Xinc_Build implements Xinc_Build_Interface
      */
     public function serialize()
     {
-        Xinc_Logger::getInstance()->flush();
-        /**
-         * to prevent recursion, unset the reference to the lastBuild
-         * and then clone
-         */
-        $this->_lastBuild = null;
-        $this->_lastBuild = clone $this;
+        
+        $this->setLastBuild();
         
         if (!in_array($this->getStatus(), array(self::PASSED, self::FAILED, self::STOPPED))) {
             throw new Xinc_Build_Exception_NotRun();
@@ -555,8 +560,9 @@ class Xinc_Build implements Xinc_Build_Interface
                                                    . DIRECTORY_SEPARATOR
                                                    . 'buildlog.xml');
         $this->getEngine()->build($this);
-        
+        Xinc_Logger::getInstance()->flush();
         Xinc_Logger::getInstance()->setBuildLogFile(null);
+
         if (Xinc_Build_Interface::STOPPED != $this->getStatus()) {
             $this->setStatus(Xinc_Build_Interface::INITIALIZED);
         }
