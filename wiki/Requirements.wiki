@@ -3,7 +3,7 @@
 = Requirements =
 
 
-  * Subversion 1.4 (<1.4 needs to be verified)
+  * Subversion >=1.2(<1.2 needs to be verified)
   * Phing > 2.2
-  * Pear: VersionControl_SVN
+  * Pear: VersionControl\_SVN
   * to be extended
