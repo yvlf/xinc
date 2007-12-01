@@ -1,0 +1,9 @@
+#summary Xinc has the following requirements
+
+= Requirements =
+
+
+  * Subversion 1.4 (<1.4 needs to be verified)
+  * Phing > 2.2
+  * Pear: VersionControl_SVN
+  * to be extended
