@@ -5,5 +5,5 @@
 
   * Subversion >=1.2(<1.2 needs to be verified)
   * Phing > 2.2
-  * Pear: VersionControl\_SVN
+  * Pear: VersionControl_SVN
   * to be extended
