@@ -1,0 +1,42 @@
+#summary Xinc has builtin support for build properties
+
+= Introduction =
+
+Build properties can be defined via <property name="name" value="value"/>.
+They can then be referenced in any attribute inside the projects xml via ${name}.
+
+
+= Xinc Properties in Phing =
+
+All properties registered in a Xinc project will be handed over to Phing with the prefix "xinc.".
+
+Example:
+
+Xinc:
+
+{{{
+...
+<project name="test">
+<property name="dir" value="/var/xinc/projects"/>
+<property name="property" value="value"/>
+....
+<builders>
+<phingBuilder buildfile="${dir}/build.xml"/>
+</builders>
+.....
+</project>
+}}}
+
+Phing:
+
+{{{
+<project name="Xinc" basedir="." default="build">	
+	
+	
+	<target name="build" depends="update, test">
+		<echo message="building in ${xinc.dir} ..."/>
+	</target>
+
+....
+</project>
+}}}
