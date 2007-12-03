@@ -4,6 +4,9 @@
 
 
   * Subversion >=1.2(<1.2 needs to be verified)
-  * Phing > 2.2
   * Pear: VersionControl_SVN
-  * to be extended
+  * Phing > 2.2
+  * PHPUnit 3.x (optional)
+  * pear needs to be in the includepath
+  * For Web Frontend:
+    * Apache or compatible with rewrite module + php5 support
