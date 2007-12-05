@@ -75,7 +75,7 @@ class MyDomain_Plugin_ModificationSet_Fake_Task extends Xinc_Plugin_Task_Base
 
 == Include your plugin in Xinc ==
 
- 1. Edit /etc/xinc/plugins.xml
+ 1. Edit /etc/xinc/system.xml in the <plugins/> section
  1. insert the following line: <plugin filename="MyDomain/Plugin/ModificationSet/Fake.php" classname="MyDomain_Plugin_ModificationSet_Fake"/>
  1. Restart xinc: /etc/init.d/xinc restart
  1. check the /var/log/xinc.log for errors
