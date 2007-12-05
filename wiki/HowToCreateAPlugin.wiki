@@ -42,7 +42,7 @@ require_once 'Xinc/Plugin/Task/Base.php';
 
 class MyDomain_Plugin_ModificationSet_Fake_Task extends Xinc_Plugin_Task_Base
 {
-    public function getBuildSlot(){
+    public function getPluginSlot(){
         /**
          * see Xinc/Plugin/Slot.php for available slots
          */
@@ -60,13 +60,13 @@ class MyDomain_Plugin_ModificationSet_Fake_Task extends Xinc_Plugin_Task_Base
          return "fake";
     }
 
-    public function process(Xinc_Project &$project){
+    public function process(Xinc_Build_Interface &$build){
           // do whatever you need todo here and set the Build-status on the project
-          // see Xinc/Project/Build/Status/Interface.php for available statuses
+          // see Xinc/Build/Interface.php for available statuses
 
           // if subtasks have been registered loop over $this->_subtasks and call 
           // process() on them
-          $project->setStatus(Xinc_Project_Build_Status_Interface::PASSED);
+          $build>setStatus(Xinc_Build_Interface::PASSED);
     }
 
 }
