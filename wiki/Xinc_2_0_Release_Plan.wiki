@@ -12,39 +12,7 @@ Priority 1 is the highest down to Priority 3.
 
 *[http://code.google.com/p/xinc/issues/list?q=Milestone-v2.0-Release See issues]*
 
-|| *priority* || *type* || *name* || *description* ||
-|| P1       || core || Plugin Core || Make the core system able to handle plugins defined in an xml-file, that can register tasks for different slots in the build-process    ||
-|| P1       || core || Plugin-Repository    ||   Create a system-wide repository that takes care of loading / serving / sharing plugins  ||
-|| P1       || core || Plugin-Task-Definition     ||  Allow plugins to register tasks for the build-process and handle subtasks   ||
-|| P1       || core ||  Project-Build-Status-Properties    ||   Make it possible for plugins to register Build-Status-Properties that get serialized  ||
-|| P1       || core ||  Project-Build-Status-Errors    ||   Allow plugins to register errors / flags to the build-status ( for example: to notice absence of testcases )  ||
-|| P1       || core || Project-Build-Label     ||  Provide a builtin-support for build-labels with a standard labeler increasing a build-no with every successful built. Register a Hook to the core-system which allows replacing the Labeler per project   ||
-|| P1       || plugin ||   Project-Build-Label-Plugin   ||  Create a plugin which can replace the default build-labeler <buildlabel><MyBuildLabeler/></buildlabel>   ||
-|| P1       || plugin || ModificationSet     ||  migrate from xinc v1   ||
-|| P1       || plugin || ModificationSet-Svn     || migrate from xinc v1    ||
-|| P1       || plugin || Schedule     ||  Plugin used for scheduling builds, a schedule takes an interval or maybe a cron-like timing (this would be good for nightly builds), to build. The schedule contains builders   ||
-|| P1       || plugin ||  Phing-Builder    ||  migrate from xinc v1   ||
-|| P1       || plugin ||  OnSuccess    || On a successful build the contained publishers are called    ||
-|| P1       || plugin ||  OnFailure    || On a failed build the contained publishers are called    ||
-|| P1       || plugin || Phing-Publisher     ||  migrate from xinc v1   ||
-|| P1       || plugin || Email-Publisher     ||  migrate from xinc v1 + support for email-map   ||
-|| P1       || documentatiom ||   How-To-Write-A-Plugin   ||  instructions how to write plugins, so we can get some community going   ||
-|| P1       || documentatiom ||   Xinc Basic Documentation   ||     ||
-|| P2       || core || Xinc-Webfrontend-Plugin-Core || Create a core for the webfrontend which allows to register different components into special slots/hooks ||
-|| P2       || plugin || Project-Status-Dashboard || Shows the project-statuses with its annotated flags + adds hook to implement a detail-view, allows to force a build ||
-|| P2  || plugin || Artifacts-Publisher || Plugin which picks up files and registers them with the build + makes it accessible from the webfrontend ||
-|| P2 || plugin || ModificationSet-Svn+ || + add the revision number to the build-status ||
-|| P2 || core || Forced-Build || a project receives a property which tells it whether the build was forced or scheduled ||
-|| P2 || core || Project-Properties || Support ant-style properties throughout the whole build-process ||
-|| P3 || plugin || SvnUser-To-Email-Map || Maps svn-usernames to email-addresses, these usernames can then be used to send failure messages example, when the user commited a change and after the build failed ||
-|| P3 || plugin || SvnUser-To-Email-Map-Frontend || web-based frontend to configure svn-users globally for all projects, or configure sets of mappings to be used in a reference ||
-|| P3 || plugin || ModificationSet-Svn++ || + register changelog with the build, changelog will be viewed in the webinterface ||
-|| P3 || plugin || Project-Details || Shows the project-details with all the builds + adds hook to add different "tabs" to the detail-view for artifacts,test-results etc ||
-|| P3 || plugin || Force-Only-ModificationSet || Only reacts on forced builds ||
-|| P3 || plugin || Plugin-Configuration-Web-Frontend || a webfrontend to configure plugins ||
-|| P3 || plugin || Project-Configuration-Web-Frontend || a webfrontend to configure projects ||
-
 = Schedule =
 
  * Xinc 2.0 Beta version: End of 2007
- * Xinc 2.0 Release: End of January 2007
+ * Xinc 2.0 Release: End of January 2008
