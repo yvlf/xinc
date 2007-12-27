@@ -14,5 +14,5 @@ Priority 1 is the highest down to Priority 3.
 
 = Schedule =
 
- * Xinc 2.0 Beta version: End of 2007
+ * Xinc 2.0 Beta version: First week in January 2008
  * Xinc 2.0 Release: End of January 2008
