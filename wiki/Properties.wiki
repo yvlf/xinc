@@ -40,3 +40,19 @@ Phing:
 ....
 </project>
 }}}
+
+=Builtin Properties=
+
+||*name*||*phing name*||*description*||
+||build.number||xinc.build.number||Build number, is incremented on each successful build||
+||build.label||xinc.build.label||Build number + a prefix||
+||build.timestamp||xinc.build.timestamp||Unixtimestamp of build, only available in builders or publishers||
+||-||cctimestamp||see build.timestamp: compatibility with cruisecontrol||
+||project.name||xinc.project.name||Name of the xinc project||
+||-||projectname||see project.name: compatibility with cruisecontrol||
+||workingdir||xinc.workingdir||The working directory of xinc||
+||projectdir||xinc.projectdir||Project directory of xinc (i.e. /var/xinc/projects)||
+||statusdir||xinc.statusdir||status directory of xinc (i.e. /var/xinc/status)||
+
+
+
