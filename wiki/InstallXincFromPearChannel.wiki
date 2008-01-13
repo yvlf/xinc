@@ -1,0 +1,9 @@
+#summary Documentation how to install xinc using pear
+
+= Installation using pear =
+
+{{{
+pear channel-discover pear.xinc.eu
+pear config-set preferred_state beta
+pear install xinc/Xinc
+}}}
