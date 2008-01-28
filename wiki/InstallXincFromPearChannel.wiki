@@ -4,8 +4,8 @@
 = Installation using pear-channel =
 
 {{{
-pear install 
 pear channel-discover pear.xinc.eu
+pear install VersionControl_SVN-alpha
 pear install --alldeps xinc/Xinc-beta
 }}}
 
