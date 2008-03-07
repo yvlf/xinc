@@ -1,0 +1,6 @@
+#summary Latest Documentation for Xinc 2.0.x
+
+= Online Documentation =
+
+You find the latest documentation of Xinc [http://www.xinc.eu/api/documentation/get/file/xinc/latest-successful/Enduser/index.html here]
+
