@@ -1,4 +1,5 @@
 #summary Xinc 2.0-preview documentation.
+#labels Deprecated
 
 == Installation ==
 
