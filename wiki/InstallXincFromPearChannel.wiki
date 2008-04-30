@@ -3,10 +3,13 @@
 
 = Installation using pear-channel =
 
+We recommend to install the latest trunk version:
+
 {{{
 pear channel-discover pear.xinc.eu
+pear channel-discover components.ez.no
 pear install VersionControl_SVN-alpha
-pear install --alldeps xinc/Xinc-beta
+pear install --alldeps http://xinc.eu/api/deliverable/get/download/xinc/latest-successful/Xinc.tgz
 }}}
 
 == Finalizing installation through postinstall scripts ==
@@ -21,11 +24,14 @@ which will execute the post-installation script.
 
 = Installation using pear-package =
 
-Download the latest pear-package from the download section (*.tgz)
+Download the latest pear-package from xinc.eu (*.tgz)
 
 {{{
+wget http://xinc.eu/api/deliverable/get/download/xinc/latest-successful/Xinc.tgz
 pear channel-discover pear.xinc.eu
-pear install Xinc-2.0.0b1.tgz
+pear channel-discover components.ez.no
+pear install VersionControl_SVN-alpha
+pear install Xinc-2.0.0*.tgz
 }}}
 
 == Finalizing installation through postinstall scripts ==
