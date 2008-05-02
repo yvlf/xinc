@@ -1,0 +1,120 @@
+
+<script type="text/javascript">
+var projects = [];
+var projectBuilds = [];
+</script>
+<link rel="stylesheet" type="text/css" href="/ext-2.0/resources/css/ext-all.css" />
+<div id="welcome">
+    <div class="col-last">
+        <div class="res-block">
+            <div class="res-block-inner">
+                <h3>Icon Legend</h3>
+                <ul id="legend" style="list-style:none;margin-left:0;">
+                    <li><img src="/images/passed.png" class="item-icon icon">Build passed</li>
+                    <li><img src="/images/failed.png" class="item-icon icon">Build failed</li>
+                    <li><img src="/images/stopped.png" class="item-icon icon">Build stopped</li>
+                   
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="test" class="col">
+    <div id="projects"  class="body-wrap">
+    <h2>Projects</h2>
+        <table cellspacing="0" class="member-table">
+    
+       <?php
+
+while ($this->builds->hasNext()) {
+    $build = $this->builds->next();
+    $timezone = $build->getConfigDirective('timezone');
+    if ($timezone !== null) {
+        Xinc_Timezone::set($timezone);
+    } else {
+        $xincTimezone = Xinc_Gui_Handler::getInstance()->getConfigDirective('timezone');
+        if ($xincTimezone !== null) {
+            Xinc_Timezone::set($xincTimezone);
+        } else {
+            Xinc_Timezone::set(Xinc_Gui_Handler::getInstance()->getSystemTimezone());
+        }
+    }
+    $icon=$build->getStatus() == 1?'/images/passed.png':
+                                           ($build->getStatus() == -1 ?'/images/stopped.png':'images/failed.png');
+    $text=$build->getStatus() == 1   ?'success':
+                                           ($build->getStatus() == -1 ?'stopped':'failed');
+$detailUrl=<<<EOJ
+openTab('{$build->getProject()->getName()}','{$build->getBuildTime()}', '{$build->getLabel()}');
+EOJ;
+?>
+ <tr class="method-row">
+        <td class="micon"><a class="exi" href="#expand">&nbsp;</a></td>
+        <td class="sig">
+        <a id="<?php echo $build->getProject()->getName(); ?>"></a>
+            <a href="#<?php echo $build->getProject()->getName(); ?>" class="exi" onclick="<?php echo $detailUrl; ?>"><b><?php echo $build->getProject()->getName(); ?></b></a>            <div class="mdesc">
+                        <div class="short"></div>
+                        
+                    
+
+
+                        </div>
+          
+        </td>
+        <td class="msource" nowrap="nowrap"><b><?php echo $build->getBuildTime()>0 ? date('Y-m-d H:i:s', $build->getBuildTime()) . '-' . Xinc_Timezone::get() : ''; ?></b>
+        
+            <?php
+    if (is_array($this->features)) {
+?><br/><br/><?
+        foreach ($this->features as $ext) {
+           if (($content = $ext->getContent($build))) {
+           ?><b><?echo $ext->getTitle(); ?>: </b><?
+           echo $content;
+           ?><br/><?
+}
+        }
+        echo "<br/>";
+        
+    }?>
+        
+        </td>
+        <td class="msource" nowrap="nowrap"><b><?php echo $build->getLabel(); ?></b></td>
+        <td class="msource"><img src="<?php echo $icon;?>"/></td>
+    </tr>
+    
+<script>
+projects['<?php echo $build->getProject()->getName();?>'] = [<?php echo $build->getBuildTime() ?>,'<?php echo $build->getLabel(); ?>'];
+</script>
+
+<?php 
+}
+
+$xincTimezone = Xinc_Gui_Handler::getInstance()->getConfigDirective('timezone');
+        if ($xincTimezone !== null) {
+            Xinc_Timezone::set($xincTimezone);
+        } else {
+            Xinc_Timezone::reset();
+        }
+?>
+</table>
+</div>
+</div>
+</div>
+<script>
+var loaded=false;
+function refreshMainPanel()
+{
+Ext.getCmp('widget-dashboard').load({url: '/dashboard/projects', scripts: true, nocache:true, timeout:30});
+loaded=true;
+}
+if (!loaded) {
+var urlParts = window.location.href.split('#project:');
+var loadProject = null;
+if (urlParts.length>1) {
+    loadProject = urlParts[1];
+    if (projects[loadProject] != null) {
+        openTab(loadProject, projects[loadProject][0], projects[loadProject][1]);
+    }
+}
+
+}
+setTimeout('refreshMainPanel()',60000);
+</script>
