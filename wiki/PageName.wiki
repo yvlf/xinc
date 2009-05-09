@@ -1,0 +1,12 @@
+#summary Setting Up A Development Environment for Xinc
+
+= Introduction =
+
+This document is being developed as a reference both for myself and others who are interested in contributing to Xinc development but are unsure how to do it or perhaps the best way.  It was not so cut and dry when I first began it, so I am hoping to mitigate any questions and stumbling blocks which may prohibit someone from contributing.  I am going to approach the development from the perspective of an Eclipse PDT 2.0 user.  I tend to use vim for smaller projects and Eclipse for larger projects (although it was not always this way, I have found certain features of Eclipse too good to ignore).  My chosen environment will be Windows XP as well, although I will provide general ideas for how this will work in a Linux / Mac environment as I have developed on those as well.
+
+
+= Details =
+
+Xinc, as you are most likely aware, is built using PHP and, therefore, requires a suitable SAPI with which to execute in a web environment.  In our case, this includes both CLI and Webserver as they are both used to have a complete Xinc operation.  PHP's CLI SAPI should be installed by default in most PHP builds in all environments.  Please refer to the PHP documentation at http://www.php.net for more information if you are unable to execute a simple php script from the command line using {{{php foo.php}}}.  In my Windows XP environment, I am running Apache 2 as my webserver.  I will not be going into detail on how to install the PHP or Apache packages as it is beyond the scope of this document.  We will, however, be touching on some various configuration options available in both packages as they will become very important in a successful development environment.
+
+After you have installed PHP and Apache on your system and can verify that you have a working installation, we can begin the Xinc install.  For those who want to skip a lot of step by step instructions and are familiar enough with their environment to continue, essentially I am going to install the Xinc package from the PEAR repository and symlink to the source downloaded via the subversion public access.  Below, I will illustrate how to do this.
