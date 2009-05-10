@@ -11,6 +11,13 @@ This document is being developed as a reference both for myself and others who a
 
 Xinc, as you are most likely aware, is built using PHP and, therefore, requires a suitable SAPI with which to execute in a web environment.  In our case, this includes both CLI and Webserver as they are both used in a complete Xinc operation.  PHP's CLI SAPI should be installed by default in most PHP builds in all environments.  Please refer to the PHP documentation at http://www.php.net for more information if you are unable to execute a simple php script from the command line using the command:<br/><br/>{{{php foo.php}}}<br/><br/>In my Windows XP environment, I am running Apache 2 as my webserver.  I will not be going into detail on how to install the PHP, Apache, or Eclipse packages as it is beyond the scope of this document.  We will, however, be touching on some various configuration options available in both packages as they will become very important in a successful development environment.<br/>
 <br/>
+
+==Tools Needed==
+
+Eclipse PDT 2.0 (or suitable IDE)<br/>
+Apache (or other webserver)<br/>
+PHP<br/>
+<br/>
 After you have installed Eclipse PDT 2.0, PHP, and Apache on your system and can verify that you have a working installation, we can begin the Xinc install.  For those who want to skip a lot of step by step instructions and are familiar enough with their environment to continue, essentially I am going to install the Xinc package from the PEAR repository and symlink to the source downloaded via the subversion public access.  I will illustrate how to do this below.<br/>
 <br/>
 The first thing you are going to want to do is get the source to Xinc via the subversion public access.  This can be found by clicking on the source tab above and following the instructions on that page.  In Eclipse, I have chosen to use the SVN Repository Explorer to check out the Xinc source.  This allows me to keep my development environment inside one tool so that I can have a consistent workflow.  Whichever tool you choose to use, please note the directory that you are checking out your working copy to as it will become very important in a moment.<br/>
