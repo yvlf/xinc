@@ -2,7 +2,7 @@
 #labels Phase-Implementation
 
 = Introduction =
-*This document is living and breathing and may be incomplete when you read it*
+*This document is constantly being updated*
 
 This document is being developed as a reference both for myself and others who are interested in contributing to Xinc development but are unsure how to do it or perhaps the best way.  It was not so cut and dry when I first began it, so I am hoping to mitigate any questions and stumbling blocks which may prohibit someone from contributing.  I am going to approach the development from the perspective of an Eclipse PDT 2.0 user.  I tend to use vim for smaller projects and Eclipse for larger projects (although it was not always this way, I have found certain features of Eclipse to be too good to ignore).  My chosen environment will be Windows XP as well, although I will provide general ideas for how this will work in a Linux / Mac environment as I have developed on those as well.
 
