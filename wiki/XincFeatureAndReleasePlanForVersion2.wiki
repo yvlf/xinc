@@ -12,6 +12,7 @@ I know the schedule is very long term, I hope to get the releases out before pla
 = Feature Candidates =
 
 *[http://code.google.com/p/xinc/issues/list?can=2&q=label%3AMilestone-v2.1 See version 2.1 issues]*
+
 *[http://code.google.com/p/xinc/issues/list?can=2&q=label%3AMilestone-v2.2 See version 2.2 issues]*
 
 = Schedule =
