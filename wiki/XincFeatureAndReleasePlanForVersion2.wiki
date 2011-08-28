@@ -1,0 +1,24 @@
+#summary Xinc 2.1 feature candidates and release plan.
+
+= Introduction =
+
+After the big sleep, we will try to get new builds out, with fixes here and there. So we get a useable state of the source.
+After the 2.1 release we will try to clean up the source base and add some new features into 2.2 release series.
+
+For 3.0 we will add big new features, more clean up of code base, and switch to newer versions of some projects we depend on (Phing compatibility, ExtJS 4 and so on).
+
+I know the schedule is very long term, I hope to get the releases out before planed.
+
+= Feature Candidates =
+
+*[http://code.google.com/p/xinc/issues/list?can=2&q=label%3AMilestone-v2.1 See version 2.1 issues]*
+*[http://code.google.com/p/xinc/issues/list?can=2&q=label%3AMilestone-v2.2 See version 2.2 issues]*
+
+= Schedule =
+
+ * Xinc 2.1 Alpha 1 version: End of August 2011
+ * Xinc 2.1 Beta 1 version: End of September 2011
+ * Xinc 2.1 Beta 1 version: End of September 2011
+ * Xinc 2.1 Beta 2 version: End of October 2011
+ * Xinc 2.1 RC 1 version: End of November 2011
+ * Xinc 2.1 Release: End of December 2011
