@@ -24,3 +24,5 @@ I know the schedule is very long term, I hope to get the releases out before pla
  * Xinc 2.1 Beta 2 version: End of September 2011
  * Xinc 2.1 RC 1 version: Mid of October 2011
  * Xinc 2.1 Release: End of October 2011
+ * Xinc 2.2 Alpha 1 version: End of November 2011
+ * Xinc 2.2 Beta 1 version: End of December 2011
