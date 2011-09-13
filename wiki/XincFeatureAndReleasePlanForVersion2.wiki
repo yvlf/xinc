@@ -1,9 +1,11 @@
-#summary Xinc 2.1 feature candidates and release plan.
+#summary Xinc 2.x feature candidates and release plan.
 
 = Introduction =
 
 After the big sleep, we will try to get new builds out, with fixes here and there. So we get a useable state of the source.
-After the 2.1 release we will try to clean up the source base and add some new features into 2.2 release series.
+After the 2.1 release we will try to clean up the source base and add some new features into 2.2 and 2.3 release series.
+
+Main features for the 2.2 series should be svn and git related bugs and features (Code cleanup, merge doubled code, add git support), continuing code cleanup and pear compatible coding standard.
 
 For 3.0 we will add big new features, more clean up of code base, and switch to newer versions of some projects we depend on (Phing compatibility, ExtJS 4 and so on).
 
