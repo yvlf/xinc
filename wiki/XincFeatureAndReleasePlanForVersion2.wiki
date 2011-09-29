@@ -1,4 +1,5 @@
 #summary Xinc 2.x feature candidates and release plan.
+#labels Featured,Phase-Requirements
 
 = Introduction =
 
