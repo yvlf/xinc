@@ -1,0 +1,368 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Xinc Guide - Setup</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="Stylesheet" rev="Stylesheet" href="../css/Documentation.css" type="text/css" media="All" charset="iso-8859-1" />
+  </head>
+  <body>
+
+<h1><a name="SettingUpXinc"></a>Setting-Up Xinc</h1>
+
+<p>The goal of this chapter is to help you obtain and correctly setup and execute
+  Xinc on your operating system. Once you setup Xinc properly you shouldn't
+  need to revisit this chapter, unless you're re-installing or moving your installation
+  to another platform.</p>
+
+<h2><a name="SystemRequirements"></a>System Requirements</h2>
+
+<p> Xinc requires PHP 5.2.6+ to be installed as well as PEAR 1.4.0+</p>
+
+
+<h3><a name="OperatingSystems"></a>Operating Systems</h3>
+
+<p>Xinc is supposed to work with *nix as well as Windows systems.</p>
+<p>However the Windows support is not the main focus of the current development.
+If you detect windows specific bugs, please <a href="http://code.google.com/p/xinc/issues/entry"> report them.</a>
+</p>
+<p>Xinc is developed on Ubuntu 11.10 and being tested on ArchLinux.</p>
+
+<h3><a name="SoftwareDependencies"></a>Software Dependencies</h3>
+
+<p>For a detailed list of required sofware and libraries, refer to
+the following table of Software dependencies</p>
+
+<table>
+  <caption>
+  Software Dependencies
+  </caption>
+  <thead>
+    <tr>
+      <th>Software</th>
+      <th>Required for</th>
+      <th>Source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PHP 5.2.7+</td>
+      <td>Execution</td>
+      <td><a href="http://www.php.net">http://www.php.net</a></td>
+    </tr>
+    <tr>
+      <td>Phing 2.4.0</td>
+      <td>Execution</td>
+      <td><a href="http://www.phing.info">http://www.phing.info</a></td>
+    </tr>
+    <tr>
+      <td>PhpUnit2 3.5.0+</td>
+      <td>Additional functionality</td>
+      <td><a href="http://www.phpunit.de">http://www.phpunit.de</a></td>
+    </tr>
+    <tr>
+      <td>PhpDocumentor 1.4.0</td>
+      <td>Additional functionality</td>
+      <td><a href="http://www.phpdoc.org">http://www.phpdoc.org</a></td>
+    </tr>
+    <tr>
+      <td>Xdebug 2.0.0+</td>
+      <td>Additional functionality</td>
+      <td><a href="http://www.xdebug.org">http://www.xdebug.org</a></td>
+    </tr>
+    <tr>
+      <td>Base 1.4.1+</td>
+      <td>ezComponents Graphic functionality</td>
+      <td><a href="http://components.ez.no">http://components.ez.no</a></td>
+    </tr>
+    <tr>
+      <td>Graph 1.2.1+</td>
+      <td>ezComponents Graphic functionality</td>
+      <td><a href="http://components.ez.no">http://components.ez.no</a></td>
+    </tr>
+    <!-- Zend Optimizer etc. could be added here... -->
+  </tbody>
+</table>
+
+<h2><a name="ObtainingXinc"></a>Obtaining Xinc</h2>
+
+<p> Xinc is free software distributed under the terms of the LGPL.</p>
+
+<h3><a name="DistributionFiles"></a>Distribution Files</h3>
+
+<p>Xinc is obtainable through the pear channel or directly from <a href="http://code.google.com/p/xinc">code.google.com/p/xinc</a></p>
+
+<h2><a name="Setup.PearInstall"></a>PEAR Install</h2>
+<pre>
+pear channel-discover pear.elektrischeslicht.de
+pear channel-discover pear.phing.info
+pear channel-discover components.ez.no
+pear install Xinc/xinc
+</pre>
+<h2><a name="Setup.Configure"></a>Post Installation Configuration</h2>
+
+<p>To get xinc ready for execution you need to run a configuration script:</p>
+<pre>
+pear run-scripts xinc/Xinc
+</pre>
+<p>
+This script will configure special directories as needed by Xinc as well as set up your 
+Xinc Web Interface.
+</p>
+<pre title="Postinstall screen">
+ 1. Directory to keep the Xinc config files                    : /etc/xinc
+ 2. Directory to keep the Xinc Projects and Status information : /var/xinc
+ 3. Directory to keep the Xinc log files                       : /var/log
+ 4. Directory to install the Xinc start/stop daemon            : /etc/init.d
+ 5. Do you want to install the SimpleProject example           : yes
+ 6. Directory to install the Xinc web-application              : /var/www/xinc
+ 7. IP of Xinc web-application                                 : 127.0.0.1
+ 8. Port of Xinc web-application                               : 8080
+
+1-8, 'all', 'abort', or Enter to continue: 
+</pre>
+<table>
+  <caption>
+  Postinstall Configuration Options
+  </caption>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td>
+  1.
+  </td>
+  <td>
+  Here Xinc will keep all configuration files:<br/><br/>
+  <strong>DIR/system.xml - System Configuration</strong><br/>
+  <strong>DIR/conf.d/*.xml - Project Configurations</strong><br/>
+  
+  </td>
+  </tr>
+  <tr>
+  <td>
+  2.
+  </td>
+  <td>
+  Here Xinc will keep project data, the working copies of svn repositories and status information about the builds:<br/><br/>
+  <strong>DIR/projects - Project / Working copies</strong><br/>
+  <strong>DIR/status - Build status information</strong><br/>
+  
+  </td>
+  </tr>
+   <tr>
+  <td>
+  3.
+  </td>
+  <td>
+  Xinc will create a logfile in this directory:<br/><br/>
+  <strong>DIR/xinc.log</strong>
+  
+  </td>
+  </tr>
+     <tr>
+  <td>
+  4.
+  </td>
+  <td>
+  Xinc will install a daemon script in:<br/><br/>
+  <strong>DIR/xinc</strong><br/><br/>
+  This daemon script currently &quot;should&quot; support:
+  <ul>
+  <li>Ubuntu</li>
+  <li>Debian</li>
+  <li>Fedora</li>
+  </ul>
+  
+  </td>
+  </tr>
+  </tbody>
+</table>
+<p><strong>Installation success Linux</strong></p>
+<pre title="Installation success Linux">
+Xinc installation complete.
+- Please include /etc/xinc/www.conf in your apache virtual hosts.
+- Please enable mod-rewrite.
+- To add projects to Xinc, copy the project xml to /etc/xinc/conf.d
+- To start xinc execute: sudo /etc/init.d/xinc start
+UNINSTALL instructions:
+- pear uninstall xinc/Xinc
+- run: /usr/bin/xinc-uninstall to cleanup installed files
+Install scripts complete
+
+</pre>
+<p><strong>Installation success Windows</strong></p>
+<pre title="Installation success Windows">
+Xinc installation complete.
+- Please include C:\xinc\etc/www.conf in your apache virtual hosts.
+- Please enable mod-rewrite.
+- To add projects to Xinc, copy the project xml to C:\xinc\etc\conf.d
+- To start xinc execute: winserv start Xinc
+UNINSTALL instructions:
+- pear uninstall xinc/Xinc
+- run: C:\xampp\php/xinc-uninstall to cleanup installed files
+[OK] Saved ini settings
+Install scripts complete
+</pre>
+<h4>Preferred Way: Including Xinc www.conf in Apache2</h4>
+<pre>
+$ sudo ln -s /etc/xinc/www.conf /etc/apache2/sites-enabled/
+$ sudo apache2ctl restart
+</pre> 
+<h4>Alternative Way: Including Xinc www.conf in Apache main config</h4>
+<p>
+To add the Xinc apache config file to apache, add the following line in your httpd.conf:
+</p>
+<pre>
+Include /etc/xinc/www.conf
+</pre> 
+<h4>Preferred Way: Enabling Mod Rewrite in Apache2</h4>
+<pre>
+$ ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/
+</pre>
+<h4>Alternative Way: Enabling Mod Rewrite in Apache main config</h4>
+<p>To add the mod-rewrite module, add the following line in your httpd.conf:</p>
+<pre>
+LoadModule rewrite_module /usr/lib/apache2/modules/mod_rewrite.so
+</pre>
+
+<p>&nbsp;</p>
+<h2><a name="IniOptions"></a>Xinc Ini Configuration</h2>
+<p>
+Xinc lets you configure some settings, which determine GUI behaviour and/or Plugin behaviour.
+The following is a sample configuration:
+</p>
+<pre title="Sample xinc.ini">
+[xinc]
+version = 2.0.0b150
+etc = /etc/xinc
+etc_conf_d = /etc/xinc/conf.d
+dir = /var/xinc
+status_dir = /var/xinc/status
+project_dir = /var/xinc/projects
+www_dir = /var/www/xinc
+www_port = 8080
+www_ip = 127.0.0.1
+log_dir = /var/log
+
+[web]
+title = "My Xinc Server"
+logo = "/images/myServerLogo.png"
+ohloh = 1
+
+[googleanalytics]
+trackerCode = UA-1346205-4
+
+[phing]
+path = /my/alternative/path/to/phing
+
+[svn]
+path = /my/alternative/path/to/svn
+</pre>
+<p>
+A simple administration script lets you read and modify these settings:<br/>
+Usage:<br/>
+<strong>xinc-settings [options]</strong>
+</p>
+<table>
+  <caption>
+  xinc-settings options
+  </caption>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td>
+  list-all
+  </td>
+  <td>
+  Lists all the configuration options per section
+  
+  </td>
+  </tr>
+  <tr>
+  <td>
+  list [section]
+  </td>
+  <td>
+  Lists configuration options for [section]
+  
+  </td>
+  </tr>
+  <tr>
+  <td>
+  get [section] [name]
+  </td>
+  <td>
+  Gets the configuration option [name] of [section]
+  
+  </td>
+  </tr>
+  <tr>
+  <td>
+  set [section] [name] [value]
+  </td>
+  <td>
+  Sets the configuration option [name] with [value] in [section]
+  
+  </td>
+  </tr>
+  </tbody>
+</table>
+<h3>Sample Usage</h3>
+<h4>Disabling the ohloh badge</h4>
+<pre>
+$ xinc-settings set web ohloh 0
+</pre>
+<h4>Setting your own google analytics code</h4>
+<pre>
+$ xinc-settings set googleanalytics trackerCode MYGOOGLECODE
+</pre>
+<h4>Setting your own title for the web interface</h4>
+<pre>
+$ xinc-settings set web title "My Xinc Server"
+</pre>
+<p>&nbsp;</p>
+<h2><a name="RunningXinc"></a>Running Xinc</h2>
+
+<p>After configuration you are ready to execute the Xinc daemon</p>
+
+<h3><a name="Nix"></a>Execution on *nix systems</h3>
+
+<p>Xinc comes with an init-script, which is known to work with Ubuntu / Debian / Fedora.</p>
+
+<pre>
+$ /etc/init.d/xinc start
+</pre>
+<p><strong>-OR-</strong></p>
+<pre>
+$ service xinc start
+</pre>
+<p>
+<strong>
+If you detect that the daemon script is not working properly on your system and you
+would like to contribute a working init script, submit a <a href="http://code.google.com/p/xinc/issues/entry">ticket.</a>
+</strong>
+</p>
+<h3><a name="Windows"></a>Execution on Windows systems</h3>
+
+<p>Xinc comes with <a href="http://sw4me.com/wiki/Winserv">winserv</a>, which installs Xinc as a windows service.</p>
+
+<pre>
+C:\winserv start Xinc
+</pre>
+<p>You can execute Xinc in run-once mode as well as start it in the foreground.
+For Command Line Arguments see
+<a href="appendixes/AppendixA-FactSheet.html#CommandLineArguments">Appendix A</a>.
+</p>
+
+  </body>
+</html>
+
