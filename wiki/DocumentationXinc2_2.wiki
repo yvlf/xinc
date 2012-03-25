@@ -1,0 +1,8 @@
+#labels Phase-Deploy
+#This is the documentation for Xinc 2.2
+
+= Introduction =
+
+This document will describe the usage of Xinc for [http://en.wikipedia.org/wiki/Continuous_integration continuous integration] development. As it manages tasks, you can also use it for cron replacement.
+
+= Details =
