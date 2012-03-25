@@ -57,3 +57,7 @@ pear run-scripts xinc/Xinc
 }}}
 
 which will execute the pear post-installation script.
+
+= Configuration =
+
+For configuration see the Documentation [http://elektrischeslicht.de/xinc/book/ Website].
