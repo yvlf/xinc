@@ -2,11 +2,21 @@
 
 = Requirements =
 
-
-  * Subversion >=1.2(<1.2 needs to be verified)
-  * Pear: VersionControl_SVN
-  * Phing > 2.2
-  * PHPUnit 3.x (optional)
+  * Pear > 1.4.0
+  * Phing > 2.4.0
   * pear needs to be in the includepath
   * For Web Frontend:
     * Apache or compatible with rewrite module + php5 support
+
+= Optional =
+
+  * Subversion >=1.2
+  * Pear: VersionControl_SVN 
+  * Pear: VersionControl_Git > 0.4.4
+  * Pear: Mail > 1.2.0
+  * Pear: PHPUnit > 3.5.0
+  * Pear: PhpDocumentor > 1.4.0
+  * Pear: PHP_CodeSniffer > 1.3.0
+  * Pear: Archive_Tar > 1.3.0
+  * Pear: PackageFileManager2 > 1.0.2
+  * Pecl: Xdebug > 2.0.0
