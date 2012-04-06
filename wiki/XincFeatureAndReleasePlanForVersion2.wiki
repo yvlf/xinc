@@ -3,12 +3,9 @@
 
 = Introduction =
 
-After the big sleep, we will try to get new builds out, with fixes here and there. So we get a useable state of the source.
-After the 2.1 release we will try to clean up the source base and add some new features into 2.2 and 2.3 release series.
-
 Main features for the 2.2 series should be SVN and GIT related bugs and features (Code cleanup, merge doubled code, add git support), continuing code cleanup and pear compatible coding standard.
 
-In the 2.3 series I want to fix more problems with the system itself and displaying on the website part.
+In the 2.3 series I want to fix more problems with the system itself, add support for pdepend etc. and displaying on the website part.
 
 For 3.0 we will add big new features, more clean up of code base, and switch to newer versions of some projects we depend on (Phing compatibility, ExtJS 4 and so on).
 
@@ -40,6 +37,12 @@ http://elektrischeslicht.de/xinc/images/ok.png Xinc 2.1 version: 18.10.2011
 
 = Schedule v2.2 =
 
-http://elektrischeslicht.de/xinc/images/no.png Xinc 2.2 Alpha 1 version: End of March 2012
+http://elektrischeslicht.de/xinc/images/ok.png Xinc 2.2 Alpha 1 version: 06.04.2012
 
 http://elektrischeslicht.de/xinc/images/no.png Xinc 2.2 Beta 1 version: End of Mai 2012
+
+http://elektrischeslicht.de/xinc/images/no.png Xinc 2.2 version: End of June 2012
+
+= Schedule v2.3 =
+
+http://elektrischeslicht.de/xinc/images/no.png Xinc 2.3 Alpha 1 version: End of August 2012
