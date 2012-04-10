@@ -7,7 +7,7 @@ Main features for the 2.2 series should be SVN and GIT related bugs and features
 
 In the 2.3 series I want to add support for pdepend, phpcs, phpcpd, phplint etc. and displaying on the website part also continuing code cleanup and pear compatible coding standard.
 
-In the 2.4 series I want to fix problems of the UI like showing build in progress, build queue and a less monitor space eating view. There may be the ExtJS 4 switch or fix the depending on DocumentRoot.
+In the 2.4 series I want to fix problems of the UI like showing build in progress, build queue and a less monitor space eating view. There may be the ExtJS 4 switch or fix the depending on !DocumentRoot.
 
 In the 2.5 series I want to add security and grouping features.
 
@@ -24,6 +24,8 @@ I know the schedule is very long term, I hope to get the releases out before pla
 *[http://code.google.com/p/xinc/issues/list?can=2&q=label%3AMilestone-v2.3 See version 2.3 issues]*
 
 *[http://code.google.com/p/xinc/issues/list?can=2&q=label%3AMilestone-v2.4 See version 2.4 issues]*
+
+*[http://code.google.com/p/xinc/issues/list?can=2&q=label%3AMilestone-v2.5 See version 2.5 issues]*
 
 *[http://code.google.com/p/xinc/issues/list?can=2&q=label%3AMilestone-v3.0 See version 3.0 issues]*
 
