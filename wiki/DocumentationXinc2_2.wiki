@@ -58,6 +58,10 @@ pear run-scripts xinc/Xinc
 
 which will execute the pear post-installation script.
 
+== Via OpenSUSE ==
+
+An rpm file exists via https://build.opensuse.org/package/show?package=php5-pear-xinc&project=server%3Aphp%3Aapplications
+
 = Configuration =
 
 For configuration see the Documentation [http://elektrischeslicht.de/xinc/book/ Website].
