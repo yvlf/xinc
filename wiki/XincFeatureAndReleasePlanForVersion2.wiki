@@ -59,6 +59,6 @@ http://elektrischeslicht.de/xinc/images/ok.png Xinc 2.2 version: 09.12.2012
 
 = Schedule v2.3 =
 
-http://elektrischeslicht.de/xinc/images/no.png Xinc 2.3 Alpha 1 version: End of Decembee 2012
+http://elektrischeslicht.de/xinc/images/no.png Xinc 2.3 Alpha 1 version: End of December 2012
 
 http://elektrischeslicht.de/xinc/images/no.png Xinc 2.3 Alpha 2 version: End of January 2013
