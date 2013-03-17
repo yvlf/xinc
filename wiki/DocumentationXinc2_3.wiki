@@ -59,11 +59,13 @@ pear install --alldeps xinc/XincClient-alpha
 
 == Finalizing installation ==
 
+=== Xinc Server ===
+
 You need to copy /etc/xinc, /etc/init.d/xinc, ...
 
-== Via OpenSUSE ==
+=== Xinc Web ===
 
-An rpm file exists via https://build.opensuse.org/package/show?package=php5-pear-xinc&project=server%3Aphp%3Aapplications
+Webpath, .htaccess, ...
 
 = Configuration =
 
