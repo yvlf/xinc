@@ -9,7 +9,7 @@ In the 2.4 series I want to fix smaller glitches and maybe branch support for gi
 
 In the 2.5 series I want to add security and grouping features.
 
-In the 2.6 series I may switch to github or something else.
+In the 2.6 series I may switch to github or something else. Multiple working server, multiple data server, multiple clients, demo concepts and so on.
 
 For 3.0 will be the first version after all the cleaning up of code base and adding all the long awaited features. This may happen after 2.5 or 2.6. Then we will have a stable API for Plugins. But think in years until this will happen.
 
