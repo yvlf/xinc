@@ -39,13 +39,13 @@ The Xinc 2.2 releases can be optained via pear channel server. To get the latest
 {{{
 pear channel-discover pear.elektrischeslicht.de
 pear channel-discover components.ez.no
-pear install Xinc/xinc-alpha
+pear install xinc/Xinc
 }}}
 
 Or if you want to resolve all dependencies use
 
 {{{
-pear install --alldeps xinc/Xinc-alpha
+pear install --alldeps xinc/Xinc
 }}}
 
 == Finalizing installation through postinstall scripts ==
@@ -57,10 +57,6 @@ pear run-scripts xinc/Xinc
 }}}
 
 which will execute the pear post-installation script.
-
-== Via OpenSUSE ==
-
-An rpm file exists via https://build.opensuse.org/package/show?package=php5-pear-xinc&project=server%3Aphp%3Aapplications
 
 = Configuration =
 
