@@ -46,24 +46,20 @@ The Xinc 2.3 releases can be optained via pear channel server. To get the latest
 
 {{{
 pear channel-discover pear.elektrischeslicht.de
-pear install Xinc/xinc-alpha
+pear install xinc/XincServer-alpha
+pear install xinc/XincWeb-alpha
 }}}
 
 Or if you want to resolve all dependencies use
 
 {{{
-pear install --alldeps xinc/Xinc-alpha
+pear install --alldeps xinc/XincServer-alpha
+pear install --alldeps xinc/XincClient-alpha
 }}}
 
-== Finalizing installation through postinstall scripts ==
+== Finalizing installation ==
 
-Finally you need to run
-
-{{{
-pear run-scripts xinc/Xinc
-}}}
-
-which will execute the pear post-installation script.
+You need to copy /etc/xinc, /etc/init.d/xinc, ...
 
 == Via OpenSUSE ==
 
