@@ -46,8 +46,10 @@ The Xinc 2.3 releases can be optained via pear channel server. To get the latest
 
 {{{
 pear channel-discover pear.elektrischeslicht.de
+pear install xinc/Xinc-alpha
 pear install xinc/XincServer-alpha
 pear install xinc/XincWeb-alpha
+pear install xinc/XincPlugins-alpha
 }}}
 
 Or if you want to resolve all dependencies use
@@ -55,6 +57,7 @@ Or if you want to resolve all dependencies use
 {{{
 pear install --alldeps xinc/XincServer-alpha
 pear install --alldeps xinc/XincClient-alpha
+pear install --alldeps xinc/XincPlugins-alpha
 }}}
 
 == Finalizing installation ==
