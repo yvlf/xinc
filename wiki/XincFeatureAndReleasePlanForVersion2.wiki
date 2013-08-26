@@ -1,5 +1,6 @@
 #summary Xinc 2.x feature candidates and release plan.
 #labels Featured,Phase-Requirements
+#sidebar TableOfContents
 
 = Introduction =
 
@@ -7,7 +8,7 @@ In the 2.3 series I want to add support for pdepend, phpcs, phpcpd, phplint etc.
 
 As I find out, that inter process communication is needed, we need to start subprocesses for builds (else a build would block us from receiving events), support socket or dbus connection and other changes are required. This will be the goal for the 2.4 release.
 
-In the 2.5 series I want to fix smaller glitches and maybe branch support for git/svn (auto building branches). Update ExtJS to 4.2.x and maybe XincWeb Templates for different views.
+In the 2.5 series I want to fix smaller glitches and maybe branch support for git/svn (auto building branches). Update ExtJS to 4.2.x and maybe !XincWeb Templates for different views.
 
 In the 2.6 series I want to add security and grouping features.
 
