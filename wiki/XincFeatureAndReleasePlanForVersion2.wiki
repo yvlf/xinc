@@ -3,15 +3,17 @@
 
 = Introduction =
 
-In the 2.3 series I want to add support for pdepend, phpcs, phpcpd, phplint etc. and displaying on the website part also continuing code cleanup and pear compatible coding standard. Complete reorganisation of code tree, build subpackages. Replacing ez.components with ExtJS 4 graphs.
+In the 2.3 series I want to add support for pdepend, phpcs, phpcpd, phplint etc. and displaying on the website part also continuing code cleanup and [https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md PSR-2] compatible coding standard. Complete reorganisation of code tree, build subpackages. Replacing ez.components with ExtJS 4 graphs.
 
-In the 2.4 series I want to fix smaller glitches and maybe branch support for git/svn (auto building branches). Update ExtJS to 4.2.x and maybe XincWeb Templates for different views.
+As I find out, that inter process communication is needed, we need to start subprocesses for builds (else a build would block us from receiving events), support socket or dbus connection and other changes are required. This will be the goal for the 2.4 release.
 
-In the 2.5 series I want to add security and grouping features.
+In the 2.5 series I want to fix smaller glitches and maybe branch support for git/svn (auto building branches). Update ExtJS to 4.2.x and maybe XincWeb Templates for different views.
 
-In the 2.6 series I may switch to github or something else. Multiple working server, multiple data server, multiple clients, demo concepts and so on.
+In the 2.6 series I want to add security and grouping features.
 
-For 3.0 will be the first version after all the cleaning up of code base and adding all the long awaited features. This may happen after 2.5 or 2.6. Then we will have a stable API for Plugins. But think in years until this will happen.
+In the 2.7 series I may switch to github or something else. Multiple working server, multiple data server, multiple clients, demo concepts and so on.
+
+For 3.0 will be the first version after all the cleaning up of code base and adding all the long awaited features. This may happen after 2.7 or 2.8. Then we will have a stable API for Plugins. But think in years until this will happen.
 
 I know the schedule is very long term, I hope to get the releases out before planed.
 
@@ -26,6 +28,10 @@ I know the schedule is very long term, I hope to get the releases out before pla
 *[http://code.google.com/p/xinc/issues/list?can=2&q=label%3AMilestone-v2.4 See version 2.4 issues]*
 
 *[http://code.google.com/p/xinc/issues/list?can=2&q=label%3AMilestone-v2.5 See version 2.5 issues]*
+
+*[http://code.google.com/p/xinc/issues/list?can=2&q=label%3AMilestone-v2.6 See version 2.6 issues]*
+
+*[http://code.google.com/p/xinc/issues/list?can=2&q=label%3AMilestone-v2.7 See version 2.7 issues]*
 
 *[http://code.google.com/p/xinc/issues/list?can=2&q=label%3AMilestone-v3.0 See version 3.0 issues]*
 
@@ -61,7 +67,7 @@ http://elektrischeslicht.de/xinc/images/ok.png Xinc 2.2 version: 09.12.2012
 
 http://elektrischeslicht.de/xinc/images/ok.png Xinc 2.3 Alpha 1 version: 17.03.2013
 
-http://elektrischeslicht.de/xinc/images/no.png Xinc 2.3 Alpha 2 version: Mid of August 2013
+http://elektrischeslicht.de/xinc/images/no.png Xinc 2.3 Alpha 2 version: 25.08.2013
 
 http://elektrischeslicht.de/xinc/images/no.png Xinc 2.3 Alpha 3 version: End of August 2013
 
