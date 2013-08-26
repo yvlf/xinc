@@ -31,7 +31,7 @@ This document will describe the usage of Xinc for [http://en.wikipedia.org/wiki/
 === Optional (Depending on PlugIn) ===
 
   * Subversion >=1.2
-  * Pear: !VersionControl_SVN 
+  * Pear: !VersionControl_SVN >= 0.5.2
   * Pear: !VersionControl_Git > 0.4.4
   * Pear: Mail > 1.2.0
   * Pear: PHPUnit > 3.5.0
@@ -47,6 +47,7 @@ The Xinc 2.3 releases can be optained via pear channel server. To get the latest
 {{{
 pear channel-discover pear.elektrischeslicht.de
 pear install xinc/Xinc-alpha
+pear install xinc/XincContrib-alpha
 pear install xinc/XincServer-alpha
 pear install xinc/XincWeb-alpha
 pear install xinc/XincPlugins-alpha
@@ -54,7 +55,7 @@ pear install xinc/XincPlugins-alpha
 
 Or if you want to resolve all dependencies use
 
-{{{
+pear install --alldeps xinc/XincContrib-alpha
 pear install --alldeps xinc/XincServer-alpha
 pear install --alldeps xinc/XincClient-alpha
 pear install --alldeps xinc/XincPlugins-alpha
