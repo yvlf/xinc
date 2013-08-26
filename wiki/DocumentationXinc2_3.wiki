@@ -28,7 +28,7 @@ This document will describe the usage of Xinc for [http://en.wikipedia.org/wiki/
   * Pear >= 1.9.4
   * Xinc Common = 2.3
 
-=== Optional (Depending on PlugIn) ===
+=== Optional (Depending on Plugin) ===
 
   * Subversion >=1.2
   * Pear: !VersionControl_SVN >= 0.5.2
@@ -55,6 +55,7 @@ pear install xinc/XincPlugins-alpha
 
 Or if you want to resolve all dependencies use
 
+{{{
 pear install --alldeps xinc/XincContrib-alpha
 pear install --alldeps xinc/XincServer-alpha
 pear install --alldeps xinc/XincClient-alpha
