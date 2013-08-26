@@ -1,8 +1,15 @@
 #summary Xinc 2.x feature candidates and release plan.
 #labels Featured,Phase-Requirements
-#sidebar TableOfContents
 
 = Introduction =
+
+This will be a short overview of the planed changes to Xinc. This list isn't nailed down to be stable, it will change as needed.
+
+= Table of content =
+
+<wiki:toc max_depth="2" />
+
+= Goals =
 
 In the 2.3 series I want to add support for pdepend, phpcs, phpcpd, phplint etc. and displaying on the website part also continuing code cleanup and [https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md PSR-2] compatible coding standard. Complete reorganisation of code tree, build subpackages. Replacing ez.components with ExtJS 4 graphs.
 
