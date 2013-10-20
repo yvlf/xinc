@@ -11,6 +11,12 @@ This document will describe the usage of Xinc for [http://en.wikipedia.org/wiki/
 
 = Installation =
 
+== Requirements Xinc Common ==
+
+  * PHP 5.2.x
+  * PHP-XSL
+  * PHP-XML
+
 == Requirements Xinc Server ==
 
   * Pear >= 1.9.4
@@ -66,7 +72,12 @@ pear install --alldeps xinc/XincPlugins-alpha
 
 === Xinc Server ===
 
-You need to copy /etc/xinc, /etc/init.d/xinc, ...
+You need to copy from
+
+- PEAR_DATA/XincServer/etc/xinc
+- PEAR_DATA/XincServer/etc/init.d/xinc
+
+to the appropriated places.
 
 === Xinc Web ===
 
