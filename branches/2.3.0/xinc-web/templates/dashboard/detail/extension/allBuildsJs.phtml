@@ -1,0 +1,102 @@
+<div id="allbuilds-{projectname}-{buildtime}"></div>
+
+<script type="text/javascript">
+
+allbuilds = function(){
+
+    Ext.define('buildModel', {
+        extend: 'Ext.data.Model',
+        fields: [{
+            name: 'buildtimeRaw',
+            type: 'date',
+            dateFormat: 'timestamp'
+        }, {
+            name: 'status',
+            type: 'int'
+        }, {
+            name: 'label',
+            type: 'string'
+        }]
+    });
+
+    // create the Data Store
+    var store = new Ext.data.JsonStore({
+        proxy: new Ext.data.HttpProxy({
+            url: './api/builds/get/json/',
+            type: 'ajax',
+            extraParams: {
+                p: '{projectname}',
+            },
+
+            reader: {
+                type: 'json',
+                root: 'builds',
+                totalProperty: 'totalcount',
+            }
+        }),
+        model: 'buildModel',
+        sorters: [{
+            property : 'buildtimeRaw',
+            direction: 'DESC'
+        }]
+    });
+
+    // pluggable renders
+    function buildDetails(value, p, record) {
+        return '<b><a href="#" onclick="appXinc.addTabBuild(\'{projectname}\',\''
+            + record.data.buildtimeRaw.getTime() / 1000 + '\',\''
+            + record.data.label + '\');" class="exi">'
+            + value + '</a></b>';
+    }
+
+    function statusRenderer(value, p, record) {
+        switch (value) {
+            case 0:
+                return '<img src="./images/failed.png" width="16" height="16"/>';
+                break;
+            case 1:
+                return '<img src="./images/passed.png" width="16" height="16"/>';
+                break;
+            case -1:
+                return '<img src="./images/stopped.png" width="16" height="16"/>';
+                break;
+        }
+    }
+
+    var grid = new Ext.grid.Panel({
+        store: store,
+        columns: [{
+            id: 'logo',
+            header:'',
+            dataIndex:'status',
+            width: 20,
+            renderer: statusRenderer,
+            sortable:false
+        }, {
+            id: 'details',
+            header: "Label",
+            dataIndex: 'label',
+            width: 105,
+            align: 'left',
+            renderer: buildDetails
+
+        },{
+            header: "Timestamp",
+            dataIndex: 'buildtimeRaw',
+            width: 160,
+            hidden: false,
+            renderer: Ext.util.Format.dateRenderer('Y-m-d H:i:s')
+        }]
+    });
+
+    store.load({
+        params:{
+            start: 0,
+            limit: 25,
+            p: '{projectname}'
+        }
+    });
+    grid.render('allbuilds-{projectname}-{buildtime}');
+};
+allbuilds();
+</script>

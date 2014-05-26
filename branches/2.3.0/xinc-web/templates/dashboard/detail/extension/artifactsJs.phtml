@@ -1,0 +1,49 @@
+<div id="tree-div-{projectname}-{buildtime}" style="overflow:auto; width:100%;"></div>
+
+<script type="text/javascript">
+initTree = function(){
+    var store = new Ext.data.TreeStore({
+        proxy: {
+            type: 'ajax',
+            url:'./api/artifacts/list/json/',
+            extraParams: {lib:'yui', p: '{projectname}', buildtime: '{buildtime}'}
+        },
+        root: {
+            text: 'Artifacts',
+            id:'source',
+            draggable: false,
+            expanded: true
+        },
+        folderSort: true,
+        sorters: [{
+            property: 'text',
+            direction: 'ASC'
+        }]
+    });
+
+    var tree = new Ext.tree.Panel({
+        header: false,
+        store: store,
+        margin: '0 0 0 0',
+        width: '100%',
+        listeners: {
+            itemclick: function(view, record, item, index, e) {
+                if(record.get('leaf') == true) {
+                    var url = './api/artifacts/get/json/{projectname}/{buildtime}/' + record.get('id');
+                    if (url.lastIndexOf('.html') > 0) {
+                        appXinc.addNewTab(url, record.get('id') + ' - {projectname} - Artifact - {buildlabel}', url);
+                    } else {
+                        window.open(url);
+                    }
+                }
+                return false;
+            }
+        }
+    });
+
+    // render the tree
+    tree.render('tree-div-{projectname}-{buildtime}');
+};
+
+initTree();
+</script>
